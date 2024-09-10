@@ -5,6 +5,7 @@ import org.brentwardindustries.main.KeyHandler;
 
 import javax.imageio.ImageIO;
 import java.awt.Graphics2D;
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
@@ -22,6 +23,12 @@ public class Player extends Entity{
         screenX = gp.screenWidth / 2 - (gp.tileSize / 2);
         screenY = gp.screenHeight / 2 - (gp.tileSize / 2);
 
+        solidArea = new Rectangle();
+        solidArea.x = 8;
+        solidArea.y = 16;
+        solidArea.width = 32;
+        solidArea.height = 32;
+
         setDefaultValues();
         getPlayerImage();
     }
@@ -30,7 +37,7 @@ public class Player extends Entity{
         worldX = gp.tileSize * 23;
         worldY = gp.tileSize * 21;
         speed = 4;
-        direction = "down";
+        direction = Direction.DOWN;
     }
 
     public void getPlayerImage() {
@@ -51,21 +58,38 @@ public class Player extends Entity{
     public void update() {
         if (keyH.upPressed || keyH.downPressed || keyH.leftPressed || keyH.rightPressed) {
             if (keyH.upPressed) {
-                direction = "up";
-                worldY -= speed;
+                direction = Direction.UP;
             }
             if (keyH.downPressed) {
-                direction = "down";
-                worldY += speed;
+                direction = Direction.DOWN;
             }
             if (keyH.leftPressed) {
-                direction = "left";
-                worldX -= speed;
+                direction = Direction.LEFT;
             }
             if (keyH.rightPressed) {
-                direction = "right";
-                worldX += speed;
+                direction = Direction.RIGHT;
             }
+
+            // CHECK TILE COLLISION
+            collisionOn = false;
+            gp.cChecker.checkTile(this);
+            if (!collisionOn) {
+                switch (direction) {
+                    case UP -> {
+                        worldY -= speed;
+                    }
+                    case DOWN -> {
+                        worldY += speed;
+                    }
+                    case LEFT -> {
+                        worldX -= speed;
+                    }
+                    case RIGHT -> {
+                        worldX += speed;
+                    }
+                }
+            }
+
             spriteCounter++;
             if (spriteCounter > 12) {
                 if (spriteNum == 1) {
@@ -81,7 +105,7 @@ public class Player extends Entity{
     public void draw(Graphics2D g2) {
         BufferedImage image = null;
         switch (direction) {
-            case "up" -> {
+            case UP -> {
                 if (spriteNum == 1) {
                     image = up1;
                 }
@@ -89,7 +113,7 @@ public class Player extends Entity{
                     image = up2;
                 }
             }
-            case "down" -> {
+            case DOWN -> {
                 if (spriteNum == 1) {
                     image = down1;
                 }
@@ -97,7 +121,7 @@ public class Player extends Entity{
                     image = down2;
                 }
             }
-            case "left" -> {
+            case LEFT -> {
                 if (spriteNum == 1) {
                     image = left1;
                 }
@@ -105,7 +129,7 @@ public class Player extends Entity{
                     image = left2;
                 }
             }
-            default -> {
+            case RIGHT -> {
                 if (spriteNum == 1) {
                     image = right1;
                 }

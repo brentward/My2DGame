@@ -1,7 +1,6 @@
 package org.brentwardindustries.main;
 
 import org.brentwardindustries.entity.Entity;
-import org.brentwardindustries.object.SuperObject;
 
 public class CollisionChecker {
     GamePanel gp;
@@ -121,17 +120,6 @@ public class CollisionChecker {
                 gp.obj[i].solidArea.y = gp.obj[i].solidAreaDefaultY;
             }
         }
-//        for (SuperObject superObject : gp.obj) {
-//            if (superObject != null) {
-//                // Get entity's solid area position
-//                entity.solidArea.x = entity.worldX + entity.solidArea.x;
-//                entity.solidArea.y = entity.worldY + entity.solidArea.y;
-//                // Get object's solid area position
-//                superObject.solidArea.x = superObject.worldX + superObject.solidArea.x;
-//                superObject.solidArea.y = superObject.worldY + superObject.solidArea.y;
-//            }
-//        }
-
         return index;
     }
 }

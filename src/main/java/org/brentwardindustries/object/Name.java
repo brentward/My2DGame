@@ -1,5 +1,6 @@
 package org.brentwardindustries.object;
 
 public enum Name {
-    CHEST, DOOR, KEY
+    CHEST, DOOR, KEY,
+    BOOTS
 }

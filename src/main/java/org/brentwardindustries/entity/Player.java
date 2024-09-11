@@ -17,7 +17,6 @@ public class Player extends Entity{
     public final int screenX;
     public final int screenY;
     int hasKey = 0;
-    int hasTresure = 0;
 
     public Player(GamePanel gp, KeyHandler keyH) {
         this.gp = gp;
@@ -85,18 +84,10 @@ public class Player extends Entity{
 
             if (!collisionOn) {
                 switch (direction) {
-                    case UP -> {
-                        worldY -= speed;
-                    }
-                    case DOWN -> {
-                        worldY += speed;
-                    }
-                    case LEFT -> {
-                        worldX -= speed;
-                    }
-                    case RIGHT -> {
-                        worldX += speed;
-                    }
+                    case UP -> worldY -= speed;
+                    case DOWN -> worldY += speed;
+                    case LEFT -> worldX -= speed;
+                    case RIGHT -> worldX += speed;
                 }
             }
 
@@ -117,28 +108,25 @@ public class Player extends Entity{
             Name objectName = gp.obj[i].name;
             switch (objectName) {
                 case KEY -> {
+                    gp.playSE(1);
                     hasKey++;
                     gp.obj[i] = null;
                     System.out.println("Key: " + hasKey);
                 }
                 case DOOR -> {
                     if (hasKey > 0) {
+                        gp.playSE(3);
                         gp.obj[i] = null;
                         hasKey--;
                         System.out.println("Key: " + hasKey);
                     }
                 }
                 case CHEST -> {
-                    if (hasTresure == 0) {
-                        hasTresure++;
-                        try {
-                            gp.obj[i].image = ImageIO.read(getClass().getResourceAsStream("/objects/chest_opened.png"));
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                        System.out.println("Gold: 500\nYou Win!");
-                    }
-
+                }
+                case BOOTS -> {
+                    gp.playSE(2);
+                    speed += 1;
+                    gp.obj[i] = null;
                 }
             }
         }

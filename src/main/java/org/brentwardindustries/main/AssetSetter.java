@@ -1,5 +1,6 @@
 package org.brentwardindustries.main;
 
+import org.brentwardindustries.object.ObjBoots;
 import org.brentwardindustries.object.ObjChest;
 import org.brentwardindustries.object.ObjDoor;
 import org.brentwardindustries.object.ObjKey;
@@ -34,5 +35,8 @@ public class AssetSetter {
         gp.obj[6] = new ObjChest();
         gp.obj[6].worldX = 10 * gp.tileSize;
         gp.obj[6].worldY = 7 * gp.tileSize;
+        gp.obj[7] = new ObjBoots();
+        gp.obj[7].worldX = 37 * gp.tileSize;
+        gp.obj[7].worldY = 42 * gp.tileSize;
     }
 }

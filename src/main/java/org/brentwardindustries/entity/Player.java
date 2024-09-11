@@ -16,7 +16,8 @@ public class Player extends Entity{
 
     public final int screenX;
     public final int screenY;
-    int hasKey = 0;
+    int hasKey = 3;
+    int hasTresure = 0;
 
     public Player(GamePanel gp, KeyHandler keyH) {
         this.gp = gp;
@@ -122,6 +123,17 @@ public class Player extends Entity{
                     }
                 }
                 case CHEST -> {
+                    if (hasTresure == 0) {
+                        gp.stopMusic();
+                        gp.playSE(4);
+                        hasTresure++;
+                        try {
+                            gp.obj[i].image = ImageIO.read(getClass().getResourceAsStream("/objects/chest_opened.png"));
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        System.out.println("Gold: 500\nYou Win!");
+                    }
                 }
                 case BOOTS -> {
                     gp.playSE(2);

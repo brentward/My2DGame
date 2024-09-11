@@ -45,7 +45,6 @@ public class CollisionChecker {
                 if (gp.tileM.tile[tileNum1].collision || gp.tileM.tile[tileNum2].collision) {
                     entity.collisionOn = true;
                 }
-
             }
             case RIGHT -> {
                 entityRightCol = (entityRightWorldX + entity.speed) / gp.tileSize;

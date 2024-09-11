@@ -16,8 +16,7 @@ public class Player extends Entity{
 
     public final int screenX;
     public final int screenY;
-    int hasKey = 3;
-    int hasTresure = 0;
+    public int hasKey = 0;
 
     public Player(GamePanel gp, KeyHandler keyH) {
         this.gp = gp;
@@ -112,33 +111,33 @@ public class Player extends Entity{
                     gp.playSE(1);
                     hasKey++;
                     gp.obj[i] = null;
-                    System.out.println("Key: " + hasKey);
+                    gp.ui.showMessage("You got a key!");
                 }
                 case DOOR -> {
                     if (hasKey > 0) {
                         gp.playSE(3);
                         gp.obj[i] = null;
                         hasKey--;
-                        System.out.println("Key: " + hasKey);
-                    }
-                }
-                case CHEST -> {
-                    if (hasTresure == 0) {
-                        gp.stopMusic();
-                        gp.playSE(4);
-                        hasTresure++;
-                        try {
-                            gp.obj[i].image = ImageIO.read(getClass().getResourceAsStream("/objects/chest_opened.png"));
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                        System.out.println("Gold: 500\nYou Win!");
+                        gp.ui.showMessage("You opened the door!");
+                    } else {
+                        gp.ui.showMessage("You need a key!");
                     }
                 }
                 case BOOTS -> {
                     gp.playSE(2);
                     speed += 1;
                     gp.obj[i] = null;
+                    gp.ui.showMessage("Speed up!");
+                }
+                case CHEST -> {
+                    gp.ui.gameFinished = true;
+                    gp.stopMusic();
+                    gp.playSE(4);
+                    try {
+                        gp.obj[i].image = ImageIO.read(getClass().getResourceAsStream("/objects/chest_opened.png"));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         }

@@ -1,6 +1,7 @@
 package org.brentwardindustries.main;
 
 import org.brentwardindustries.entity.Entity;
+import org.brentwardindustries.object.SuperObject;
 
 public class CollisionChecker {
     GamePanel gp;
@@ -55,6 +56,82 @@ public class CollisionChecker {
                 }
             }
         }
+    }
+    public int checkObject(Entity entity, boolean player) {
+        int index = 999;
 
+        for (int i = 0; i < gp.obj.length; i++) {
+            if (gp.obj[i] != null) {
+                // Get entity's solid area position
+                entity.solidArea.x = entity.worldX + entity.solidArea.x;
+                entity.solidArea.y = entity.worldY + entity.solidArea.y;
+                // Get object's solid area position
+                gp.obj[i].solidArea.x = gp.obj[i].worldX + gp.obj[i].solidArea.x;
+                gp.obj[i].solidArea.y = gp.obj[i].worldY + gp.obj[i].solidArea.y;
+
+                switch (entity.direction) {
+                    case UP -> {
+                        entity.solidArea.y -= entity.speed;
+                        if (entity.solidArea.intersects(gp.obj[i].solidArea)) {
+                            if (gp.obj[i].collision) {
+                                entity.collisionOn = true;
+                            }
+                            if (player) {
+                                index = i;
+                            }
+                        }
+                    }
+                    case DOWN -> {
+                        entity.solidArea.y += entity.speed;
+                        if (entity.solidArea.intersects(gp.obj[i].solidArea)) {
+                            if (gp.obj[i].collision) {
+                                entity.collisionOn = true;
+                            }
+                            if (player) {
+                                index = i;
+                            }
+                        }
+                    }
+                    case LEFT -> {
+                        entity.solidArea.x -= entity.speed;
+                        if (entity.solidArea.intersects(gp.obj[i].solidArea)) {
+                            if (gp.obj[i].collision) {
+                                entity.collisionOn = true;
+                            }
+                            if (player) {
+                                index = i;
+                            }
+                        }
+                    }
+                    case RIGHT -> {
+                        entity.solidArea.x += entity.speed;
+                        if (entity.solidArea.intersects(gp.obj[i].solidArea)) {
+                            if (gp.obj[i].collision) {
+                                entity.collisionOn = true;
+                            }
+                            if (player) {
+                                index = i;
+                            }
+                        }
+                    }
+                }
+                entity.solidArea.x = entity.solidAreaDefaultX;
+                entity.solidArea.y = entity.solidAreaDefaultY;
+                gp.obj[i].solidArea.x = gp.obj[i].solidAreaDefaultX;
+                gp.obj[i].solidArea.y = gp.obj[i].solidAreaDefaultY;
+            }
+        }
+//        for (SuperObject superObject : gp.obj) {
+//            if (superObject != null) {
+//                // Get entity's solid area position
+//                entity.solidArea.x = entity.worldX + entity.solidArea.x;
+//                entity.solidArea.y = entity.worldY + entity.solidArea.y;
+//                // Get object's solid area position
+//                superObject.solidArea.x = superObject.worldX + superObject.solidArea.x;
+//                superObject.solidArea.y = superObject.worldY + superObject.solidArea.y;
+//            }
+//        }
+
+        return index;
     }
 }

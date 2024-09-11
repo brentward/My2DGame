@@ -2,6 +2,7 @@ package org.brentwardindustries.entity;
 
 import org.brentwardindustries.main.GamePanel;
 import org.brentwardindustries.main.KeyHandler;
+import org.brentwardindustries.object.Name;
 
 import javax.imageio.ImageIO;
 import java.awt.Graphics2D;
@@ -15,6 +16,8 @@ public class Player extends Entity{
 
     public final int screenX;
     public final int screenY;
+    int hasKey = 0;
+    int hasTresure = 0;
 
     public Player(GamePanel gp, KeyHandler keyH) {
         this.gp = gp;
@@ -26,6 +29,8 @@ public class Player extends Entity{
         solidArea = new Rectangle();
         solidArea.x = 8;
         solidArea.y = 16;
+        solidAreaDefaultX = solidArea.x;
+        solidAreaDefaultY = solidArea.y;
         solidArea.width = 32;
         solidArea.height = 32;
 
@@ -73,6 +78,11 @@ public class Player extends Entity{
             // CHECK TILE COLLISION
             collisionOn = false;
             gp.cChecker.checkTile(this);
+
+            // CHECK OBJECT COLLISION
+            int objIndex = gp.cChecker.checkObject(this, true);
+            pickUpObject(objIndex);
+
             if (!collisionOn) {
                 switch (direction) {
                     case UP -> {
@@ -98,6 +108,38 @@ public class Player extends Entity{
                     spriteNum = 1;
                 }
                 spriteCounter = 0;
+            }
+        }
+    }
+
+    public void pickUpObject(int i) {
+        if (i != 999) {
+            Name objectName = gp.obj[i].name;
+            switch (objectName) {
+                case KEY -> {
+                    hasKey++;
+                    gp.obj[i] = null;
+                    System.out.println("Key: " + hasKey);
+                }
+                case DOOR -> {
+                    if (hasKey > 0) {
+                        gp.obj[i] = null;
+                        hasKey--;
+                        System.out.println("Key: " + hasKey);
+                    }
+                }
+                case CHEST -> {
+                    if (hasTresure == 0) {
+                        hasTresure++;
+                        try {
+                            gp.obj[i].image = ImageIO.read(getClass().getResourceAsStream("/objects/chest_opened.png"));
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                        System.out.println("Gold: 500\nYou Win!");
+                    }
+
+                }
             }
         }
     }

@@ -102,6 +102,10 @@ public class GamePanel  extends JPanel implements Runnable {
 
         Graphics2D g2 = (Graphics2D) g;
 
+        // DEBUG
+        long drawStart = 0;
+        drawStart = System.nanoTime();
+
         tileM.draw(g2);
         for (SuperObject superObject : obj) {
             if (superObject != null) {
@@ -110,6 +114,9 @@ public class GamePanel  extends JPanel implements Runnable {
         }
         player.draw(g2);
         ui.draw(g2);
+
+        long drawEnd = System.nanoTime();
+        long passed = drawEnd - drawStart;
 
         g2.dispose();
     }

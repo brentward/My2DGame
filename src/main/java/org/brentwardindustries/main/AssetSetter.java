@@ -1,9 +1,6 @@
 package org.brentwardindustries.main;
 
-import org.brentwardindustries.object.ObjBoots;
-import org.brentwardindustries.object.ObjChest;
-import org.brentwardindustries.object.ObjDoor;
-import org.brentwardindustries.object.ObjKey;
+import org.brentwardindustries.entity.NpcOldMan;
 
 public class AssetSetter {
     GamePanel gp;
@@ -13,5 +10,11 @@ public class AssetSetter {
     }
 
     public void setObject() {
+    }
+
+    public void setNpc() {
+        gp.npcs[0] = new NpcOldMan(gp);
+        gp.npcs[0].worldX = gp.tileSize * 21;
+        gp.npcs[0].worldY = gp.tileSize * 21;
     }
 }

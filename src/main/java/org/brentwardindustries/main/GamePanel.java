@@ -1,5 +1,6 @@
 package org.brentwardindustries.main;
 
+import org.brentwardindustries.entity.Entity;
 import org.brentwardindustries.entity.Player;
 import org.brentwardindustries.object.SuperObject;
 import org.brentwardindustries.tile.TileManager;
@@ -31,18 +32,19 @@ public class GamePanel extends JPanel implements Runnable {
     int FPS = 60;
 
     // SYSTEM
-    TileManager tileM = new TileManager(this);
-    KeyHandler keyH = new KeyHandler(this);
+    TileManager tileManager = new TileManager(this);
+    KeyHandler keyHandler = new KeyHandler(this);
     Sound music = new Sound();
     Sound se = new Sound();
-    public CollisionChecker cChecker = new CollisionChecker(this);
+    public CollisionChecker collisionChecker = new CollisionChecker(this);
     public AssetSetter assetSetter = new AssetSetter(this);
     public UI ui = new UI(this);
     Thread gameThread;
 
     // ENTITY AND OBJECTS
-    public Player player  = new Player(this, keyH);
-    public SuperObject[] obj = new SuperObject[10];
+    public Player player  = new Player(this, keyHandler);
+    public SuperObject[] objects = new SuperObject[10];
+    public Entity[] npcs = new Entity[10];
 
     // GAME STATE
     public int gameState;
@@ -54,12 +56,13 @@ public class GamePanel extends JPanel implements Runnable {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
         this.setBackground(Color.BLACK);
         this.setDoubleBuffered(true);
-        this.addKeyListener(keyH);
+        this.addKeyListener(keyHandler);
         this.setFocusable(true);
     }
 
     public void setupGame() {
         assetSetter.setObject();
+        assetSetter.setNpc();
         playMusic(0);
         stopMusic();
         gameState = playState;
@@ -102,7 +105,14 @@ public class GamePanel extends JPanel implements Runnable {
 
     public void update() {
         if (gameState == playState) {
+            // PLAYER
             player.update();
+            // NPC
+            for (Entity entity : npcs) {
+                if (entity != null) {
+                    entity.update();
+                }
+            }
         }
         if (gameState == pauseState) {
             // nothing
@@ -117,21 +127,35 @@ public class GamePanel extends JPanel implements Runnable {
 
         // DEBUG
         long drawStart = 0;
-        if (keyH.checkDrawTime) {
+        if (keyHandler.checkDrawTime) {
             drawStart = System.nanoTime();
         }
 
-        tileM.draw(g2);
-        for (SuperObject superObject : obj) {
+        // TILE
+        tileManager.draw(g2);
+
+        // OBJECT
+        for (SuperObject superObject : objects) {
             if (superObject != null) {
                 superObject.draw(g2, this);
             }
         }
+
+        // NPC
+        for (Entity entity : npcs) {
+            if (entity != null) {
+                entity.draw(g2);
+            }
+        }
+
+        // PLAYER
         player.draw(g2);
+
+        // UI
         ui.draw(g2);
 
         // DEBUG
-        if (keyH.checkDrawTime) {
+        if (keyHandler.checkDrawTime) {
             long drawEnd = System.nanoTime();
             long passed = drawEnd - drawStart;
             g2.setColor(Color.WHITE);

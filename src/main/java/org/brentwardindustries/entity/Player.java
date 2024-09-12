@@ -2,25 +2,20 @@ package org.brentwardindustries.entity;
 
 import org.brentwardindustries.main.GamePanel;
 import org.brentwardindustries.main.KeyHandler;
-import org.brentwardindustries.main.UtilityTool;
-import org.brentwardindustries.object.Name;
 
-import javax.imageio.ImageIO;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
 
 public class Player extends Entity{
-    GamePanel gp;
-    KeyHandler keyH;
+    KeyHandler keyHandler;
 
     public final int screenX;
     public final int screenY;
 
-    public Player(GamePanel gp, KeyHandler keyH) {
-        this.gp = gp;
-        this.keyH = keyH;
+    public Player(GamePanel gp, KeyHandler keyHandler) {
+        super(gp);
+        this.keyHandler = keyHandler;
 
         screenX = gp.screenWidth / 2 - (gp.tileSize / 2);
         screenY = gp.screenHeight / 2 - (gp.tileSize / 2);
@@ -45,51 +40,42 @@ public class Player extends Entity{
     }
 
     public void getPlayerImage() {
-        up1 = setup("boy_up_1");
-        up2 = setup("boy_up_2");
-        down1 = setup("boy_down_1");
-        down2 = setup("boy_down_2");
-        left1 = setup("boy_left_1");
-        left2 = setup("boy_left_2");
-        right1 = setup("boy_right_1");
-        right2 = setup("boy_right_2");
-    }
-
-    public BufferedImage setup(String imageName) {
-        UtilityTool utilityTool = new UtilityTool();
-        BufferedImage image = null;
-
-        try {
-            image = ImageIO.read(getClass().getResourceAsStream("/player/" + imageName + ".png"));
-            image = utilityTool.scaleImage(image, gp.tileSize, gp.tileSize);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return image;
+        up1 = setup("/player/boy_up_1");
+        up2 = setup("/player/boy_up_2");
+        down1 = setup("/player/boy_down_1");
+        down2 = setup("/player/boy_down_2");
+        left1 = setup("/player/boy_left_1");
+        left2 = setup("/player/boy_left_2");
+        right1 = setup("/player/boy_right_1");
+        right2 = setup("/player/boy_right_2");
     }
 
     public void update() {
-        if (keyH.upPressed || keyH.downPressed || keyH.leftPressed || keyH.rightPressed) {
-            if (keyH.upPressed) {
+        if (keyHandler.upPressed || keyHandler.downPressed || keyHandler.leftPressed || keyHandler.rightPressed) {
+            if (keyHandler.upPressed) {
                 direction = Direction.UP;
             }
-            if (keyH.downPressed) {
+            if (keyHandler.downPressed) {
                 direction = Direction.DOWN;
             }
-            if (keyH.leftPressed) {
+            if (keyHandler.leftPressed) {
                 direction = Direction.LEFT;
             }
-            if (keyH.rightPressed) {
+            if (keyHandler.rightPressed) {
                 direction = Direction.RIGHT;
             }
 
             // CHECK TILE COLLISION
             collisionOn = false;
-            gp.cChecker.checkTile(this);
+            gp.collisionChecker.checkTile(this);
 
             // CHECK OBJECT COLLISION
-            int objIndex = gp.cChecker.checkObject(this, true);
+            int objIndex = gp.collisionChecker.checkObject(this, true);
             pickUpObject(objIndex);
+
+            // CHECK NPC COLLISION
+            int npcIndex = gp.collisionChecker.checkEntity(this, gp.npcs);
+            interactNpc(npcIndex);
 
             if (!collisionOn) {
                 switch (direction) {
@@ -114,6 +100,12 @@ public class Player extends Entity{
 
     public void pickUpObject(int i) {
         if (i != 999) {
+        }
+    }
+
+    public void interactNpc(int i) {
+        if (i != 999) {
+            System.out.println("Uou are hitting NPC " + i);
         }
     }
 

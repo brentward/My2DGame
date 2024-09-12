@@ -10,7 +10,7 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 
-public class GamePanel  extends JPanel implements Runnable {
+public class GamePanel extends JPanel implements Runnable {
     // SCREEN SETTINGS
     final int originalTileSize = 16;
     final int scale = 3;
@@ -104,7 +104,9 @@ public class GamePanel  extends JPanel implements Runnable {
 
         // DEBUG
         long drawStart = 0;
-        drawStart = System.nanoTime();
+        if (keyH.checkDrawTime) {
+            drawStart = System.nanoTime();
+        }
 
         tileM.draw(g2);
         for (SuperObject superObject : obj) {
@@ -115,8 +117,14 @@ public class GamePanel  extends JPanel implements Runnable {
         player.draw(g2);
         ui.draw(g2);
 
-        long drawEnd = System.nanoTime();
-        long passed = drawEnd - drawStart;
+        // DEBUG
+        if (keyH.checkDrawTime) {
+            long drawEnd = System.nanoTime();
+            long passed = drawEnd - drawStart;
+            g2.setColor(Color.WHITE);
+            g2.drawString("Draw Time: " + passed, 10, 400);
+            System.out.println("Draw Time: " + passed);
+        }
 
         g2.dispose();
     }

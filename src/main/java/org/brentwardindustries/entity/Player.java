@@ -125,7 +125,7 @@ public class Player extends Entity{
                 }
                 case BOOTS -> {
                     gp.playSE(2);
-                    speed += 1;
+                    speed += 2;
                     gp.obj[i] = null;
                     gp.ui.showMessage("Speed up!");
                 }

@@ -89,6 +89,11 @@ public class Player extends Entity{
             int npcIndex = gp.collisionChecker.checkEntity(this, gp.npcs);
             interactNpc(npcIndex);
 
+            // CHECK EVENT
+            gp.eventHandler.checkEvent();
+
+            gp.keyHandler.enterPressed = false;
+
             if (!collisionOn) {
                 switch (direction) {
                     case UP -> worldY -= speed;
@@ -122,7 +127,6 @@ public class Player extends Entity{
                 gp.npcs[i].speak();
             }
         }
-        gp.keyHandler.enterPressed = false;
     }
 
     public void draw(Graphics2D g2) {

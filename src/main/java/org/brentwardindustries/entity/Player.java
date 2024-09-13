@@ -48,6 +48,14 @@ public class Player extends Entity{
         left2 = setup("/player/boy_left_2");
         right1 = setup("/player/boy_right_1");
         right2 = setup("/player/boy_right_2");
+//        up1 = setup("/player/link_up_1");
+//        up2 = setup("/player/link_up_2");
+//        down1 = setup("/player/link_down_1");
+//        down2 = setup("/player/link_down_2");
+//        left1 = setup("/player/link_left_1");
+//        left2 = setup("/player/link_left_2");
+//        right1 = setup("/player/link_right_1");
+//        right2 = setup("/player/link_right_2");
     }
 
     public void update() {
@@ -105,8 +113,12 @@ public class Player extends Entity{
 
     public void interactNpc(int i) {
         if (i != 999) {
-            System.out.println("Uou are hitting NPC " + i);
+            if (gp.keyHandler.enterPressed) {
+                gp.gameState = gp.dialogState;
+                gp.npcs[i].speak();
+            }
         }
+        gp.keyHandler.enterPressed = false;
     }
 
     public void draw(Graphics2D g2) {

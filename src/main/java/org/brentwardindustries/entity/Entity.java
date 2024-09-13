@@ -25,7 +25,11 @@ public class Entity {
     public boolean collisionOn = false;
     public int actionLockCounter = 0;
     String[] dialogues = new String[20];
-    int diaalogueIndex = 0;
+    int dialogueIndex = 0;
+
+    // CHARACTER STATUS
+    public int maxLife;
+    public int life;
 
     public Entity(GamePanel gp) {
         this.gp = gp;
@@ -34,11 +38,11 @@ public class Entity {
     public void setAction() {}
 
     public void speak() {
-        if (dialogues[diaalogueIndex] == null) {
-            diaalogueIndex = 0;
+        if (dialogues[dialogueIndex] == null) {
+            dialogueIndex = 0;
         }
-        gp.ui.currentDialogue = dialogues[diaalogueIndex];
-        diaalogueIndex++;
+        gp.ui.currentDialogue = dialogues[dialogueIndex];
+        dialogueIndex++;
 
         switch (gp.player.direction) {
             case UP -> {

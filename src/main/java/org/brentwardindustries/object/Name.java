@@ -1,3 +1,3 @@
 package org.brentwardindustries.object;
 
-public enum Name { CHEST, DOOR, KEY, BOOTS }
+public enum Name { BOOTS, CHEST, DOOR, HEART, KEY }

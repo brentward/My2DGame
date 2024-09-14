@@ -2,8 +2,6 @@ package org.brentwardindustries.main;
 
 import org.brentwardindustries.entity.Direction;
 
-import java.awt.Rectangle;
-
 public class EventHandler {
     GamePanel gp;
     EventRect[][] eventRect;

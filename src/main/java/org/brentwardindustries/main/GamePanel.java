@@ -2,7 +2,6 @@ package org.brentwardindustries.main;
 
 import org.brentwardindustries.entity.Entity;
 import org.brentwardindustries.entity.Player;
-import org.brentwardindustries.object.SuperObject;
 import org.brentwardindustries.tile.TileManager;
 
 import javax.swing.JPanel;
@@ -10,6 +9,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.util.ArrayList;
+import java.util.Comparator;
 
 public class GamePanel extends JPanel implements Runnable {
     // SCREEN SETTINGS
@@ -44,8 +45,9 @@ public class GamePanel extends JPanel implements Runnable {
 
     // ENTITY AND OBJECTS
     public Player player  = new Player(this, keyHandler);
-    public SuperObject[] objects = new SuperObject[10];
+    public Entity[] objects = new Entity[10];
     public Entity[] npcs = new Entity[10];
+    ArrayList<Entity> entityList = new ArrayList<>();
 
     // GAME STATE
     public int gameState;
@@ -141,22 +143,35 @@ public class GamePanel extends JPanel implements Runnable {
             // TILE
             tileManager.draw(g2);
 
-            // OBJECT
-            for (SuperObject superObject : objects) {
-                if (superObject != null) {
-                    superObject.draw(g2, this);
+            entityList.add(player);
+            for (Entity npc : npcs) {
+                if (npc != null) {
+                    entityList.add(npc);
+                }
+            }
+            for (Entity object : objects) {
+                if (object != null) {
+                    entityList.add(object);
                 }
             }
 
-            // NPC
-            for (Entity entity : npcs) {
-                if (entity != null) {
-                    entity.draw(g2);
+            // SORT
+            entityList.sort(new Comparator<Entity>() {
+                @Override
+                public int compare(Entity e1, Entity e2) {
+                    return Integer.compare(e1.worldY, e2.worldY);
                 }
+            });
+
+            // DRAW ENTITIES
+            for (Entity entity : entityList) {
+                entity.draw(g2);
+            }
+            // EMPTY ENTITY LIST
+            for (int i = entityList.size(); i > 0; i--) {
+                entityList.remove(i - 1);
             }
 
-            // PLAYER
-            player.draw(g2);
 
             // UI
             ui.draw(g2);

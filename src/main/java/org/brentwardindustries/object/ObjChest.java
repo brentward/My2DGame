@@ -1,22 +1,13 @@
 package org.brentwardindustries.object;
 
+import org.brentwardindustries.entity.Entity;
 import org.brentwardindustries.main.GamePanel;
 
-import javax.imageio.ImageIO;
-import java.io.IOException;
-
-public class ObjChest extends SuperObject {
-    GamePanel gp;
-
+public class ObjChest extends Entity {
     public ObjChest(GamePanel gp) {
-        this.gp = gp;
+        super(gp);
 
         name = Name.CHEST;
-        try {
-            image = ImageIO.read(getClass().getResourceAsStream("/objects/chest.png"));
-            image = utilityTool.scaleImage(image, gp.tileSize, gp.tileSize);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        down1 = setup("/objects/chest");
     }
 }

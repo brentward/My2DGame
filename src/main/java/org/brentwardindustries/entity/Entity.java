@@ -2,6 +2,7 @@ package org.brentwardindustries.entity;
 
 import org.brentwardindustries.main.GamePanel;
 import org.brentwardindustries.main.UtilityTool;
+import org.brentwardindustries.object.Name;
 
 import javax.imageio.ImageIO;
 import java.awt.Graphics2D;
@@ -16,7 +17,7 @@ public class Entity {
     public int speed;
 
     public BufferedImage up1, up2, down1, down2, left1, left2, right1, right2;
-    public Direction direction;
+    public Direction direction = Direction.DOWN;
 
     public int spriteCounter = 0;
     public int spriteNum = 1;
@@ -26,6 +27,9 @@ public class Entity {
     public int actionLockCounter = 0;
     String[] dialogues = new String[20];
     int dialogueIndex = 0;
+    public BufferedImage image, image2, image3;
+    public Name name;
+    public boolean collision = false;
 
     // CHARACTER STATUS
     public int maxLife;

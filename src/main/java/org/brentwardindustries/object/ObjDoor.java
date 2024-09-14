@@ -1,23 +1,20 @@
 package org.brentwardindustries.object;
 
+import org.brentwardindustries.entity.Entity;
 import org.brentwardindustries.main.GamePanel;
 
-import javax.imageio.ImageIO;
-import java.io.IOException;
-
-public class ObjDoor extends SuperObject {
-    GamePanel gp;
-
+public class ObjDoor extends Entity {
     public ObjDoor(GamePanel gp) {
-        this.gp = gp;
+        super(gp);
 
         name = Name.DOOR;
-        try {
-            image = ImageIO.read(getClass().getResourceAsStream("/objects/door.png"));
-            image = utilityTool.scaleImage(image, gp.tileSize, gp.tileSize);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        down1 = setup("/objects/door");
         collision = true;
+        solidArea.x = 0;
+        solidArea.y = 16;
+        solidArea.width = 48;
+        solidArea.height = 32;
+        solidAreaDefaultX = solidArea.x;
+        solidAreaDefaultY = solidArea.y;
     }
 }

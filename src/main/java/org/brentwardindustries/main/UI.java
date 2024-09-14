@@ -1,14 +1,13 @@
 package org.brentwardindustries.main;
 
+import org.brentwardindustries.entity.Entity;
 import org.brentwardindustries.object.ObjHeart;
-import org.brentwardindustries.object.SuperObject;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.Graphics2D;
-import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
@@ -39,7 +38,7 @@ public class UI {
         }
 
         // CREATE HUD OBJECT
-        SuperObject heart = new ObjHeart(gp);
+        Entity heart = new ObjHeart(gp);
         heartFull = heart.image;
         heartHalf = heart.image2;
         heartBlank = heart.image3;

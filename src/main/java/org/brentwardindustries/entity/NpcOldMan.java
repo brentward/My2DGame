@@ -10,6 +10,12 @@ public class NpcOldMan extends Entity {
         super(gp);
         direction = Direction.DOWN;
         speed = 1;
+        solidArea.x = 8;
+        solidArea.y = 16;
+        solidAreaDefaultX = solidArea.x;
+        solidAreaDefaultY = solidArea.y;
+        solidArea.width = 32;
+        solidArea.height = 32;
 
         getImage();
         setDialogue();

@@ -45,18 +45,10 @@ public class Entity {
         dialogueIndex++;
 
         switch (gp.player.direction) {
-            case UP -> {
-                direction = Direction.DOWN;
-            }
-            case DOWN -> {
-                direction = Direction.UP;
-            }
-            case LEFT -> {
-                direction = Direction.RIGHT;
-            }
-            case RIGHT -> {
-                direction = Direction.LEFT;
-            }
+            case UP -> direction = Direction.DOWN;
+            case DOWN -> direction = Direction.UP;
+            case LEFT -> direction = Direction.RIGHT;
+            case RIGHT -> direction = Direction.LEFT;
         }
     }
 

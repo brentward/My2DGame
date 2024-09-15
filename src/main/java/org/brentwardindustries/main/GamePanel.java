@@ -11,9 +11,9 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.Objects;
 
 public class GamePanel extends JPanel implements Runnable {
+    public final boolean SHOW_HIT_BOX = true;
     // SCREEN SETTINGS
     final int originalTileSize = 16;
     final int scale = 3;

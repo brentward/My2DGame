@@ -5,7 +5,6 @@ import org.brentwardindustries.main.KeyHandler;
 
 import java.awt.AlphaComposite;
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
@@ -42,8 +41,6 @@ public class Player extends Entity{
     public void setDefaultValues() {
         worldX = gp.tileSize * 23;
         worldY = gp.tileSize * 21;
-//        worldX = gp.tileSize * 10;
-//        worldY = gp.tileSize * 13;
         speed = 4;
         direction = Direction.DOWN;
 
@@ -140,6 +137,12 @@ public class Player extends Entity{
 
             gp.keyHandler.enterPressed = false;
 
+        } else {
+            spriteCounter++;
+            if (spriteCounter > 12) {
+                spriteNum = 1;
+                spriteCounter = 0;
+            }
         }
         if (invincible) {
             invincibleCounter++;
@@ -234,6 +237,8 @@ public class Player extends Entity{
         BufferedImage image = null;
         int tempScreenX = screenX;
         int tempScreenY = screenY;
+        int debugX = 0;
+        int debugY = 0;
 
         switch (direction) {
             case UP -> {
@@ -243,6 +248,10 @@ public class Player extends Entity{
                 if (attacking) {
                     tempScreenY = screenY - gp.tileSize;
                     image = (spriteNum == 1) ? attackUp1 : attackUp2;
+                    if (gp.SHOW_HIT_BOX) {
+                        g2.setColor(Color.PINK);
+                        g2.drawRect(screenX + solidArea.x, screenY + solidArea.y - attackArea.height, attackArea.width, attackArea.height);
+                    }
                 }
             }
             case DOWN -> {
@@ -251,6 +260,10 @@ public class Player extends Entity{
                 }
                 if (attacking) {
                     image = (spriteNum == 1) ? attackDown1 : attackDown2;
+                    if (gp.SHOW_HIT_BOX) {
+                        g2.setColor(Color.PINK);
+                        g2.drawRect(screenX + solidArea.x, screenY + solidArea.y + attackArea.height, attackArea.width, attackArea.height);
+                    }
                 }
             }
             case LEFT -> {
@@ -260,6 +273,10 @@ public class Player extends Entity{
                 if (attacking) {
                     tempScreenX = screenX - gp.tileSize;
                     image = (spriteNum == 1) ? attackLeft1 : attackLeft2;
+                    if (gp.SHOW_HIT_BOX) {
+                        g2.setColor(Color.PINK);
+                        g2.drawRect(screenX + solidArea.x - attackArea.width, screenY + solidArea.y, attackArea.width, attackArea.height);
+                    }
                 }
             }
             case RIGHT -> {
@@ -268,6 +285,10 @@ public class Player extends Entity{
                 }
                 if (attacking) {
                     image = (spriteNum == 1) ? attackRight1 : attackRight2;
+                    if (gp.SHOW_HIT_BOX) {
+                        g2.setColor(Color.PINK);
+                        g2.drawRect(screenX + solidArea.x + attackArea.width, screenY + solidArea.y, attackArea.width, attackArea.height);
+                    }
                 }
             }
         }
@@ -277,12 +298,17 @@ public class Player extends Entity{
         }
         g2.drawImage(image, tempScreenX, tempScreenY, null);
 
+
         // Reset alpha
         g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1F));
 
-//        // DEBUG
-//        g2.setFont(new Font("Arial", Font.PLAIN, 26));
-//        g2.setColor(Color.WHITE);
-//        g2.drawString("Invincible counter: " + invincibleCounter, 10, 400);
+        // DEBUG
+        if (gp.SHOW_HIT_BOX) {
+            g2.setColor(Color.YELLOW);
+            g2.drawRect(screenX + solidArea.x, screenY + solidArea.y, solidArea.width, solidArea.height);
+//            g2.setFont(new Font("Arial", Font.PLAIN, 26));
+//            g2.setColor(Color.WHITE);
+//            g2.drawString("Invincible counter: " + invincibleCounter, 10, 400);
+        }
     }
 }

@@ -5,6 +5,7 @@ import org.brentwardindustries.main.UtilityTool;
 
 import javax.imageio.ImageIO;
 import java.awt.AlphaComposite;
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
@@ -134,8 +135,13 @@ public class Entity {
 
             // Reset alpha
             g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1F));
-        }
 
+            // DEBUG
+            if (gp.SHOW_HIT_BOX) {
+                g2.setColor(Color.RED);
+                g2.drawRect(screenX + solidArea.x, screenY + solidArea.y, solidArea.width, solidArea.height);
+            }
+        }
     }
 
     public BufferedImage setup(String imagePath, int width, int height) {

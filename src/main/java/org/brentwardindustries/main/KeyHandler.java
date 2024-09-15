@@ -9,6 +9,7 @@ public class KeyHandler implements KeyListener {
 
     // DEBUG
     public boolean checkDrawTime = false;
+    public boolean showHitBox = false;
 
     public KeyHandler(GamePanel gp) {
         this.gp = gp;
@@ -70,12 +71,13 @@ public class KeyHandler implements KeyListener {
             // DEBUG
             if (code == KeyEvent.VK_T) {
                 checkDrawTime = !checkDrawTime;
-//                if (checkDrawTime) {
-//                    checkDrawTime = false;
-//                } else {
-//                    checkDrawTime = true;
-//                }
             }
+
+            // SHOW HIT BOX
+            if (code == KeyEvent.VK_F7) {
+                showHitBox = !showHitBox;
+            }
+
         // PAUSE STATE
         } else if (gp.gameState == gp.pauseState) {
             if (code == KeyEvent.VK_P) {

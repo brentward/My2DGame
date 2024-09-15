@@ -206,6 +206,7 @@ public class Player extends Entity{
                 gp.gameState = gp.dialogState;
                 gp.npcs[i].speak();
             } else {
+                gp.playSE(7);
                 attacking = true;
             }
         }
@@ -214,6 +215,7 @@ public class Player extends Entity{
     public void contactMonster(int i) {
         if (i != 999) {
             if (!gp.player.invincible) {
+                gp.playSE(6);
                 life -= 1;
                 invincible = true;
             }
@@ -223,17 +225,19 @@ public class Player extends Entity{
     public void damageMonster(int i) {
         if (i != 999) {
             if (!gp.monsters[i].invincible) {
+                gp.playSE(5);
                 gp.monsters[i].life -= 1;
                 gp.monsters[i].invincible = true;
+                gp.monsters[i].damageReaction();
 
                 if (gp.monsters[i].life <= 0) {
-                    gp.monsters[i] = null;
+                    gp.monsters[i].dying = true;
                 }
             }
         }
     }
 
-    public void draw(Graphics2D g2) {
+    public void draw(Graphics2D g2D) {
         BufferedImage image = null;
         int tempScreenX = screenX;
         int tempScreenY = screenY;
@@ -248,9 +252,10 @@ public class Player extends Entity{
                 if (attacking) {
                     tempScreenY = screenY - gp.tileSize;
                     image = (spriteNum == 1) ? attackUp1 : attackUp2;
-                    if (gp.SHOW_HIT_BOX) {
-                        g2.setColor(Color.PINK);
-                        g2.drawRect(screenX + solidArea.x, screenY + solidArea.y - attackArea.height, attackArea.width, attackArea.height);
+                    if (gp.keyHandler.showHitBox) {
+                        g2D.setColor(Color.PINK);
+                        g2D.drawRect(screenX + solidArea.x, screenY + solidArea.y
+                                - attackArea.height, attackArea.width, attackArea.height);
                     }
                 }
             }
@@ -260,9 +265,10 @@ public class Player extends Entity{
                 }
                 if (attacking) {
                     image = (spriteNum == 1) ? attackDown1 : attackDown2;
-                    if (gp.SHOW_HIT_BOX) {
-                        g2.setColor(Color.PINK);
-                        g2.drawRect(screenX + solidArea.x, screenY + solidArea.y + attackArea.height, attackArea.width, attackArea.height);
+                    if (gp.keyHandler.showHitBox) {
+                        g2D.setColor(Color.PINK);
+                        g2D.drawRect(screenX + solidArea.x, screenY + solidArea.y
+                                + attackArea.height, attackArea.width, attackArea.height);
                     }
                 }
             }
@@ -273,9 +279,10 @@ public class Player extends Entity{
                 if (attacking) {
                     tempScreenX = screenX - gp.tileSize;
                     image = (spriteNum == 1) ? attackLeft1 : attackLeft2;
-                    if (gp.SHOW_HIT_BOX) {
-                        g2.setColor(Color.PINK);
-                        g2.drawRect(screenX + solidArea.x - attackArea.width, screenY + solidArea.y, attackArea.width, attackArea.height);
+                    if (gp.keyHandler.showHitBox) {
+                        g2D.setColor(Color.PINK);
+                        g2D.drawRect(screenX + solidArea.x - attackArea.width, screenY
+                                + solidArea.y, attackArea.width, attackArea.height);
                     }
                 }
             }
@@ -285,30 +292,31 @@ public class Player extends Entity{
                 }
                 if (attacking) {
                     image = (spriteNum == 1) ? attackRight1 : attackRight2;
-                    if (gp.SHOW_HIT_BOX) {
-                        g2.setColor(Color.PINK);
-                        g2.drawRect(screenX + solidArea.x + attackArea.width, screenY + solidArea.y, attackArea.width, attackArea.height);
+                    if (gp.keyHandler.showHitBox) {
+                        g2D.setColor(Color.PINK);
+                        g2D.drawRect(screenX + solidArea.x + attackArea.width, screenY
+                                + solidArea.y, attackArea.width, attackArea.height);
                     }
                 }
             }
         }
 
         if (invincible) {
-            g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.4F));
+            g2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.4f));
         }
-        g2.drawImage(image, tempScreenX, tempScreenY, null);
+        g2D.drawImage(image, tempScreenX, tempScreenY, null);
 
 
         // Reset alpha
-        g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1F));
+        g2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
 
         // DEBUG
-        if (gp.SHOW_HIT_BOX) {
-            g2.setColor(Color.YELLOW);
-            g2.drawRect(screenX + solidArea.x, screenY + solidArea.y, solidArea.width, solidArea.height);
-//            g2.setFont(new Font("Arial", Font.PLAIN, 26));
-//            g2.setColor(Color.WHITE);
-//            g2.drawString("Invincible counter: " + invincibleCounter, 10, 400);
+        if (gp.keyHandler.showHitBox) {
+            g2D.setColor(Color.YELLOW);
+            g2D.drawRect(screenX + solidArea.x, screenY + solidArea.y, solidArea.width, solidArea.height);
+//            g2D.setFont(new Font("Arial", Font.PLAIN, 26));
+//            g2D.setColor(Color.WHITE);
+//            g2D.drawString("Invincible counter: " + invincibleCounter, 10, 400);
         }
     }
 }

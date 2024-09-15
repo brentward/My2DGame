@@ -77,7 +77,8 @@ public class TileManager {
 
         try {
             tile[index] = new Tile();
-            tile[index].image = ImageIO.read(getClass().getResourceAsStream("/tiles/" + imageName + ".png"));
+            tile[index].image = ImageIO.read(getClass().getResourceAsStream("/tiles/"
+                    + imageName + ".png"));
             tile[index].image = utilityTool.scaleImage(tile[index].image, gp.tileSize, gp.tileSize);
             tile[index].collision = collision;
         } catch (Exception e) {
@@ -114,7 +115,7 @@ public class TileManager {
         }
     }
 
-    public void draw(Graphics2D g2) {
+    public void draw(Graphics2D g2D) {
         int worldCol = 0;
         int worldRow = 0;
 
@@ -130,7 +131,7 @@ public class TileManager {
                     && worldX < gp.player.worldX + gp.player.screenX + gp.tileSize
                     && worldY > gp.player.worldY - gp.player.screenY - gp.tileSize
                     && worldY < gp.player.worldY + gp.player.screenY+ gp.tileSize) {
-                g2.drawImage(tile[tileNum].image, screenX, screenY,null);
+                g2D.drawImage(tile[tileNum].image, screenX, screenY,null);
             }
             worldCol++;
             if (worldCol == gp.maxWorldCol) {

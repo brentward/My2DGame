@@ -13,7 +13,6 @@ import java.util.ArrayList;
 import java.util.Comparator;
 
 public class GamePanel extends JPanel implements Runnable {
-    public final boolean SHOW_HIT_BOX = true;
     // SCREEN SETTINGS
     final int originalTileSize = 16;
     final int scale = 3;
@@ -116,15 +115,20 @@ public class GamePanel extends JPanel implements Runnable {
             // PLAYER
             player.update();
             // NPC
-            for (Entity entity : npcs) {
-                if (entity != null) {
-                    entity.update();
+            for (int i = 0; i < npcs.length; i++) {
+                if (npcs[i] != null) {
+                    npcs[i].update();
                 }
             }
             // MONSTERS
-            for (Entity entity : monsters) {
-                if (entity != null) {
-                    entity.update();
+            for (int i = 0; i < monsters.length; i ++) {
+                if (monsters[i] != null) {
+                    if (monsters[i].alive && !monsters[i].dying) {
+                        monsters[i].update();
+                    }
+                    if (!monsters[i].alive) {
+                        monsters[i] = null;
+                    }
                 }
             }
         }
@@ -137,7 +141,7 @@ public class GamePanel extends JPanel implements Runnable {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        Graphics2D g2 = (Graphics2D) g;
+        Graphics2D g2D = (Graphics2D) g;
 
         // DEBUG
         long drawStart = 0;
@@ -147,11 +151,11 @@ public class GamePanel extends JPanel implements Runnable {
 
         // TITLE SCREEN
         if (gameState == titleState) {
-            ui.draw(g2);
+            ui.draw(g2D);
         } else {
 
             // TILE
-            tileManager.draw(g2);
+            tileManager.draw(g2D);
 
             entityList.add(player);
             for (Entity npc : npcs) {
@@ -180,7 +184,7 @@ public class GamePanel extends JPanel implements Runnable {
 
             // DRAW ENTITIES
             for (Entity entity : entityList) {
-                entity.draw(g2);
+                entity.draw(g2D);
             }
             // EMPTY ENTITY LIST (reversed to fix potential bug?)
             entityList.clear();
@@ -194,19 +198,19 @@ public class GamePanel extends JPanel implements Runnable {
 
 
             // UI
-            ui.draw(g2);
+            ui.draw(g2D);
         }
 
         // DEBUG
         if (keyHandler.checkDrawTime) {
             long drawEnd = System.nanoTime();
             long passed = drawEnd - drawStart;
-            g2.setColor(Color.WHITE);
-            g2.drawString("Draw Time: " + passed, 10, 400);
+            g2D.setColor(Color.WHITE);
+            g2D.drawString("Draw Time: " + passed, 10, 400);
             System.out.println("Draw Time: " + passed);
         }
 
-        g2.dispose();
+        g2D.dispose();
     }
 
     public void playMusic(int i) {

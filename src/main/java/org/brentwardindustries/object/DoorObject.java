@@ -1,10 +1,11 @@
 package org.brentwardindustries.object;
 
 import org.brentwardindustries.entity.Entity;
+import org.brentwardindustries.entity.Name;
 import org.brentwardindustries.main.GamePanel;
 
-public class ObjDoor extends Entity {
-    public ObjDoor(GamePanel gp) {
+public class DoorObject extends Entity {
+    public DoorObject(GamePanel gp) {
         super(gp);
 
         name = Name.DOOR;

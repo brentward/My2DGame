@@ -11,6 +11,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Objects;
 
 public class GamePanel extends JPanel implements Runnable {
     // SCREEN SETTINGS
@@ -47,7 +48,9 @@ public class GamePanel extends JPanel implements Runnable {
     public Player player  = new Player(this, keyHandler);
     public Entity[] objects = new Entity[10];
     public Entity[] npcs = new Entity[10];
+    public Entity[] monsters = new Entity[20];
     ArrayList<Entity> entityList = new ArrayList<>();
+
 
     // GAME STATE
     public int gameState;
@@ -66,8 +69,9 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void setupGame() {
-        assetSetter.setObject();
-        assetSetter.setNpc();
+        assetSetter.setObjects();
+        assetSetter.setNpcs();
+        assetSetter.setMonsters();
 //        playMusic(0);
         gameState = titleState;
     }
@@ -117,6 +121,12 @@ public class GamePanel extends JPanel implements Runnable {
                     entity.update();
                 }
             }
+            // MONSTERS
+            for (Entity entity : monsters) {
+                if (entity != null) {
+                    entity.update();
+                }
+            }
         }
         if (gameState == pauseState) {
             // nothing
@@ -149,6 +159,11 @@ public class GamePanel extends JPanel implements Runnable {
                     entityList.add(npc);
                 }
             }
+            for (Entity monster : monsters) {
+                if (monster != null) {
+                    entityList.add(monster);
+                }
+            }
             for (Entity object : objects) {
                 if (object != null) {
                     entityList.add(object);
@@ -167,10 +182,15 @@ public class GamePanel extends JPanel implements Runnable {
             for (Entity entity : entityList) {
                 entity.draw(g2);
             }
-            // EMPTY ENTITY LIST
-            for (int i = entityList.size(); i > 0; i--) {
-                entityList.remove(i - 1);
-            }
+            // EMPTY ENTITY LIST (reversed to fix potential bug?)
+            entityList.removeIf(Objects::nonNull);
+//            for (int i = entityList.size(); i > 0; i--) {
+//                entityList.remove(i - 1);
+//            }
+            // EMPTY ENTITY LIST (original)
+//            for (int i = 0; i < entityList.size(); i++) {
+//                entityList.remove(i);
+//            }
 
 
             // UI

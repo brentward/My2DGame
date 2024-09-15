@@ -2,7 +2,6 @@ package org.brentwardindustries.entity;
 
 import org.brentwardindustries.main.GamePanel;
 import org.brentwardindustries.main.UtilityTool;
-import org.brentwardindustries.object.Name;
 
 import javax.imageio.ImageIO;
 import java.awt.Graphics2D;
@@ -25,11 +24,14 @@ public class Entity {
     public int solidAreaDefaultX, solidAreaDefaultY;
     public boolean collisionOn = false;
     public int actionLockCounter = 0;
+    public boolean invincible = false;
+    public int invincibleCounter = 0;
     String[] dialogues = new String[20];
     int dialogueIndex = 0;
     public BufferedImage image, image2, image3;
     public Name name;
     public boolean collision = false;
+    public int type; // 0 = player, 1 = npc, 2 = monter
 
     // CHARACTER STATUS
     public int maxLife;
@@ -62,7 +64,16 @@ public class Entity {
         collisionOn = false;
         gp.collisionChecker.checkTile(this);
         gp.collisionChecker.checkObject(this, false);
-        gp.collisionChecker.checkPlayer(this);
+        gp.collisionChecker.checkEntity(this, gp.npcs);
+        gp.collisionChecker.checkEntity(this, gp.monsters);
+        boolean contactPlayer = gp.collisionChecker.checkPlayer(this);
+
+        if (this.type == 2 && contactPlayer) {
+            if (!gp.player.invincible) {
+                gp.player.life -= 1;
+                gp.player.invincible = true;
+            }
+        }
 
         if (!collisionOn) {
             switch (direction) {

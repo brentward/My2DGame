@@ -1,7 +1,7 @@
 package org.brentwardindustries.main;
 
 import org.brentwardindustries.entity.Entity;
-import org.brentwardindustries.object.ObjHeart;
+import org.brentwardindustries.object.HeartObject;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -38,7 +38,7 @@ public class UI {
         }
 
         // CREATE HUD OBJECT
-        Entity heart = new ObjHeart(gp);
+        Entity heart = new HeartObject(gp);
         heartFull = heart.image;
         heartHalf = heart.image2;
         heartBlank = heart.image3;

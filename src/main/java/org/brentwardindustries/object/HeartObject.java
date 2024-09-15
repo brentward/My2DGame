@@ -1,10 +1,11 @@
 package org.brentwardindustries.object;
 
 import org.brentwardindustries.entity.Entity;
+import org.brentwardindustries.entity.Name;
 import org.brentwardindustries.main.GamePanel;
 
-public class ObjHeart extends Entity {
-    public ObjHeart(GamePanel gp) {
+public class HeartObject extends Entity {
+    public HeartObject(GamePanel gp) {
         super(gp);
 
         name = Name.HEART;

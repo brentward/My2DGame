@@ -9,6 +9,6 @@ public class KeyObject extends Entity {
         super(gp);
 
         name = Name.KEY;
-        down1 = setup("/objects/key");
+        down1 = setup("/objects/key", gp.tileSize, gp.tileSize);
     }
 }

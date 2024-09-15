@@ -9,6 +9,6 @@ public class BootsObject extends Entity {
         super(gp);
 
         name = Name.BOOTS;
-        down1 = setup("/objects/boots");
+        down1 = setup("/objects/boots", gp.tileSize, gp.tileSize);
     }
 }

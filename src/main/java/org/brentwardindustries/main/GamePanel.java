@@ -183,7 +183,7 @@ public class GamePanel extends JPanel implements Runnable {
                 entity.draw(g2);
             }
             // EMPTY ENTITY LIST (reversed to fix potential bug?)
-            entityList.removeIf(Objects::nonNull);
+            entityList.clear();
 //            for (int i = entityList.size(); i > 0; i--) {
 //                entityList.remove(i - 1);
 //            }

@@ -11,6 +11,7 @@ import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 
 public class UI {
     GamePanel gp;
@@ -18,8 +19,10 @@ public class UI {
     Font maruMonica, purisoBold;
     BufferedImage heartFull, heartHalf, heartBlank;
     public boolean messageOn = false;
-    public String message = "";
-    int messageCounter = 0;
+//    public String message = "";
+//    int messageCounter = 0;
+    ArrayList<String> messages = new ArrayList<>();
+    ArrayList<Integer> messageCounter = new ArrayList<>();
     public String currentDialogue = "";
     public int commandNum = 0;
 
@@ -44,10 +47,9 @@ public class UI {
         heartBlank = heart.image3;
     }
 
-    public void showMessage(String text) {
-        message = text;
-        messageOn = true;
-        messageCounter = 0;
+    public void addMessage(String text) {
+        messages.add(text);
+        messageCounter.add(0);
     }
 
     public void draw(Graphics2D g2D) {
@@ -63,6 +65,7 @@ public class UI {
         }
         if (gp.gameState == gp.playState) {
             drawPlayerLife();
+            drawMessage();
         }
         if (gp.gameState == gp.pauseState) {
             drawPlayerLife();
@@ -103,6 +106,30 @@ public class UI {
             }
             i++;
             x += gp.tileSize;
+        }
+    }
+
+    public void drawMessage() {
+        int messageX = gp.tileSize;
+        int messageY= gp.tileSize * 4;
+        g2D.setFont(g2D.getFont().deriveFont(Font.BOLD, 32f));
+
+        for (int i = 0; i < messages.size(); i++) {
+            if (messages.get(i) != null) {
+                g2D.setColor(Color.BLACK);
+                g2D.drawString(messages.get(i), messageX + 2, messageY + 2);
+                g2D.setColor(Color.WHITE);
+                g2D.drawString(messages.get(i), messageX, messageY);
+
+                int counter = messageCounter.get(i) + 1;
+                messageCounter.set(i, counter);
+                messageY += 50;
+
+                if (counter > 180) {
+                    messages.remove(i);
+                    messageCounter.remove(i);
+                }
+            }
         }
     }
 

@@ -8,7 +8,7 @@ public class KeyHandler implements KeyListener {
     public GamePanel gp;
 
     // DEBUG
-    public boolean checkDrawTime = false;
+    public boolean showDebugText = false;
     public boolean showHitBox = false;
 
     public KeyHandler(GamePanel gp) {
@@ -89,7 +89,11 @@ public class KeyHandler implements KeyListener {
 
         // DEBUG
         if (code == KeyEvent.VK_T) {
-            checkDrawTime = !checkDrawTime;
+            showDebugText = !showDebugText;
+        }
+
+        if (code == KeyEvent.VK_R) {
+            gp.tileManager.loadMap("/maps/worldV2.txt");
         }
 
         // SHOW HIT BOX

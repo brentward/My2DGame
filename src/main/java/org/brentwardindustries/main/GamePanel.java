@@ -7,6 +7,7 @@ import org.brentwardindustries.tile.TileManager;
 import javax.swing.JPanel;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
@@ -145,7 +146,7 @@ public class GamePanel extends JPanel implements Runnable {
 
         // DEBUG
         long drawStart = 0;
-        if (keyHandler.checkDrawTime) {
+        if (keyHandler.showDebugText) {
             drawStart = System.nanoTime();
         }
 
@@ -202,12 +203,25 @@ public class GamePanel extends JPanel implements Runnable {
         }
 
         // DEBUG
-        if (keyHandler.checkDrawTime) {
+        if (keyHandler.showDebugText) {
             long drawEnd = System.nanoTime();
             long passed = drawEnd - drawStart;
+
+            g2D.setFont(new Font("Arial", Font.PLAIN, 20));
             g2D.setColor(Color.WHITE);
-            g2D.drawString("Draw Time: " + passed, 10, 400);
-            System.out.println("Draw Time: " + passed);
+            int x = 10;
+            int y = 400;
+            int lineHeight = 20;
+            g2D.drawString("WorldX: " + player.worldX, x, y);
+            y += lineHeight;
+            g2D.drawString("WorldY: " + player.worldY, x, y);
+            y += lineHeight;
+            g2D.drawString("Col: " + (player.worldX + player.solidArea.x) / tileSize, x, y);
+            y += lineHeight;
+            g2D.drawString("Row: " + (player.worldY + player.solidArea.y) / tileSize, x, y);
+            y += lineHeight;
+            g2D.drawString("Draw Time: " + passed, x, y);
+//            System.out.println("Draw Time: " + passed);
         }
 
         g2D.dispose();

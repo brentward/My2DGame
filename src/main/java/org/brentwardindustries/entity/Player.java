@@ -2,6 +2,8 @@ package org.brentwardindustries.entity;
 
 import org.brentwardindustries.main.GamePanel;
 import org.brentwardindustries.main.KeyHandler;
+import org.brentwardindustries.object.ShieldWoodObject;
+import org.brentwardindustries.object.SwordNormalObject;
 
 import java.awt.AlphaComposite;
 import java.awt.Color;
@@ -14,6 +16,7 @@ public class Player extends Entity{
 
     public final int screenX;
     public final int screenY;
+    public boolean attackCanceled = false;
 
     public Player(GamePanel gp, KeyHandler keyHandler) {
         super(gp);
@@ -45,8 +48,26 @@ public class Player extends Entity{
         direction = Direction.DOWN;
 
         // PLAYER STATUS
+        level = 1;
         maxLife = 6;
         life = maxLife;
+        strength = 1; // More strength is more damage given
+        dexterity = 1; // More dexterity is less damage received
+        exp = 0;
+        nextLevelExp = 5;
+        coin = 0;
+        currentWeapon = new SwordNormalObject(gp);
+        currentShield = new ShieldWoodObject(gp);
+        attack = getAttack();
+        defense = getDefense();
+    }
+
+    public int getAttack() {
+        return strength * currentWeapon.attackValue;
+    }
+
+    public int getDefense() {
+        return dexterity * currentShield.defenseValue;
     }
 
     public void getPlayerImage() {
@@ -124,6 +145,14 @@ public class Player extends Entity{
                     case RIGHT -> worldX += speed;
                 }
             }
+
+            if (keyHandler.enterPressed && !attackCanceled) {
+                gp.playSE(7);
+                attacking = true;
+                spriteCounter = 0;
+            }
+
+            attackCanceled = false;
 
             spriteCounter++;
             if (spriteCounter > 12 && !keyHandler.enterPressed) {
@@ -203,11 +232,9 @@ public class Player extends Entity{
     public void interactNpc(int i) {
         if (gp.keyHandler.enterPressed) {
             if (i != 999) {
+                attackCanceled = true;
                 gp.gameState = gp.dialogState;
                 gp.npcs[i].speak();
-            } else {
-                gp.playSE(7);
-                attacking = true;
             }
         }
     }

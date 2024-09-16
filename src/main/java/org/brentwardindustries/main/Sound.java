@@ -8,6 +8,7 @@ import java.net.URL;
 public class Sound {
     Clip clip;
     URL[] soundURL = new URL[30];
+    int pausePosition = 0;
 
     public Sound() {
         soundURL[0] = getClass().getResource("/sound/BlueBoyAdventure.wav");
@@ -31,6 +32,17 @@ public class Sound {
     }
 
     public void play() {
+        clip.setFramePosition(0);
+        clip.start();
+    }
+
+    public void pause() {
+        pausePosition = clip.getFramePosition();
+        clip.stop();
+    }
+
+    public void resume() {
+        clip.setFramePosition(pausePosition);
         clip.start();
     }
 
@@ -40,5 +52,6 @@ public class Sound {
 
     public void stop() {
         clip.stop();
+        clip.setFramePosition(0);
     }
 }

@@ -6,7 +6,9 @@ public enum Name {
     DOOR("Door"),
     HEART("Heart"),
     KEY("Key"),
-    GREEN_SLIME("Green Slime");
+    GREEN_SLIME("Green Slime"),
+    NORMAL_SWORD("Normal Sword"),
+    WOOD_SHIELD("Wood Shield");
 
     private final String friendlyName;
 

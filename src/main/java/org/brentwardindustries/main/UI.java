@@ -72,6 +72,9 @@ public class UI {
             drawPlayerLife();
             drawDialogueScreen();
         }
+        if (gp.gameState == gp.characterState) {
+            drawCharacterScreen();
+        }
     }
 
     public void drawPlayerLife() {
@@ -181,6 +184,94 @@ public class UI {
 
     }
 
+    public void drawCharacterScreen() {
+        // CREATE A FRAME
+        final int frameX = gp.tileSize;
+        final int frameY = gp.tileSize;
+        final int frameWidth = gp.tileSize * 5;
+        final int frameHeight = gp.tileSize * 10;
+
+        drawSubWindow(frameX, frameY, frameWidth, frameHeight);
+
+        // TEXT
+        g2D.setColor(Color.WHITE);
+        g2D.setFont(g2D.getFont().deriveFont(32f));
+
+        int textX = frameX + 20;
+        int textY = frameY + gp.tileSize;
+        final int lineHeight = 35;
+
+        // NAMES
+        g2D.drawString("Level", textX, textY);
+        textY += lineHeight;
+        g2D.drawString("Life", textX, textY);
+        textY += lineHeight;
+        g2D.drawString("Strength", textX, textY);
+        textY += lineHeight;
+        g2D.drawString("Dexterity", textX, textY);
+        textY += lineHeight;
+        g2D.drawString("Attack", textX, textY);
+        textY += lineHeight;
+        g2D.drawString("Defense", textX, textY);
+        textY += lineHeight;
+        g2D.drawString("Exp", textX, textY);
+        textY += lineHeight;
+        g2D.drawString("Next Level", textX, textY);
+        textY += lineHeight;
+        g2D.drawString("Coin", textX, textY);
+        textY += lineHeight + 20;
+        g2D.drawString("Weapon", textX, textY);
+        textY += lineHeight + 15;
+        g2D.drawString("Shield", textX, textY);
+
+        // VALUES
+        int tailX = (frameX + frameWidth) - 30;
+        textY = frameY + gp.tileSize;
+        String value;
+
+        value = String.valueOf(gp.player.level);
+        textX = getXForAlignToRightText(value, tailX);
+        g2D.drawString(value, textX, textY);
+        textY += lineHeight;
+        value = String.valueOf(gp.player.life + "/" + gp.player.maxLife);
+        textX = getXForAlignToRightText(value, tailX);
+        g2D.drawString(value, textX, textY);
+        textY += lineHeight;
+        value = String.valueOf(gp.player.strength);
+        textX = getXForAlignToRightText(value, tailX);
+        g2D.drawString(value, textX, textY);
+        textY += lineHeight;
+        value = String.valueOf(gp.player.dexterity);
+        textX = getXForAlignToRightText(value, tailX);
+        g2D.drawString(value, textX, textY);
+        textY += lineHeight;
+        value = String.valueOf(gp.player.attack);
+        textX = getXForAlignToRightText(value, tailX);
+        g2D.drawString(value, textX, textY);
+        textY += lineHeight;
+        value = String.valueOf(gp.player.defense);
+        textX = getXForAlignToRightText(value, tailX);
+        g2D.drawString(value, textX, textY);
+        textY += lineHeight;
+        value = String.valueOf(gp.player.exp);
+        textX = getXForAlignToRightText(value, tailX);
+        g2D.drawString(value, textX, textY);
+        textY += lineHeight;
+        value = String.valueOf(gp.player.nextLevelExp);
+        textX = getXForAlignToRightText(value, tailX);
+        g2D.drawString(value, textX, textY);
+        textY += lineHeight;
+        value = String.valueOf(gp.player.coin);
+        textX = getXForAlignToRightText(value, tailX);
+        g2D.drawString(value, textX, textY);
+        textY += lineHeight;
+        g2D.drawImage(gp.player.currentWeapon.down1, tailX - gp.tileSize, textY - 14, null);
+        textY += gp.tileSize;
+        g2D.drawImage(gp.player.currentShield.down1, tailX - gp.tileSize, textY - 14, null);
+
+
+    }
+
     public void drawSubWindow(int x, int y, int width, int height) {
         Color color = new Color(0, 0, 0, 211);
         g2D.setColor(color);
@@ -196,6 +287,12 @@ public class UI {
     public int getXForCenteredText(String text) {
         int length = (int) g2D.getFontMetrics().getStringBounds(text, g2D).getWidth();
         int x = gp.screenWidth / 2 - length / 2;
+        return x;
+    }
+
+    public int getXForAlignToRightText(String text, int tailX) {
+        int length = (int) g2D.getFontMetrics().getStringBounds(text, g2D).getWidth();
+        int x = tailX - length;
         return x;
     }
 }

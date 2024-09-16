@@ -11,5 +11,6 @@ public class SwordNormalObject extends Entity {
         name = Name.NORMAL_SWORD;
         down1 = setup("/objects/sword_normal", gp.tileSize, gp.tileSize);
         attackValue = 1;
+        description = "[" + name.toString() + "]\nAn old sword.";
     }
 }

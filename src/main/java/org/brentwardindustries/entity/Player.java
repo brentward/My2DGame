@@ -2,6 +2,7 @@ package org.brentwardindustries.entity;
 
 import org.brentwardindustries.main.GamePanel;
 import org.brentwardindustries.main.KeyHandler;
+import org.brentwardindustries.object.KeyObject;
 import org.brentwardindustries.object.ShieldWoodObject;
 import org.brentwardindustries.object.SwordNormalObject;
 
@@ -10,6 +11,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
 public class Player extends Entity{
     KeyHandler keyHandler;
@@ -17,6 +19,8 @@ public class Player extends Entity{
     public final int screenX;
     public final int screenY;
     public boolean attackCanceled = false;
+    public ArrayList<Entity> inventory = new ArrayList<>();
+    public final int maxInventorySize = 20;
 
     public Player(GamePanel gp, KeyHandler keyHandler) {
         super(gp);
@@ -39,6 +43,7 @@ public class Player extends Entity{
         setDefaultValues();
         getPlayerImage();
         getPlayerAttackImage();
+        setItems();
     }
 
     public void setDefaultValues() {
@@ -60,6 +65,14 @@ public class Player extends Entity{
         currentShield = new ShieldWoodObject(gp);
         attack = getAttack();
         defense = getDefense();
+    }
+
+    public void setItems() {
+        inventory.add(currentWeapon);
+        inventory.add(currentShield);
+        inventory.add(new KeyObject(gp));
+        inventory.add(new KeyObject(gp));
+        inventory.add(new KeyObject(gp));
     }
 
     public int getAttack() {
@@ -302,8 +315,6 @@ public class Player extends Entity{
         BufferedImage image = null;
         int tempScreenX = screenX;
         int tempScreenY = screenY;
-        int debugX = 0;
-        int debugY = 0;
 
         switch (direction) {
             case UP -> {

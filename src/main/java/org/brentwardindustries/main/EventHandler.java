@@ -44,9 +44,9 @@ public class EventHandler {
             if (hit(27, 16, Direction.RIGHT)) {
                 damagePit(27, 16, gp.dialogState);
             }
-            if (hit(23, 19, Direction.ANY)) {
-                damagePit(27, 16, gp.dialogState);
-            }
+//            if (hit(23, 19, Direction.ANY)) {
+//                damagePit(23, 19, gp.dialogState);
+//            }
             if (hit(23, 12, Direction.UP)) {
                 healingPool(23, 12, gp.dialogState);
             }

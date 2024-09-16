@@ -1,5 +1,9 @@
 plugins {
-    id("java")
+    application
+}
+
+application {
+    mainClass = "org.brentwardindustries.main.Main"
 }
 
 group = "org.brentwardindustries"

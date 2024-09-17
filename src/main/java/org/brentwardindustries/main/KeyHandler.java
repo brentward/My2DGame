@@ -22,6 +22,10 @@ public class KeyHandler implements KeyListener {
     public void keyPressed(KeyEvent e) {
         int code = e.getKeyCode();
 
+        inputPressed(code);
+    }
+
+    public void inputPressed(int code) {
         if (gp.gameState == gp.titleState) { // TITLE STATE
             titleState(code);
         } else if (gp.gameState == gp.playState) { // PLAY STATE
@@ -155,6 +159,10 @@ public class KeyHandler implements KeyListener {
     public void keyReleased(KeyEvent e) {
         int code = e.getKeyCode();
 
+        inputReleased(code);
+    }
+
+    public void inputReleased(int code) {
         if (code == KeyEvent.VK_W) {
             upPressed = false;
         }

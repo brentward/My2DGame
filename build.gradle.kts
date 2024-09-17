@@ -14,6 +14,9 @@ repositories {
 }
 
 dependencies {
+    implementation("net.java.jinput:jinput:2.0.9")
+    implementation("net.java.jinput:jinput:2.0.9:natives-all")
+
     testImplementation(platform("org.junit:junit-bom:5.10.0"))
     testImplementation("org.junit.jupiter:junit-jupiter")
 }

@@ -36,6 +36,7 @@ public class GamePanel extends JPanel implements Runnable {
     // SYSTEM
     TileManager tileManager = new TileManager(this);
     public KeyHandler keyHandler = new KeyHandler(this);
+    ControllerHandler controllerHandler = new ControllerHandler(this);
     Sound music = new Sound();
     Sound se = new Sound();
     public CollisionChecker collisionChecker = new CollisionChecker(this);
@@ -112,6 +113,7 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void update() {
+        pollController();
         if (gameState == playState) {
             // PLAYER
             player.update();
@@ -136,7 +138,10 @@ public class GamePanel extends JPanel implements Runnable {
         if (gameState == pauseState) {
             // nothing
         }
+    }
 
+    public void pollController() {
+        controllerHandler.pollController();
     }
 
     public void paintComponent(Graphics g) {

@@ -56,6 +56,12 @@ public class ControllerHandler {
                     case "1" -> {
                     } // B
                     case "2" -> {
+                        if (value == 1f) {
+                            gp.keyHandler.inputPressed(KeyEvent.VK_F);
+                        }
+                        if (value == 0f) {
+                            gp.keyHandler.inputReleased(KeyEvent.VK_F);
+                        }
                     } // X
                     case "3" -> {
                     } // Y

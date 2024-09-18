@@ -11,7 +11,8 @@ public enum Name {
     WOOD_SHIELD("Wood Shield"),
     WOODCUTTERS_AXE("Woodcutter's Axe"),
     BLUE_SHIELD("Blue Shield"),
-    RED_POTION("Red Potion");
+    RED_POTION("Red Potion"),
+    FIREBALL("Fireball");
 
     private final String friendlyName;
 

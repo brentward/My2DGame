@@ -40,6 +40,7 @@ public class Entity {
     public int spriteCounter = 0;
     public int actionLockCounter = 0;
     public int invincibleCounter = 0;
+    public int shotAvailableCounter = 0;
     int dyingCounter = 0;
     int hpBarCounter = 0;
 
@@ -48,6 +49,8 @@ public class Entity {
     public int speed;
     public int maxLife;
     public int life;
+    public int maxMagic;
+    public int magic;
     public int level;
     public int strength;
     public int dexterity;
@@ -58,11 +61,13 @@ public class Entity {
     public int coin;
     public Entity currentWeapon;
     public Entity currentShield;
+    public Projectile projectile;
 
     // ITEM ATTRIBUTES
     public int attackValue;
     public int defenseValue;
     public String description = "";
+    public int useCost;
 
     // TYPE
     public int type;
@@ -218,7 +223,6 @@ public class Entity {
         if (dyingCounter > flashInterval * 6 && dyingCounter <= flashInterval * 7) {changeAlpha(g2D, 0f);}
         if (dyingCounter > flashInterval * 7 && dyingCounter <= flashInterval * 8) {changeAlpha(g2D, 1f);}
         if (dyingCounter > flashInterval * 8) {
-            dying = false;
             alive = false;
         }
     }

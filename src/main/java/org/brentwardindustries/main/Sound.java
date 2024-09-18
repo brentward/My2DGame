@@ -9,6 +9,7 @@ public class Sound {
     Clip clip;
     URL[] soundURL = new URL[30];
     int pausePosition = 0;
+    public int soundIndex = 0;
 
     public Sound() {
         soundURL[0] = getClass().getResource("/sound/BlueBoyAdventure.wav");
@@ -22,6 +23,7 @@ public class Sound {
         soundURL[8] = getClass().getResource("/sound/levelup.wav");
         soundURL[9] = getClass().getResource("/sound/cursor.wav");
         soundURL[10] = getClass().getResource("/sound/burning.wav");
+        soundURL[29] = getClass().getResource("/sound/sams-song.wav");
     }
 
     public void setFile(int i) {
@@ -32,6 +34,7 @@ public class Sound {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        soundIndex = i;
     }
 
     public void play() {

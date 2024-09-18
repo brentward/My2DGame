@@ -90,6 +90,15 @@ public class KeyHandler implements KeyListener {
         if (code == KeyEvent.VK_ENTER) {
             enterPressed = true;
         }
+        if (code == KeyEvent.VK_L) {
+            if (gp.music.soundIndex == 0) {
+                gp.stopMusic();
+                gp.playMusic(29);
+            } else {
+                gp.stopMusic();
+                gp.playMusic(0);
+            }
+        }
         if (code == KeyEvent.VK_F) {
             shotKeyPressed = true;
         }

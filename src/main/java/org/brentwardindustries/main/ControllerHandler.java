@@ -12,6 +12,7 @@ public class ControllerHandler {
     GamePanel gp;
     boolean controllerConnected = false;
     boolean xReleased, yReleased;
+    public boolean l,r;
     Controller controller;
 
     public ControllerHandler(GamePanel gp) {
@@ -66,8 +67,10 @@ public class ControllerHandler {
                     case "3" -> {
                     } // Y
                     case "4" -> {
+                        l = (value == 1f);
                     } // L
                     case "5" -> {
+                        r = (value == 1f);
                     } // R
                     case "6" -> { // SELECT
                         if (value == 1f) {
@@ -96,20 +99,72 @@ public class ControllerHandler {
                             gp.keyHandler.leftPressed = false;
                             gp.keyHandler.rightPressed = false;
                         } else if (value == 0.125F) { // UP LEFT
-                            gp.keyHandler.inputPressed(KeyEvent.VK_W);
+                            if (gp.keyHandler.upPressed) {
+                                gp.keyHandler.upPressed = false;
+                                gp.keyHandler.downPressed = false;
+                                gp.keyHandler.rightPressed = false;
+                                gp.keyHandler.inputPressed(KeyEvent.VK_A);
+                            } else {
+                                gp.keyHandler.downPressed = false;
+                                gp.keyHandler.leftPressed = false;
+                                gp.keyHandler.rightPressed = false;
+                                gp.keyHandler.inputPressed(KeyEvent.VK_W);
+                            }
                         } else if (value == 0.25F) { // UP
+                            gp.keyHandler.downPressed = false;
+                            gp.keyHandler.leftPressed = false;
+                            gp.keyHandler.rightPressed = false;
                             gp.keyHandler.inputPressed(KeyEvent.VK_W);
                         } else if (value == 0.375F) { // UP RIGHT
-                            gp.keyHandler.inputPressed(KeyEvent.VK_D);
+                            if (gp.keyHandler.upPressed) {
+                                gp.keyHandler.upPressed = false;
+                                gp.keyHandler.downPressed = false;
+                                gp.keyHandler.leftPressed = false;
+                                gp.keyHandler.inputPressed(KeyEvent.VK_D);
+                            } else {
+                                gp.keyHandler.downPressed = false;
+                                gp.keyHandler.leftPressed = false;
+                                gp.keyHandler.rightPressed = false;
+                                gp.keyHandler.inputPressed(KeyEvent.VK_W);
+                            }
                         } else if (value == 0.5F) { // RIGHT
+                            gp.keyHandler.upPressed = false;
+                            gp.keyHandler.downPressed = false;
+                            gp.keyHandler.leftPressed = false;
                             gp.keyHandler.inputPressed(KeyEvent.VK_D);
-                        } else if (value == 0.625F) { // DOWN LEFT
-                            gp.keyHandler.inputPressed(KeyEvent.VK_S);
+                        } else if (value == 0.625F) { // DOWN RIGHT
+                            if (gp.keyHandler.downPressed) {
+                                gp.keyHandler.upPressed = false;
+                                gp.keyHandler.downPressed = false;
+                                gp.keyHandler.leftPressed = false;
+                                gp.keyHandler.inputPressed(KeyEvent.VK_D);
+                            } else {
+                                gp.keyHandler.upPressed = false;
+                                gp.keyHandler.leftPressed = false;
+                                gp.keyHandler.rightPressed = false;
+                                gp.keyHandler.inputPressed(KeyEvent.VK_S);
+                            }
                         } else if (value == 0.75F) { // DOWN
+                            gp.keyHandler.upPressed = false;
+                            gp.keyHandler.leftPressed = false;
+                            gp.keyHandler.rightPressed = false;
                             gp.keyHandler.inputPressed(KeyEvent.VK_S);
-                        } else if (value == 0.875F) { // UP LEFT
-                            gp.keyHandler.inputPressed(KeyEvent.VK_A);
+                        } else if (value == 0.875F) { // DOWN LEFT
+                            if (gp.keyHandler.downPressed) {
+                                gp.keyHandler.upPressed = false;
+                                gp.keyHandler.downPressed = false;
+                                gp.keyHandler.rightPressed = false;
+                                gp.keyHandler.inputPressed(KeyEvent.VK_A);
+                            } else {
+                                gp.keyHandler.upPressed = false;
+                                gp.keyHandler.leftPressed = false;
+                                gp.keyHandler.rightPressed = false;
+                                gp.keyHandler.inputPressed(KeyEvent.VK_S);
+                            }
                         } else if (value == 1.0F) { // LEFT
+                            gp.keyHandler.upPressed = false;
+                            gp.keyHandler.downPressed = false;
+                            gp.keyHandler.rightPressed = false;
                             gp.keyHandler.inputPressed(KeyEvent.VK_A);
                         }
                     }
@@ -149,6 +204,11 @@ public class ControllerHandler {
                     } // RX
                     case "z" -> {
                     } // L2 and R2
+                }
+                if (l && r) {
+                    gp.keyHandler.inputPressed(KeyEvent.VK_L);
+                    l = false;
+                    r = false;
                 }
             }
         }

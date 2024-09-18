@@ -55,7 +55,7 @@ public class KeyHandler implements KeyListener {
         if (code == KeyEvent.VK_ENTER) {
             if (gp.ui.commandNum == 0) {
                 gp.gameState = gp.playState;
-                gp.playMusic(0);
+//                gp.playMusic(0);
             }
             if (gp.ui.commandNum == 1) {
                 // LOAD GAME
@@ -81,7 +81,7 @@ public class KeyHandler implements KeyListener {
         }
         if (code == KeyEvent.VK_P) {
             gp.gameState = gp.pauseState;
-            gp.pauseMusic();
+            gp.stopMusic();
             gp.playSE(1);
         }
         if (code == KeyEvent.VK_C) {

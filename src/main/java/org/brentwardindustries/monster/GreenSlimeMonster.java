@@ -4,6 +4,7 @@ import org.brentwardindustries.entity.Direction;
 import org.brentwardindustries.entity.Entity;
 import org.brentwardindustries.entity.Name;
 import org.brentwardindustries.main.GamePanel;
+import org.brentwardindustries.object.RockObject;
 
 import java.util.Random;
 
@@ -22,6 +23,7 @@ public class GreenSlimeMonster extends Entity {
         attack = 5;
         defense = 0;
         exp = 2;
+        projectile = new RockObject(gp);
 
         solidArea.x = 3;
         solidArea.y = 18;
@@ -63,6 +65,12 @@ public class GreenSlimeMonster extends Entity {
                 direction = Direction.RIGHT;
             }
             actionLockCounter = 0;
+        }
+        int i = new Random().nextInt(100) + 1;
+        if (i > 99 && !projectile.alive && shotAvailableCounter == 0) {
+            projectile.set(worldX, worldY, direction, true, this);
+            gp.projectileList.add(projectile);
+            shotAvailableCounter = 30;
         }
     }
 

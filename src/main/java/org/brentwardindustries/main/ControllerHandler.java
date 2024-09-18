@@ -34,7 +34,6 @@ public class ControllerHandler {
         }
     }
 
-
     public void pollController() {
         if (controller != null) {
             controller.poll();

@@ -12,7 +12,9 @@ public enum Name {
     WOODCUTTERS_AXE("Woodcutter's Axe"),
     BLUE_SHIELD("Blue Shield"),
     RED_POTION("Red Potion"),
-    FIREBALL("Fireball");
+    FIREBALL("Fireball"),
+    ROCK("Rock"),
+    MAGIC_CRYSTAL("Magic Crystal");
 
     private final String friendlyName;
 

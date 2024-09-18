@@ -2,6 +2,7 @@ package org.brentwardindustries.main;
 
 import org.brentwardindustries.entity.Entity;
 import org.brentwardindustries.object.HeartObject;
+import org.brentwardindustries.object.MagicCrystalObject;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
@@ -17,7 +18,7 @@ public class UI {
     GamePanel gp;
     Graphics2D g2D;
     Font maruMonica, purisoBold;
-    BufferedImage heartFull, heartHalf, heartBlank;
+    BufferedImage heartFull, heartHalf, heartBlank, crystalFull, crystalBlank;
     ArrayList<String> messages = new ArrayList<>();
     ArrayList<Integer> messageCounter = new ArrayList<>();
     public String currentDialogue = "";
@@ -44,6 +45,9 @@ public class UI {
         heartFull = heart.image;
         heartHalf = heart.image2;
         heartBlank = heart.image3;
+        Entity crystal = new MagicCrystalObject(gp);
+        crystalFull = crystal.image;
+        crystalBlank = crystal.image2;
     }
 
     public void addMessage(String text) {
@@ -107,6 +111,28 @@ public class UI {
             i++;
             x += gp.tileSize;
         }
+
+        // DRAW MAX MAGIC
+        x = (gp.tileSize / 2) - 5;
+        y = gp.tileSize * 3 / 2;
+        i = 0;
+        while (i < gp.player.maxMagic) {
+            g2D.drawImage(crystalBlank, x, y, null);
+            i++;
+            x += 35;
+        }
+
+        // RESET
+        x = (gp.tileSize / 2) - 5;
+        y = gp.tileSize * 3 / 2;
+        i = 0;
+        while (i < gp.player.magic) {
+            g2D.drawImage(crystalFull, x, y, null);
+            i++;
+            x += 35;
+        }
+
+
     }
 
     public void drawMessage() {
@@ -233,6 +259,8 @@ public class UI {
         textY += lineHeight;
         g2D.drawString("Life", textX, textY);
         textY += lineHeight;
+        g2D.drawString("Magic", textX, textY);
+        textY += lineHeight;
         g2D.drawString("Strength", textX, textY);
         textY += lineHeight;
         g2D.drawString("Dexterity", textX, textY);
@@ -246,7 +274,7 @@ public class UI {
         g2D.drawString("Next Level", textX, textY);
         textY += lineHeight;
         g2D.drawString("Coin", textX, textY);
-        textY += lineHeight + 20;
+        textY += lineHeight + 10;
         g2D.drawString("Weapon", textX, textY);
         textY += lineHeight + 15;
         g2D.drawString("Shield", textX, textY);
@@ -260,7 +288,11 @@ public class UI {
         textX = getXForAlignToRightText(value, tailX);
         g2D.drawString(value, textX, textY);
         textY += lineHeight;
-        value = gp.player.life + "/ " + gp.player.maxLife;
+        value = gp.player.life + " / " + gp.player.maxLife;
+        textX = getXForAlignToRightText(value, tailX);
+        g2D.drawString(value, textX, textY);
+        textY += lineHeight;
+        value = gp.player.magic + " / " + gp.player.maxMagic;
         textX = getXForAlignToRightText(value, tailX);
         g2D.drawString(value, textX, textY);
         textY += lineHeight;
@@ -292,9 +324,9 @@ public class UI {
         textX = getXForAlignToRightText(value, tailX);
         g2D.drawString(value, textX, textY);
         textY += lineHeight;
-        g2D.drawImage(gp.player.currentWeapon.down1, tailX - gp.tileSize, textY - 14, null);
+        g2D.drawImage(gp.player.currentWeapon.down1, tailX - gp.tileSize, textY - 24, null);
         textY += gp.tileSize;
-        g2D.drawImage(gp.player.currentShield.down1, tailX - gp.tileSize, textY - 14, null);
+        g2D.drawImage(gp.player.currentShield.down1, tailX - gp.tileSize, textY - 24, null);
     }
 
     public void drawInventory() {

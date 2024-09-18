@@ -25,7 +25,11 @@ public class Projectile extends Entity{
                 alive = false;
             }
         } else {
-
+            boolean contactPlayer = gp.collisionChecker.checkPlayer(this);
+            if (!gp.player.invincible && contactPlayer) {
+                damagePlayer(attack);
+                alive = false;
+            }
         }
         switch (direction) {
             case UP -> worldY -= speed;
@@ -48,4 +52,10 @@ public class Projectile extends Entity{
         }
 
     }
+
+    public boolean haveResource(Entity user) {
+        return false;
+    }
+
+    public void subtractResource(Entity user) {}
 }

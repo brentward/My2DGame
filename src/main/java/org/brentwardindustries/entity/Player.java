@@ -4,6 +4,7 @@ import org.brentwardindustries.main.GamePanel;
 import org.brentwardindustries.main.KeyHandler;
 import org.brentwardindustries.object.FireballObject;
 import org.brentwardindustries.object.KeyObject;
+import org.brentwardindustries.object.RockObject;
 import org.brentwardindustries.object.ShieldWoodObject;
 import org.brentwardindustries.object.SwordNormalObject;
 
@@ -54,6 +55,9 @@ public class Player extends Entity{
         level = 1;
         maxLife = 6;
         life = maxLife;
+        maxMagic = 4;
+        magic = maxMagic;
+        ammo = 10;
         strength = 1; // More strength is more damage given
         dexterity = 1; // More dexterity is less damage received
         exp = 0;
@@ -196,9 +200,13 @@ public class Player extends Entity{
             }
         }
 
-        if (gp.keyHandler.shotKeyPressed && !projectile.alive && shotAvailableCounter == 0) {
+        if (gp.keyHandler.shotKeyPressed && !projectile.alive
+                && shotAvailableCounter == 0 && projectile.haveResource(this)) {
             // SET PROJECTILE COORDINATES, DIRECTION, AND USER
             projectile.set(worldX, worldY, direction, true, this);
+
+            // SUBTRACT THE COST (MAGIC, ARROWS, ETC.)
+            projectile.subtractResource(this);
 
             // ADD IT TO THE LIST
             gp.projectileList.add(projectile);
@@ -331,6 +339,8 @@ public class Player extends Entity{
             nextLevelExp = nextLevelExp * 3;
             maxLife += 2;
             life += 2;
+            maxMagic += 1;
+            magic += 1;
             strength++;
             dexterity++;
             attack = getAttack();

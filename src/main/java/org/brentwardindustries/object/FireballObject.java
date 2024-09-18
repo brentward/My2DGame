@@ -1,11 +1,13 @@
 package org.brentwardindustries.object;
 
+import org.brentwardindustries.entity.Entity;
 import org.brentwardindustries.entity.Name;
 import org.brentwardindustries.entity.Projectile;
 import org.brentwardindustries.main.GamePanel;
 
 public class FireballObject extends Projectile {
     GamePanel gp;
+
     public FireballObject(GamePanel gp) {
         super(gp);
         this.gp = gp;
@@ -29,5 +31,13 @@ public class FireballObject extends Projectile {
         left2 = setup("/projectile/fireball_left_2", gp.tileSize, gp.tileSize);
         right1 = setup("/projectile/fireball_right_1", gp.tileSize, gp.tileSize);
         right2 = setup("/projectile/fireball_right_2", gp.tileSize, gp.tileSize);
+    }
+
+    public boolean haveResource(Entity user) {
+        return user.magic >= useCost;
+    }
+
+    public void subtractResource(Entity user) {
+        user.magic -= useCost;
     }
 }

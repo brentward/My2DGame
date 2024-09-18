@@ -224,6 +224,12 @@ public class Player extends Entity{
         if (shotAvailableCounter > 0) {
             shotAvailableCounter--;
         }
+        if (life > maxLife) {
+            life = maxLife;
+        }
+        if (magic > maxMagic) {
+            magic = maxMagic;
+        }
     }
 
     public void attacking() {
@@ -270,16 +276,23 @@ public class Player extends Entity{
 
     public void pickUpObject(int i) {
         if (i != 999) {
-            String text;
-            if (inventory.size() != maxInventorySize) {
-                inventory.add(gp.objects[i]);
-                gp.playSE(1);
-                text = "Picked up a " + gp.objects[i].name.toString() + "!";
+            // PICKUP ONLY ITEMS
+            if (gp.objects[i].type == typePickupOnly) {
+                gp.objects[i].use(this);
+                gp.objects[i] = null;
             } else {
-                text = "You are overburdened!";
+                // INVENTORY ITEMS
+                String text;
+                if (inventory.size() != maxInventorySize) {
+                    inventory.add(gp.objects[i]);
+                    gp.playSE(1);
+                    text = "Picked up a " + gp.objects[i].name.toString() + "!";
+                } else {
+                    text = "You are overburdened!";
+                }
+                gp.ui.addMessage(text);
+                gp.objects[i] = null;
             }
-            gp.ui.addMessage(text);
-            gp.objects[i] = null;
         }
     }
 

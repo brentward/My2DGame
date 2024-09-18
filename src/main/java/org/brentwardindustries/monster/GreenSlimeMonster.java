@@ -4,6 +4,9 @@ import org.brentwardindustries.entity.Direction;
 import org.brentwardindustries.entity.Entity;
 import org.brentwardindustries.entity.Name;
 import org.brentwardindustries.main.GamePanel;
+import org.brentwardindustries.object.CoinBronzeObject;
+import org.brentwardindustries.object.HeartObject;
+import org.brentwardindustries.object.MagicCrystalObject;
 import org.brentwardindustries.object.RockObject;
 
 import java.util.Random;
@@ -77,5 +80,18 @@ public class GreenSlimeMonster extends Entity {
     public void damageReaction() {
         actionLockCounter = 0;
         direction = gp.player.direction;
+    }
+
+    public void checkDrop() {
+        int i = new Random().nextInt(100) + 1;
+        if (i < 50) {
+            dropItem(new CoinBronzeObject(gp));
+        }
+        if (i >= 50 && i < 75) {
+            dropItem(new HeartObject(gp));
+        }
+        if (i >= 75 && i < 100) {
+            dropItem(new MagicCrystalObject(gp));
+        }
     }
 }

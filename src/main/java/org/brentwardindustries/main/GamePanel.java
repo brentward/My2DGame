@@ -27,8 +27,6 @@ public class GamePanel extends JPanel implements Runnable {
     // WORLD SETTINGS
     public final int maxWorldCol = 50;
     public final int maxWorldRow = 50;
-//    public final int worldWidth = tileSize * maxWorldCol;
-//    public final int worldHeight = tileSize * maxWorldRow;
 
     // FPS
     int FPS = 60;
@@ -47,7 +45,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     // ENTITY AND OBJECTS
     public Player player  = new Player(this, keyHandler);
-    public Entity[] objects = new Entity[10];
+    public Entity[] objects = new Entity[20];
     public Entity[] npcs = new Entity[10];
     public Entity[] monsters = new Entity[20];
     public ArrayList<Entity> projectileList = new ArrayList<>();
@@ -131,6 +129,7 @@ public class GamePanel extends JPanel implements Runnable {
                         monsters[i].update();
                     }
                     if (!monsters[i].alive) {
+                        monsters[i].checkDrop();
                         monsters[i] = null;
                     }
                 }

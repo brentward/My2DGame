@@ -14,7 +14,8 @@ public enum Name {
     RED_POTION("Red Potion"),
     FIREBALL("Fireball"),
     ROCK("Rock"),
-    MAGIC_CRYSTAL("Magic Crystal");
+    MAGIC_CRYSTAL("Magic Crystal"),
+    BRONZE_COIN("Bronze Coin");
 
     private final String friendlyName;
 

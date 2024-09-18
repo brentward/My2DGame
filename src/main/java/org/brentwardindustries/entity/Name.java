@@ -8,7 +8,10 @@ public enum Name {
     KEY("Key"),
     GREEN_SLIME("Green Slime"),
     NORMAL_SWORD("Normal Sword"),
-    WOOD_SHIELD("Wood Shield");
+    WOOD_SHIELD("Wood Shield"),
+    WOODCUTTERS_AXE("Woodcutter's Axe"),
+    BLUE_SHIELD("Blue Shield"),
+    RED_POTION("Red Potion");
 
     private final String friendlyName;
 

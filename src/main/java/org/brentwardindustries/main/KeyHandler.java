@@ -102,6 +102,9 @@ public class KeyHandler implements KeyListener {
         if (code == KeyEvent.VK_F) {
             shotKeyPressed = true;
         }
+        if (code == KeyEvent.VK_ESCAPE) {
+            System.exit(0);
+        }
 
         // DEBUG
         if (code == KeyEvent.VK_T) {

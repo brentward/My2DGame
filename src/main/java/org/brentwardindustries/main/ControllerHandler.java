@@ -12,7 +12,7 @@ public class ControllerHandler {
     GamePanel gp;
     boolean controllerConnected = false;
     boolean xReleased, yReleased;
-    public boolean l,r;
+    public boolean l,r, l3, r3;
     Controller controller;
 
     public ControllerHandler(GamePanel gp) {
@@ -89,8 +89,10 @@ public class ControllerHandler {
                         }
                     }
                     case "8" -> {
+                        l3 = (value == 1f);
                     } // L3
                     case "9" -> {
+                        r3 = (value == 1f);
                     } // R3
                     case "pov" -> {
                         if (value == 0.0F) { // NONE
@@ -204,6 +206,11 @@ public class ControllerHandler {
                     } // RX
                     case "z" -> {
                     } // L2 and R2
+                }
+                if (l3 && r3) {
+                    gp.keyHandler.inputPressed(KeyEvent.VK_ESCAPE);
+                    l3 = false;
+                    r3 = false;
                 }
                 if (l && r) {
                     gp.keyHandler.inputPressed(KeyEvent.VK_L);

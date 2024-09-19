@@ -4,10 +4,7 @@ import org.brentwardindustries.main.GamePanel;
 import org.brentwardindustries.main.KeyHandler;
 import org.brentwardindustries.object.AxeObject;
 import org.brentwardindustries.object.FireballObject;
-import org.brentwardindustries.object.KeyObject;
-import org.brentwardindustries.object.RockObject;
 import org.brentwardindustries.object.ShieldWoodObject;
-import org.brentwardindustries.object.SwordNormalObject;
 
 import java.awt.AlphaComposite;
 import java.awt.Color;
@@ -355,7 +352,7 @@ public class Player extends Entity{
     }
 
     public void damageInteractiveTile(int i) {
-        if (i != 999 && gp.interactiveTiles[i].destructable
+        if (i != 999 && gp.interactiveTiles[i].destructible
                 && gp.interactiveTiles[i].isCorrectItem(this)
                 && !gp.interactiveTiles[i].invincible) {
             gp.interactiveTiles[i].playSE();

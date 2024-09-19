@@ -8,7 +8,7 @@ public class SwordNormalObject extends Entity {
     public SwordNormalObject(GamePanel gp) {
         super(gp);
 
-        type = typeWeapon;
+        type = typeSword;
         name = Name.NORMAL_SWORD;
         down1 = setup("/objects/sword_normal", gp.tileSize, gp.tileSize);
         attackValue = 1;

@@ -76,10 +76,11 @@ public class Entity {
     public final int typePlayer = 0;
     public final int typeNpc = 1;
     public final int typeMonster = 2;
-    public final int typeWeapon = 3;
-    public final int typeShield = 4;
-    public final int typeConsumable = 5;
-    public final int typePickupOnly = 6;
+    public final int typeSword = 3;
+    public final int typeAxe = 5;
+    public final int typeShield = 5;
+    public final int typeConsumable = 6;
+    public final int typePickupOnly = 7;
 
     public Entity(GamePanel gp) {
         this.gp = gp;
@@ -127,6 +128,7 @@ public class Entity {
         gp.collisionChecker.checkObject(this, false);
         gp.collisionChecker.checkEntity(this, gp.npcs);
         gp.collisionChecker.checkEntity(this, gp.monsters);
+        gp.collisionChecker.checkEntity(this, gp.interactiveTiles);
         boolean contactPlayer = gp.collisionChecker.checkPlayer(this);
 
         if (this.type == typeMonster && contactPlayer) {

@@ -2,6 +2,7 @@ package org.brentwardindustries.entity;
 
 import org.brentwardindustries.main.GamePanel;
 import org.brentwardindustries.main.KeyHandler;
+import org.brentwardindustries.object.AxeObject;
 import org.brentwardindustries.object.FireballObject;
 import org.brentwardindustries.object.KeyObject;
 import org.brentwardindustries.object.RockObject;
@@ -63,7 +64,8 @@ public class Player extends Entity{
         exp = 0;
         nextLevelExp = 5;
         coin = 0;
-        currentWeapon = new SwordNormalObject(gp);
+//        currentWeapon = new SwordNormalObject(gp);
+        currentWeapon = new AxeObject(gp);
         currentShield = new ShieldWoodObject(gp);
         projectile = new FireballObject(gp);
         attack = getAttack();
@@ -159,6 +161,9 @@ public class Player extends Entity{
             // CHECK MONSTER COLLISION
             int monsterIndex = gp.collisionChecker.checkEntity(this, gp.monsters);
             contactMonster(monsterIndex);
+
+            // CHECK INTERACTIVE TILE COLLISION
+            int interactiveTileIndex = gp.collisionChecker.checkEntity(this, gp.interactiveTiles);
 
             // CHECK EVENT
             gp.eventHandler.checkEvent();
@@ -261,6 +266,9 @@ public class Player extends Entity{
             int monsterIndex = gp.collisionChecker.checkEntity(this, gp.monsters);
             damageMonster(monsterIndex, attack);
 
+            int interactiveTileIndex = gp.collisionChecker.checkEntity(this, gp.interactiveTiles);
+            damageInteractiveTile(interactiveTileIndex);
+
             // After checking hit collision, restore the original data
             worldX = currentWorldX;
             worldY = currentWorldY;
@@ -346,6 +354,19 @@ public class Player extends Entity{
         }
     }
 
+    public void damageInteractiveTile(int i) {
+        if (i != 999 && gp.interactiveTiles[i].destructable
+                && gp.interactiveTiles[i].isCorrectItem(this)
+                && !gp.interactiveTiles[i].invincible) {
+            gp.interactiveTiles[i].playSE();
+            gp.interactiveTiles[i].life--;
+            gp.interactiveTiles[i].invincible = true;
+            if (gp.interactiveTiles[i].life == 0) {
+                gp.interactiveTiles[i] = gp.interactiveTiles[i].getDestroyedForm();
+            }
+        }
+    }
+
     public void checkLevelUp() {
         if (exp >= nextLevelExp) {
             level++;
@@ -372,7 +393,7 @@ public class Player extends Entity{
 
         if (itemIndex < inventory.size()) {
             Entity selectedItem = inventory.get(itemIndex);
-            if (selectedItem.type == typeWeapon) {
+            if (selectedItem.type == typeSword || selectedItem.type == typeAxe) {
                 currentWeapon = selectedItem;
                 attack = getAttack();
                 getPlayerAttackImage();

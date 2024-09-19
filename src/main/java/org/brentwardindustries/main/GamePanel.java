@@ -3,6 +3,7 @@ package org.brentwardindustries.main;
 import org.brentwardindustries.entity.Entity;
 import org.brentwardindustries.entity.Player;
 import org.brentwardindustries.tile.TileManager;
+import org.brentwardindustries.tileinteractive.InteractiveTile;
 
 import javax.swing.JPanel;
 import java.awt.Color;
@@ -48,6 +49,7 @@ public class GamePanel extends JPanel implements Runnable {
     public Entity[] objects = new Entity[20];
     public Entity[] npcs = new Entity[10];
     public Entity[] monsters = new Entity[20];
+    public InteractiveTile[] interactiveTiles = new InteractiveTile[50];
     public ArrayList<Entity> projectileList = new ArrayList<>();
     ArrayList<Entity> entityList = new ArrayList<>();
 
@@ -72,6 +74,7 @@ public class GamePanel extends JPanel implements Runnable {
         assetSetter.setObjects();
         assetSetter.setNpcs();
         assetSetter.setMonsters();
+        assetSetter.setInteractiveTiles();
 //        playMusic(0);
         gameState = titleState;
     }
@@ -145,6 +148,11 @@ public class GamePanel extends JPanel implements Runnable {
                     }
                 }
             }
+            for (InteractiveTile interactiveTile : interactiveTiles) {
+                if (interactiveTile != null) {
+                    interactiveTile.update();
+                }
+            }
         }
         if (gameState == pauseState) {
             // nothing
@@ -173,6 +181,12 @@ public class GamePanel extends JPanel implements Runnable {
 
             // TILE
             tileManager.draw(g2D);
+
+            for (InteractiveTile interactiveTile : interactiveTiles) {
+                if (interactiveTile != null) {
+                    interactiveTile.draw(g2D);
+                }
+            }
 
             entityList.add(player);
             for (Entity npc : npcs) {

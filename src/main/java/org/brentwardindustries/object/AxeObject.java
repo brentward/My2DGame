@@ -8,13 +8,12 @@ public class AxeObject extends Entity {
     public AxeObject(GamePanel gp) {
         super(gp);
 
-        type = typeWeapon;
+        type = typeAxe;
         name = Name.WOODCUTTERS_AXE;
         down1 = setup("/objects/axe", gp.tileSize, gp.tileSize);
         attackValue = 2;
         attackArea.width = 30;
         attackArea.height = 30;
         description = "[" + name.toString() + "]\nA bit rusty but can still\nfell foul beasts.";
-
     }
 }

@@ -9,6 +9,8 @@ import org.brentwardindustries.object.KeyObject;
 import org.brentwardindustries.object.MagicCrystalObject;
 import org.brentwardindustries.object.PotionRedObject;
 import org.brentwardindustries.object.ShieldBlueObject;
+import org.brentwardindustries.tileinteractive.InteractiveDryTree;
+import org.brentwardindustries.tileinteractive.InteractiveTile;
 
 public class AssetSetter {
     GamePanel gp;
@@ -82,4 +84,40 @@ public class AssetSetter {
         gp.monsters[i].worldX = gp.tileSize * 38;
         gp.monsters[i].worldY = gp.tileSize * 42;
     }
-}
+
+    public void setInteractiveTiles() {
+        int i = 0;
+        gp.interactiveTiles[i] = new InteractiveDryTree(gp, 27, 12);
+        i++;
+        gp.interactiveTiles[i] = new InteractiveDryTree(gp, 28, 12);
+        i++;
+        gp.interactiveTiles[i] = new InteractiveDryTree(gp, 29, 12);
+        i++;
+        gp.interactiveTiles[i] = new InteractiveDryTree(gp, 30, 12);
+        i++;
+        gp.interactiveTiles[i] = new InteractiveDryTree(gp, 31, 12);
+        i++;
+        gp.interactiveTiles[i] = new InteractiveDryTree(gp, 32, 12);
+        i++;
+        gp.interactiveTiles[i] = new InteractiveDryTree(gp, 33, 12);
+        i++;
+        gp.interactiveTiles[i] = new InteractiveDryTree(gp, 30, 20);
+        i++;
+        gp.interactiveTiles[i] = new InteractiveDryTree(gp, 30, 21);
+        i++;
+        gp.interactiveTiles[i] = new InteractiveDryTree(gp, 30, 22);
+        i++;
+        gp.interactiveTiles[i] = new InteractiveDryTree(gp, 20, 20);
+        i++;
+        gp.interactiveTiles[i] = new InteractiveDryTree(gp, 20, 21);
+        i++;
+        gp.interactiveTiles[i] = new InteractiveDryTree(gp, 20, 22);
+        i++;
+        gp.interactiveTiles[i] = new InteractiveDryTree(gp, 22, 24);
+        i++;
+        gp.interactiveTiles[i] = new InteractiveDryTree(gp, 23, 24);
+        i++;
+        gp.interactiveTiles[i] = new InteractiveDryTree(gp, 24, 24);
+        i++;
+    }
+ }

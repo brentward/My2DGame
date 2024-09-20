@@ -8,7 +8,7 @@ import java.net.URL;
 public class Sound {
     Clip clip;
     URL[] soundURL = new URL[30];
-    public int soundIndex = 29;
+    public int soundIndex = -1;
 
     public Sound() {
         soundURL[0] = getClass().getResource("/sound/BlueBoyAdventure.wav");
@@ -38,20 +38,25 @@ public class Sound {
     }
 
     public void play() {
-        if (clip != null) {
+        if (soundIndex >= 0) {
             clip.start();
         }
     }
 
     public void playLoop() {
-        if (clip != null) {
+        if (soundIndex >= 0) {
             clip.loop(Clip.LOOP_CONTINUOUSLY);
         }
     }
 
     public void stop() {
-        if (clip != null) {
+        if (soundIndex >= 0) {
             clip.stop();
         }
+    }
+
+    public void end() {
+        stop();
+        soundIndex = -1;
     }
 }

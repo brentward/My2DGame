@@ -4,7 +4,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class KeyHandler implements KeyListener {
-    public boolean upPressed, downPressed, leftPressed, rightPressed, enterPressed, shotKeyPressed;
+    public boolean upPressed, downPressed, leftPressed, rightPressed, enterPressed, shotKeyPressed,
+            musicKey1Pressed, musicKey2Pressed;
     public GamePanel gp;
 
     // DEBUG
@@ -91,13 +92,10 @@ public class KeyHandler implements KeyListener {
             enterPressed = true;
         }
         if (code == KeyEvent.VK_L) {
-            if (gp.music.soundIndex == 0) {
-                gp.stopMusic();
-                gp.playMusic(29);
-            } else {
-                gp.stopMusic();
-                gp.playMusic(0);
-            }
+            musicKey1Pressed = true;
+        }
+        if (code == KeyEvent.VK_F6) {
+            musicKey2Pressed = true;
         }
         if (code == KeyEvent.VK_F) {
             shotKeyPressed = true;
@@ -118,6 +116,20 @@ public class KeyHandler implements KeyListener {
         // SHOW HIT BOX
         if (code == KeyEvent.VK_F7) {
             showHitBox = !showHitBox;
+        }
+
+        if (musicKey1Pressed && musicKey2Pressed) {
+            if (gp.music.soundIndex == -1) {
+                gp.stopMusic();
+                gp.playMusic(0);
+            } else if (gp.music.soundIndex == 0) {
+                gp.stopMusic();
+                gp.playMusic(29);
+            } else if (gp.music.soundIndex == 29) {
+                gp.endMusic();
+            }
+            musicKey1Pressed = false;
+            musicKey2Pressed = false;
         }
     }
 
@@ -198,6 +210,12 @@ public class KeyHandler implements KeyListener {
         }
         if (code == KeyEvent.VK_F) {
             shotKeyPressed = false;
+        }
+        if (code == KeyEvent.VK_L) {
+            musicKey1Pressed = false;
+        }
+        if (code == KeyEvent.VK_F6) {
+            musicKey2Pressed = false;
         }
     }
 }

@@ -5,6 +5,8 @@ import org.brentwardindustries.entity.Name;
 import org.brentwardindustries.entity.Projectile;
 import org.brentwardindustries.main.GamePanel;
 
+import java.awt.Color;
+
 public class FireballObject extends Projectile {
     GamePanel gp;
 
@@ -39,5 +41,21 @@ public class FireballObject extends Projectile {
 
     public void subtractResource(Entity user) {
         user.magic -= useCost;
+    }
+
+    public Color getParticleColor() {
+        return new Color(240, 50, 0);
+    }
+
+    public int getParticleSize() {
+        return 10;
+    }
+
+    public int getParticleSpeed() {
+        return 1;
+    }
+
+    public int getParticleMaxLife() {
+        return 20;
     }
 }

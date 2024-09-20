@@ -78,9 +78,9 @@ public class Entity {
     public final int typeMonster = 2;
     public final int typeSword = 3;
     public final int typeAxe = 5;
-    public final int typeShield = 5;
-    public final int typeConsumable = 6;
-    public final int typePickupOnly = 7;
+    public final int typeShield = 6;
+    public final int typeConsumable = 7;
+    public final int typePickupOnly = 8;
 
     public Entity(GamePanel gp) {
         this.gp = gp;
@@ -118,6 +118,38 @@ public class Entity {
                 break;
             }
         }
+    }
+
+    public Color getParticleColor() {
+        return null;
+    }
+
+    public int getParticleSize() {
+        return 0;
+    }
+
+    public int getParticleSpeed() {
+        return 0;
+    }
+
+    public int getParticleMaxLife() {
+        return 0;
+    }
+
+    public void generateParticle(Entity generator, Entity target) {
+        Color color = generator.getParticleColor();
+        int size = generator.getParticleSize();
+        int speed = generator.getParticleSpeed();
+        int maxLife = generator.getParticleMaxLife();
+
+        Particle particle1 = new Particle(gp, generator, color, size, speed, maxLife, -2, -1);
+        Particle particle2 = new Particle(gp, generator, color, size, speed, maxLife, 2, -1);
+        Particle particle3 = new Particle(gp, generator, color, size, speed, maxLife, -2, 1);
+        Particle particle4 = new Particle(gp, generator, color, size, speed, maxLife, 2, 1);
+        gp.particleList.add(particle1);
+        gp.particleList.add(particle2);
+        gp.particleList.add(particle3);
+        gp.particleList.add(particle4);
     }
 
     public void update() {

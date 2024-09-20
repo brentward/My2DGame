@@ -5,6 +5,7 @@ import org.brentwardindustries.main.KeyHandler;
 import org.brentwardindustries.object.AxeObject;
 import org.brentwardindustries.object.FireballObject;
 import org.brentwardindustries.object.ShieldWoodObject;
+import org.brentwardindustries.object.SwordNormalObject;
 
 import java.awt.AlphaComposite;
 import java.awt.Color;
@@ -358,6 +359,10 @@ public class Player extends Entity{
             gp.interactiveTiles[i].playSE();
             gp.interactiveTiles[i].life--;
             gp.interactiveTiles[i].invincible = true;
+
+            // GENERATE PARTICLE
+            generateParticle(gp.interactiveTiles[i], gp.interactiveTiles[i]);
+
             if (gp.interactiveTiles[i].life == 0) {
                 gp.interactiveTiles[i] = gp.interactiveTiles[i].getDestroyedForm();
             }

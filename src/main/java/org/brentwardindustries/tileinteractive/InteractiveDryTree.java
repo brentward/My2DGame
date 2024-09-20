@@ -3,6 +3,10 @@ package org.brentwardindustries.tileinteractive;
 import org.brentwardindustries.entity.Entity;
 import org.brentwardindustries.main.GamePanel;
 
+import java.awt.Color;
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+
 public class InteractiveDryTree extends InteractiveTile{
     GamePanel gp;
 
@@ -26,5 +30,34 @@ public class InteractiveDryTree extends InteractiveTile{
 
     public InteractiveTile getDestroyedForm() {
         return new InteractiveTrunk(gp, worldX / gp.tileSize, worldY / gp.tileSize);
+    }
+
+    public Color getParticleColor() {
+        return new Color(65, 50, 30);
+    }
+
+    public int getParticleSize() {
+        return 6;
+    }
+
+    public int getParticleSpeed() {
+        return 1;
+    }
+
+    public int getParticleMaxLife() {
+        return 20;
+    }
+    public void draw(Graphics2D g2D) {
+        int screenX = worldX - gp.player.worldX + gp.player.screenX;
+        int screenY = worldY - gp.player.worldY + gp.player.screenY;
+
+        if (worldX > gp.player.worldX - gp.player.screenX - gp.tileSize
+                && worldX < gp.player.worldX + gp.player.screenX + gp.tileSize
+                && worldY > gp.player.worldY - gp.player.screenY - gp.tileSize
+                && worldY < gp.player.worldY + gp.player.screenY+ gp.tileSize) {
+
+
+            g2D.drawImage(down1, screenX, screenY, null);
+        }
     }
 }

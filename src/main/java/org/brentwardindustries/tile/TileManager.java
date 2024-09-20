@@ -22,7 +22,7 @@ public class TileManager {
         mapTileNum = new int[gp.maxWorldCol][gp.maxWorldRow];
 
         getTileImage();
-        loadMap("/maps/worldV2.txt");
+        loadMap("/maps/worldV3.txt");
     }
 
     public void getTileImage() {
@@ -70,6 +70,7 @@ public class TileManager {
         setup(39, "earth", false);
         setup(40, "wall", true);
         setup(41, "tree", true);
+        setup(42, "hut", true);
     }
 
     public void setup(int index, String imageName, boolean collision) {

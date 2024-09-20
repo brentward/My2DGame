@@ -62,8 +62,8 @@ public class Player extends Entity{
         exp = 0;
         nextLevelExp = 5;
         coin = 0;
-//        currentWeapon = new SwordNormalObject(gp);
-        currentWeapon = new AxeObject(gp);
+        currentWeapon = new SwordNormalObject(gp);
+//        currentWeapon = new AxeObject(gp);
         currentShield = new ShieldWoodObject(gp);
         projectile = new FireballObject(gp);
         attack = getAttack();

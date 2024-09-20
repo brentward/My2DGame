@@ -3,12 +3,16 @@ package org.brentwardindustries.main;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
+import javax.sound.sampled.FloatControl;
 import java.net.URL;
 
 public class Sound {
     Clip clip;
     URL[] soundURL = new URL[30];
     public int soundIndex = -1;
+    FloatControl floatControl;
+    int volumeScale = 3;
+    float volume;
 
     public Sound() {
         soundURL[0] = getClass().getResource("/sound/BlueBoyAdventure.wav");
@@ -31,6 +35,8 @@ public class Sound {
             AudioInputStream ais = AudioSystem.getAudioInputStream(soundURL[i]);
             clip = AudioSystem.getClip();
             clip.open(ais);
+            floatControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+            checkVolue();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -58,5 +64,17 @@ public class Sound {
     public void end() {
         stop();
         soundIndex = -1;
+    }
+
+    public void checkVolue() {
+        switch (volumeScale) {
+            case 0 -> volume = -80f;
+            case 1 -> volume = -20f;
+            case 2 -> volume = -12f;
+            case 3 -> volume = -5f;
+            case 4 -> volume = 1f;
+            case 5 -> volume = 6f;
+        }
+        floatControl.setValue(volume);
     }
 }

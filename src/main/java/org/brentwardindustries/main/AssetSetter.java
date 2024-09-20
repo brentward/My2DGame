@@ -35,7 +35,7 @@ public class AssetSetter {
         i++;
         gp.objects[i] = new AxeObject(gp);
         gp.objects[i].worldX = gp.tileSize * 33;
-        gp.objects[i].worldY = gp.tileSize * 21;
+        gp.objects[i].worldY = gp.tileSize * 7;
         i++;
         gp.objects[i] = new ShieldBlueObject(gp);
         gp.objects[i].worldX = gp.tileSize * 35;
@@ -101,23 +101,23 @@ public class AssetSetter {
         i++;
         gp.interactiveTiles[i] = new InteractiveDryTree(gp, 33, 12);
         i++;
-//        gp.interactiveTiles[i] = new InteractiveDryTree(gp, 30, 20);
-//        i++;
+        gp.interactiveTiles[i] = new InteractiveDryTree(gp, 31, 21);
+        i++;
 //        gp.interactiveTiles[i] = new InteractiveDryTree(gp, 30, 21);
 //        i++;
 //        gp.interactiveTiles[i] = new InteractiveDryTree(gp, 30, 22);
 //        i++;
-        gp.interactiveTiles[i] = new InteractiveDryTree(gp, 20, 20);
-        i++;
-        gp.interactiveTiles[i] = new InteractiveDryTree(gp, 20, 21);
-        i++;
-        gp.interactiveTiles[i] = new InteractiveDryTree(gp, 20, 22);
-        i++;
-        gp.interactiveTiles[i] = new InteractiveDryTree(gp, 22, 24);
-        i++;
-        gp.interactiveTiles[i] = new InteractiveDryTree(gp, 23, 24);
-        i++;
-        gp.interactiveTiles[i] = new InteractiveDryTree(gp, 24, 24);
-        i++;
+//        gp.interactiveTiles[i] = new InteractiveDryTree(gp, 20, 20);
+//        i++;
+//        gp.interactiveTiles[i] = new InteractiveDryTree(gp, 20, 21);
+//        i++;
+//        gp.interactiveTiles[i] = new InteractiveDryTree(gp, 20, 22);
+//        i++;
+//        gp.interactiveTiles[i] = new InteractiveDryTree(gp, 22, 24);
+//        i++;
+//        gp.interactiveTiles[i] = new InteractiveDryTree(gp, 23, 24);
+//        i++;
+//        gp.interactiveTiles[i] = new InteractiveDryTree(gp, 24, 24);
+//        i++;
     }
  }

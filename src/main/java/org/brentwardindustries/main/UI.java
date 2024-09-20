@@ -508,6 +508,8 @@ public class UI {
         g2D.drawRect(textX, textY, 120, 24);
         volumeWidth = 24 * gp.se.volumeScale;
         g2D.fillRect(textX, textY, volumeWidth, 24);
+
+        gp.config.saveConfig();
     }
 
     public void optionsFullScreenNotification(int frameX, int frameY) {

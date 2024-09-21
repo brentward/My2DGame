@@ -6,14 +6,10 @@ import org.brentwardindustries.tile.TileManager;
 import org.brentwardindustries.tileinteractive.InteractiveTile;
 
 import javax.swing.JPanel;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.GraphicsDevice;
-import java.awt.GraphicsEnvironment;
+import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Comparator;
 
@@ -42,6 +38,7 @@ public class GamePanel extends JPanel implements Runnable {
     int FPS = 60;
 
     // SYSTEM
+    String os = System.getProperty("os.name");
     TileManager tileManager = new TileManager(this);
     public KeyHandler keyHandler = new KeyHandler(this);
     ControllerHandler controllerHandler = new ControllerHandler(this);
@@ -90,7 +87,7 @@ public class GamePanel extends JPanel implements Runnable {
 //        playMusic(0);
         gameState = titleState;
 
-        tempScreen = new BufferedImage(screenWidth, screenHeight, BufferedImage.TYPE_INT_ARGB);
+        tempScreen = new BufferedImage(screenWidth, screenHeight, BufferedImage.TYPE_INT_ARGB_PRE);
         g2D = (Graphics2D) tempScreen.getGraphics();
 
         if (fullScreenOn) {
@@ -102,12 +99,42 @@ public class GamePanel extends JPanel implements Runnable {
         // GET LOCAL SCREEN DEVICE
         GraphicsEnvironment graphicsEnvironment = GraphicsEnvironment.getLocalGraphicsEnvironment();
         GraphicsDevice graphicsDevice = graphicsEnvironment.getDefaultScreenDevice();
+        if (os.equals("Mac OS X")) {
+            enableOSXFullscreen(Main.window);
+            requestOSXFullscreen(Main.window);
+        }
         graphicsDevice.setFullScreenWindow(Main.window);
-
 
         // GET FULL SCREEN WIDTH AND HEIGHT
         screenWidth2 = Main.window.getWidth();
         screenHeight2 = Main.window.getHeight();
+    }
+
+    public static void enableOSXFullscreen(Window window) {
+        try {
+            Class util = Class.forName("com.apple.eawt.FullScreenUtilities");
+            Class params[] = new Class[]{Window.class, Boolean.TYPE};
+            Method method = util.getMethod("setWindowCanFullScreen", params);
+            method.invoke(util, window, true);
+        } catch (NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException |
+                 InvocationTargetException | ClassNotFoundException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public static void requestOSXFullscreen(Window window) {
+        try {
+            Class appClass = Class.forName("com.apple.eawt.Application");
+            Class params[] = new Class[]{};
+
+            Method getApplication = appClass.getMethod("getApplication", params);
+            Object application = getApplication.invoke(appClass);
+            Method requestToggleFulLScreen = application.getClass().getMethod("requestToggleFullScreen", Window.class);
+
+            requestToggleFulLScreen.invoke(application, window);
+        } catch (ClassNotFoundException | NoSuchMethodException | SecurityException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex) {
+            ex.printStackTrace();
+        }
     }
 
     public void startGameThread() {

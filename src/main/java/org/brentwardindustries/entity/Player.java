@@ -39,9 +39,6 @@ public class Player extends Entity{
         solidArea.height = 32;
 
         setDefaultValues();
-        getPlayerImage();
-        getPlayerAttackImage();
-        setItems();
     }
 
     public void setDefaultValues() {
@@ -55,6 +52,7 @@ public class Player extends Entity{
         maxLife = 6;
         life = maxLife;
         maxMagic = 4;
+        invincible = false;
         magic = maxMagic;
         ammo = 10;
         strength = 1; // More strength is more damage given
@@ -68,9 +66,25 @@ public class Player extends Entity{
         projectile = new FireballObject(gp);
         attack = getAttack();
         defense = getDefense();
+        getPlayerImage();
+        getPlayerAttackImage();
+        setItems();
+    }
+
+    public void setDefaultPositions() {
+        worldX = gp.tileSize * 23;
+        worldY = gp.tileSize * 21;
+        direction = Direction.DOWN;
+    }
+
+    public void restoreLifeAndMagic() {
+        life = maxLife;
+        magic = maxMagic;
+        invincible = false;
     }
 
     public void setItems() {
+        inventory.clear();
         inventory.add(currentWeapon);
         inventory.add(currentShield);
     }
@@ -232,6 +246,12 @@ public class Player extends Entity{
         }
         if (magic > maxMagic) {
             magic = maxMagic;
+        }
+        if (life <= 0) {
+            gp.gameState = gp.gameOverState;
+            gp.ui.commandNum = -1;
+            gp.stopMusic();
+            gp.playSE(12);
         }
     }
 

@@ -86,6 +86,9 @@ public class UI {
         if (gp.gameState == gp.optionsState) {
             drawOptionsScreen();
         }
+        if (gp.gameState == gp.gameOverState) {
+            drawGameOverScreen();
+        }
     }
 
     public void drawPlayerLife() {
@@ -395,6 +398,54 @@ public class UI {
                 textY += 32;
             }
         }
+    }
+
+    public void drawGameOverScreen() {
+        g2D.setColor(new Color(0, 0 , 0, 150));
+        g2D.fillRect(0, 0, gp.screenWidth, gp.screenHeight);
+
+        int x;
+        int y;
+        String text;
+        g2D.setFont(g2D.getFont().deriveFont(Font.BOLD, 110f));
+
+        text = "Game Over";
+        // SHADOW
+        g2D.setColor(Color.BLACK);
+        x = getXForCenteredText(text);
+        y = gp.tileSize * 5;
+        g2D.drawString(text, x, y);
+        // MAIN
+        g2D.setColor(Color.WHITE);
+        g2D.drawString(text, x - 4, y - 4);
+
+        // RETRY
+        g2D.setFont(g2D.getFont().deriveFont(50f));
+        text = "Retry";
+        x = getXForCenteredText(text);
+        y += gp.tileSize * 4;
+        g2D.drawString(text, x, y);
+        if (commandNum == 0) {
+            g2D.drawString(">", x - 25, y);
+            if (gp.keyHandler.enterPressed) {
+                gp.fullScreenOn = !gp.fullScreenOn;
+                subState = 1;
+            }
+        }
+
+        // BACK
+        text = "Quit";
+        x = getXForCenteredText(text);
+        y += 55;
+        g2D.drawString(text, x, y);
+        if (commandNum == 1) {
+            g2D.drawString(">", x - 25, y);
+            if (gp.keyHandler.enterPressed) {
+                gp.fullScreenOn = !gp.fullScreenOn;
+                subState = 1;
+            }
+        }
+
     }
 
     public void drawOptionsScreen() {

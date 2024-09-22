@@ -22,7 +22,7 @@ public class Projectile extends Entity{
             int monsterIndex = gp.collisionChecker.checkEntity(this, gp.monsters);
             if (monsterIndex != 999) {
                 gp.player.damageMonster(monsterIndex, attack);
-                generateParticle(user.projectile, gp.monsters[monsterIndex]);
+                generateParticle(user.projectile, gp.monsters[gp.currentMap][monsterIndex]);
                 alive = false;
             }
         } else {

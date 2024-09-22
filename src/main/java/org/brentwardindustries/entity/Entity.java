@@ -112,11 +112,11 @@ public class Entity {
     public void checkDrop() {}
 
     public void dropItem(Entity droppedItem) {
-        for (int i = 0; i < gp.objects.length; i++) {
-            if (gp.objects[i] == null) {
-                gp.objects[i] = droppedItem;
-                gp.objects[i].worldX = worldX;
-                gp.objects[i].worldY = worldY;
+        for (int i = 0; i < gp.objects[1].length; i++) {
+            if (gp.objects[gp.currentMap][i] == null) {
+                gp.objects[gp.currentMap][i] = droppedItem;
+                gp.objects[gp.currentMap][i].worldX = worldX;
+                gp.objects[gp.currentMap][i].worldY = worldY;
                 break;
             }
         }

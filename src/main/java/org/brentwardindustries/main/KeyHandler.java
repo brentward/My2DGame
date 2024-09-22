@@ -114,7 +114,10 @@ public class KeyHandler implements KeyListener {
         }
 
         if (code == KeyEvent.VK_R) {
-            gp.tileManager.loadMap("/maps/worldV3.txt");
+            switch (gp.currentMap) {
+                case 0 -> gp.tileManager.loadMap("/maps/worldV3.txt", 0);
+                case 1 -> gp.tileManager.loadMap("/maps/interior01.txt", 1);
+            }
         }
 
         // SHOW HIT BOX

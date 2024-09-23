@@ -22,8 +22,8 @@ public class Player extends Entity{
         super(gp);
         this.keyHandler = keyHandler;
 
-        screenX = gp.screenWidth / 2 - (gp.tileSize / 2);
-        screenY = gp.screenHeight / 2 - (gp.tileSize / 2);
+        screenX = gp.screenWidth / 2 - gp.halfTileSize;
+        screenY = gp.screenHeight / 2 - gp.halfTileSize;
 
         solidArea = new Rectangle();
         solidArea.x = 8;

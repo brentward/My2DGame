@@ -104,8 +104,8 @@ public class UI {
     }
 
     public void drawPlayerLife() {
-        int x = gp.tileSize / 2;
-        int y = gp.tileSize / 2;
+        int x = gp.halfTileSize;
+        int y = gp.halfTileSize;
         int i = 0;
 
         // DRAW MAX LIFE
@@ -116,8 +116,8 @@ public class UI {
         }
 
         // RESET
-        x = gp.tileSize / 2;
-        y = gp.tileSize / 2;
+        x = gp.halfTileSize;
+        y = gp.halfTileSize;
         i = 0;
 
         // DRAW CURRENT LIFE
@@ -132,8 +132,8 @@ public class UI {
         }
 
         // DRAW MAX MAGIC
-        x = (gp.tileSize / 2) - 5;
-        y = gp.tileSize * 3 / 2;
+        x = gp.halfTileSize - 5;
+        y = gp.halfTileSize * 3;
         i = 0;
         while (i < gp.player.maxMagic) {
             g2D.drawImage(crystalBlank, x, y, null);
@@ -142,8 +142,8 @@ public class UI {
         }
 
         // RESET
-        x = (gp.tileSize / 2) - 5;
-        y = gp.tileSize * 3 / 2;
+        x = gp.halfTileSize - 5;
+        y = gp.halfTileSize * 3;
         i = 0;
         while (i < gp.player.magic) {
             g2D.drawImage(crystalFull, x, y, null);
@@ -343,9 +343,9 @@ public class UI {
         textX = getXForAlignToRightText(value, tailX);
         g2D.drawString(value, textX, textY);
         textY += lineHeight;
-        g2D.drawImage(gp.player.currentWeapon.down1, tailX - gp.tileSize, textY - 24, null);
+        g2D.drawImage(gp.player.currentWeapon.down1, tailX - gp.tileSize, textY - gp.halfTileSize, null);
         textY += gp.tileSize;
-        g2D.drawImage(gp.player.currentShield.down1, tailX - gp.tileSize, textY - 24, null);
+        g2D.drawImage(gp.player.currentShield.down1, tailX - gp.tileSize, textY - gp.halfTileSize, null);
     }
 
     public void drawInventory(Entity entity, boolean cursor) {
@@ -571,8 +571,8 @@ public class UI {
         }
 
         // FULL SCREEN CHECK BOX
-        textX = frameX + gp.tileSize * 4 + 24;
-        textY = frameY + gp.tileSize * 2 + 24;
+        textX = frameX + gp.tileSize * 4 + gp.halfTileSize;
+        textY = frameY + gp.tileSize * 2 + gp.halfTileSize;
         g2D.setStroke(new BasicStroke(3));
         g2D.drawRect(textX, textY, 24, 24);
         if (gp.fullScreenOn) {

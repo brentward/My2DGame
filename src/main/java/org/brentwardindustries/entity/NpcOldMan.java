@@ -5,7 +5,6 @@ import org.brentwardindustries.main.GamePanel;
 import java.util.Random;
 
 public class NpcOldMan extends Entity {
-    
     public NpcOldMan(GamePanel gp) {
         super(gp);
         direction = Direction.DOWN;

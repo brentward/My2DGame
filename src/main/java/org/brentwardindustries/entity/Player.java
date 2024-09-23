@@ -2,10 +2,7 @@ package org.brentwardindustries.entity;
 
 import org.brentwardindustries.main.GamePanel;
 import org.brentwardindustries.main.KeyHandler;
-import org.brentwardindustries.object.AxeObject;
-import org.brentwardindustries.object.FireballObject;
-import org.brentwardindustries.object.ShieldWoodObject;
-import org.brentwardindustries.object.SwordNormalObject;
+import org.brentwardindustries.object.*;
 
 import java.awt.AlphaComposite;
 import java.awt.Color;
@@ -20,8 +17,6 @@ public class Player extends Entity{
     public final int screenX;
     public final int screenY;
     public boolean attackCanceled = false;
-    public ArrayList<Entity> inventory = new ArrayList<>();
-    public final int maxInventorySize = 20;
 
     public Player(GamePanel gp, KeyHandler keyHandler) {
         super(gp);
@@ -44,6 +39,7 @@ public class Player extends Entity{
     public void setDefaultValues() {
         worldX = gp.tileSize * 23;
         worldY = gp.tileSize * 21;
+//        gp.currentMap = 1;
 //        worldX = gp.tileSize * 12;
 //        worldY = gp.tileSize * 13;
         speed = 4;
@@ -55,15 +51,16 @@ public class Player extends Entity{
         life = maxLife;
         maxMagic = 4;
         invincible = false;
+        attacking = false;
         magic = maxMagic;
         ammo = 10;
         strength = 1; // More strength is more damage given
         dexterity = 1; // More dexterity is less damage received
         exp = 0;
         nextLevelExp = 5;
-        coin = 0;
-//        currentWeapon = new SwordNormalObject(gp);
-        currentWeapon = new AxeObject(gp);
+        coin = 400;
+        currentWeapon = new SwordNormalObject(gp);
+//        currentWeapon = new AxeObject(gp);
         currentShield = new ShieldWoodObject(gp);
         projectile = new FireballObject(gp);
         attack = getAttack();
@@ -83,12 +80,15 @@ public class Player extends Entity{
         life = maxLife;
         magic = maxMagic;
         invincible = false;
+        attacking = false;
     }
 
     public void setItems() {
         inventory.clear();
         inventory.add(currentWeapon);
         inventory.add(currentShield);
+        inventory.add(new KeyObject(gp));
+        inventory.add(new AxeObject(gp));
     }
 
     public int getAttack() {
@@ -413,7 +413,7 @@ public class Player extends Entity{
     }
 
     public void selectItem() {
-        int itemIndex = gp.ui.getItemIndexInSlot();
+        int itemIndex = gp.ui.getItemIndexInSlot(gp.ui.playerSlotCol, gp.ui.playerSlotRow);
 
         if (itemIndex < inventory.size()) {
             Entity selectedItem = inventory.get(itemIndex);

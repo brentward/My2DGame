@@ -11,5 +11,6 @@ public class KeyObject extends Entity {
         name = Name.KEY;
         down1 = setup("/objects/key", gp.tileSize, gp.tileSize);
         description = "[" + name.toString() + "]\nOpens a door.";
+        price = 100;
     }
 }

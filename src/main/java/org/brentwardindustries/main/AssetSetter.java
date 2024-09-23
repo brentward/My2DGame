@@ -1,5 +1,6 @@
 package org.brentwardindustries.main;
 
+import org.brentwardindustries.entity.NpcMerchant;
 import org.brentwardindustries.entity.NpcOldMan;
 import org.brentwardindustries.monster.GreenSlimeMonster;
 import org.brentwardindustries.object.AxeObject;
@@ -65,7 +66,7 @@ public class AssetSetter {
 
         mapNum = 1;
         i = 0;
-        gp.npcs[mapNum][i] = new NpcOldMan(gp);
+        gp.npcs[mapNum][i] = new NpcMerchant(gp);
         gp.npcs[mapNum][i].worldX = gp.tileSize * 12;
         gp.npcs[mapNum][i].worldY = gp.tileSize * 7;
     }

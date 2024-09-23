@@ -18,6 +18,7 @@ public class HeartObject extends Entity {
         image2 = setup("/objects/heart_half", gp.tileSize, gp.tileSize);
         image3 = setup("/objects/heart_blank", gp.tileSize, gp.tileSize);
         down1 = image;
+        price = 6;
     }
 
     public void use(Entity entity) {

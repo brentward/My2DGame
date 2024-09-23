@@ -10,5 +10,6 @@ public class BootsObject extends Entity {
 
         name = Name.BOOTS;
         down1 = setup("/objects/boots", gp.tileSize, gp.tileSize);
+        price = 25;
     }
 }

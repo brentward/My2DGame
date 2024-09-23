@@ -18,6 +18,7 @@ public class GamePanel extends JPanel implements Runnable {
     final int originalTileSize = 16;
     final int scale = 3;
     public final int tileSize = originalTileSize * scale;
+    public final int halfTileSize = tileSize / 2;
     public final int maxScreenCol = 20;
     public final int maxScreenRow = 12;
     public final int screenWidth = tileSize * maxScreenCol;
@@ -41,6 +42,7 @@ public class GamePanel extends JPanel implements Runnable {
 
     // SYSTEM
     String os = System.getProperty("os.name");
+    public String cursor = ">";
     TileManager tileManager = new TileManager(this);
     public KeyHandler keyHandler = new KeyHandler(this);
     ControllerHandler controllerHandler = new ControllerHandler(this);
@@ -73,6 +75,8 @@ public class GamePanel extends JPanel implements Runnable {
     public final int characterState = 4;
     public final int optionsState = 5;
     public final int gameOverState = 6;
+    public final int transitionState = 7;
+    public final int tradeState = 8;
 
     public GamePanel() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));

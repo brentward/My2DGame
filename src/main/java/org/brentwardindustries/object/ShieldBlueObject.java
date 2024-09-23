@@ -13,5 +13,6 @@ public class ShieldBlueObject extends Entity {
         down1 = setup("/objects/shield_blue", gp.tileSize, gp.tileSize);
         defenseValue = 4;
         description = "[" + name.toString() + "]\nMade of blue.";
+        price = 250;
     }
 }

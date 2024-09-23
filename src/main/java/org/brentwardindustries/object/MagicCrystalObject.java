@@ -17,6 +17,7 @@ public class MagicCrystalObject extends Entity {
         image = setup("/objects/magic_crystal_full", gp.tileSize, gp.tileSize);
         image2 = setup("/objects/magic_crystal_blank", gp.tileSize, gp.tileSize);
         down1 = image;
+        price = 6;
     }
 
     public void use(Entity entity) {

@@ -1,10 +1,12 @@
 package org.brentwardindustries.main;
 
 import org.brentwardindustries.entity.Direction;
+import org.brentwardindustries.entity.Entity;
 
 public class EventHandler {
     GamePanel gp;
     EventRect[][][] eventRect;
+    int tempMap, tempCol, tempRow;
 
     int previousEventX, previousEventY;
     boolean canTouchEvent = true;
@@ -56,9 +58,11 @@ public class EventHandler {
             if (hit(0, 23, 12, Direction.UP)) {
                 healingPool(gp.dialogState);
             } else if (hit(0, 10, 39, Direction.UP)) {
-                teleport(1, 12, 13, gp.dialogState);
-            } else if (hit(1, 12, 13, Direction.DOWN)) {
-                teleport(0, 10, 39, gp.dialogState);
+                teleport(1, 12, 13);
+            } else if (hit(1, 12, 13, Direction.DOWN )) {
+                teleport(0, 10, 39);
+            } else if (hit(1, 12, 9, Direction.UP)) {
+                speak(gp.npcs[1][0]);
             }
         }
     }
@@ -89,16 +93,6 @@ public class EventHandler {
 
     }
 
-    public void teleport(int map, int col, int row, int gameState) {
-        gp.currentMap = map;
-        gp.player.worldX = gp.tileSize * col;
-        gp.player.worldY = gp.tileSize * row;
-        previousEventX = gp.player.worldX;
-        previousEventY = gp.player.worldY;
-        canTouchEvent = false;
-        gp.playSE(13);
-    }
-
     public void damagePit(int gameState) {
         gp.gameState = gameState;
         gp.playSE(6);
@@ -117,6 +111,23 @@ public class EventHandler {
             gp.player.life = gp.player.maxLife;
             gp.player.magic = gp.player.maxMagic;
             gp.assetSetter.setMonsters();
+        }
+    }
+
+    public void teleport(int map, int col, int row) {
+        gp.gameState = gp.transitionState;
+        tempMap = map;
+        tempCol = col;
+        tempRow = row;
+        canTouchEvent = false;
+        gp.playSE(13);
+    }
+
+    public void speak(Entity entity) {
+        if (gp.keyHandler.enterPressed) {
+            gp.gameState = gp.dialogState;
+            gp.player.attackCanceled = true;
+            entity.speak();
         }
     }
 }

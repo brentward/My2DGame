@@ -15,7 +15,6 @@ public class CoinBronzeObject extends Entity {
         name = Name.BRONZE_COIN;
         value = 1;
         down1 = setup("/objects/coin_bronze", gp.tileSize, gp.tileSize);
-
     }
 
     public void use(Entity entity) {

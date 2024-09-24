@@ -16,5 +16,6 @@ public class AxeObject extends Entity {
         attackArea.height = 30;
         description = "[" + name.toString() + "]\nA bit rusty but can still\nfell foul beasts.";
         price = 75;
+        knockBackPower = 10;
     }
 }

@@ -16,5 +16,6 @@ public class SwordNormalObject extends Entity {
         attackArea.height = 36;
         description = "[" + name.toString() + "]\nAn old sword.";
         price = 20;
+        knockBackPower = 2;
     }
 }

@@ -20,7 +20,8 @@ public class GreenSlimeMonster extends Entity {
 
         type = typeMonster;
         name = Name.GREEN_SLIME;
-        speed = 1;
+        defaultSpeed = 1;
+        speed = defaultSpeed;
         maxLife = 4;
         life = maxLife;
         attack = 5;
@@ -63,9 +64,9 @@ public class GreenSlimeMonster extends Entity {
             }
         }
 
-        if (onPath && tileDistance > 20) {
-            onPath = false;
-        }
+//        if (onPath && tileDistance > 20) {
+//            onPath = false;
+//        }
     }
     public void setAction() {
         if (onPath) {
@@ -73,13 +74,17 @@ public class GreenSlimeMonster extends Entity {
             int goalRow = (gp.player.worldY + gp.player.solidArea.y) / gp.tileSize;
             searchPath(goalCol, goalRow);
 
-            int i = new Random().nextInt(200) + 1;
-            if (i > 197 && !projectile.alive && shotAvailableCounter == 30) {
+            int die = new Random().nextInt(200) + 1;
+            if (die > 197 && !projectile.alive && shotAvailableCounter == 30) {
                 projectile.set(worldX, worldY, direction, true, this);
-                gp.projectileList.add(projectile);
+                for (int i = 0; i < gp.projectiles[1].length; i++) {
+                    if (gp.projectiles[gp.currentMap][i] == null) {
+                        gp.projectiles[gp.currentMap][i] = projectile;
+                        break;
+                    }
+                }
                 shotAvailableCounter = 0;
             }
-
         } else {
             actionLockCounter++;
             if (actionLockCounter == 120) {

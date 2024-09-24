@@ -3,6 +3,7 @@ package org.brentwardindustries.main;
 import org.brentwardindustries.ai.PathFinder;
 import org.brentwardindustries.entity.Entity;
 import org.brentwardindustries.entity.Player;
+import org.brentwardindustries.entity.Projectile;
 import org.brentwardindustries.tile.TileManager;
 import org.brentwardindustries.tileinteractive.InteractiveTile;
 
@@ -63,7 +64,8 @@ public class GamePanel extends JPanel implements Runnable {
     public Entity[][] npcs = new Entity[maxMap][10];
     public Entity[][] monsters = new Entity[maxMap][20];
     public InteractiveTile[][] interactiveTiles = new InteractiveTile[maxMap][50];
-    public ArrayList<Entity> projectileList = new ArrayList<>();
+    public Entity[][] projectiles = new Entity[maxMap][50];
+//    public ArrayList<Entity> projectileList = new ArrayList<>();
     public ArrayList<Entity> particleList = new ArrayList<>();
     ArrayList<Entity> entityList = new ArrayList<>();
 
@@ -223,13 +225,13 @@ public class GamePanel extends JPanel implements Runnable {
                 }
             }
             // PROJECTILES
-            for (int i = 0; i < projectileList.size(); i ++) {
-                if (projectileList.get(i) != null) {
-                    if (projectileList.get(i).alive) {
-                        projectileList.get(i).update();
+            for (int i = 0; i < projectiles[1].length; i ++) {
+                if (projectiles[currentMap][i] != null) {
+                    if (projectiles[currentMap][i].alive) {
+                        projectiles[currentMap][i].update();
                     }
-                    if (!projectileList.get(i).alive) {
-                        projectileList.remove(i);
+                    if (!projectiles[currentMap][i].alive) {
+                        projectiles[currentMap][i] = null;
                     }
                 }
             }
@@ -296,7 +298,7 @@ public class GamePanel extends JPanel implements Runnable {
                     entityList.add(object);
                 }
             }
-            for (Entity projectile : projectileList) {
+            for (Entity projectile : projectiles[currentMap]) {
                 if (projectile != null) {
                     entityList.add(projectile);
                 }

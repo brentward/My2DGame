@@ -37,6 +37,7 @@ public class Entity {
     public boolean dying = false;
     boolean hpBarOn = false;
     public boolean onPath = false;
+    public boolean knockBack = false;
 
     // COUNTER
     public int spriteCounter = 0;
@@ -45,9 +46,11 @@ public class Entity {
     public int shotAvailableCounter = 0;
     int dyingCounter = 0;
     int hpBarCounter = 0;
+    int knockBackCounter = 0;
 
     // CHARACTER ATTRIBUTES
     public Name name;
+    public int defaultSpeed;
     public int speed;
     public int maxLife;
     public int life;
@@ -62,8 +65,6 @@ public class Entity {
     public int exp;
     public int nextLevelExp;
     public int coin;
-    public Entity defaultWeapon;
-    public Entity defaultShield;
     public Entity currentWeapon;
     public Entity currentShield;
     public Projectile projectile;
@@ -77,6 +78,7 @@ public class Entity {
     public String description = "";
     public int useCost;
     public int price;
+    public int knockBackPower = 0;
 
     // TYPE
     public int type;
@@ -174,15 +176,37 @@ public class Entity {
     }
 
     public void update() {
-        setAction();
-        checkCollision();
+        if (knockBack) {
+            checkCollision();
+            if (collisionOn) {
+                knockBack = false;
+                knockBackCounter = 0;
+                speed = defaultSpeed;
+            } else {
+                switch (gp.player.direction) {
+                    case UP -> worldY -= speed;
+                    case DOWN -> worldY += speed;
+                    case LEFT -> worldX -= speed;
+                    case RIGHT -> worldX += speed;
+                }
+            }
+            knockBackCounter++;
+            if (knockBackCounter > 10) {
+                knockBack = false;
+                knockBackCounter = 0;
+                speed = defaultSpeed;
+            }
+        } else {
+            setAction();
+            checkCollision();
 
-        if (!collisionOn) {
-            switch (direction) {
-                case UP -> worldY -= speed;
-                case DOWN -> worldY += speed;
-                case LEFT -> worldX -= speed;
-                case RIGHT -> worldX += speed;
+            if (!collisionOn) {
+                switch (direction) {
+                    case UP -> worldY -= speed;
+                    case DOWN -> worldY += speed;
+                    case LEFT -> worldX -= speed;
+                    case RIGHT -> worldX += speed;
+                }
             }
         }
 

@@ -1,9 +1,11 @@
 package org.brentwardindustries.tile;
 
+import org.brentwardindustries.ai.Node;
 import org.brentwardindustries.main.GamePanel;
 import org.brentwardindustries.main.UtilityTool;
 
 import javax.imageio.ImageIO;
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -13,6 +15,7 @@ public class TileManager {
     GamePanel gp;
     public Tile[] tile;
     public int[][][] mapTileNum;
+    boolean drawPath = true;
 
     public TileManager(GamePanel gp) {
         this.gp = gp;
@@ -140,6 +143,18 @@ public class TileManager {
                 worldCol = 0;
                 worldRow++;
 
+            }
+        }
+        if (drawPath) {
+            g2D.setColor(new Color(255, 0, 0, 70));
+
+            for (Node pathNode : gp.pathFinder.pathList) {
+                int worldX = pathNode.col * gp.tileSize;
+                int worldY = pathNode.row * gp.tileSize;
+                int screenX = worldX - gp.player.worldX + gp.player.screenX;
+                int screenY = worldY - gp.player.worldY + gp.player.screenY;
+
+                g2D.fillRect(screenX, screenY, gp.tileSize, gp.tileSize);
             }
         }
     }

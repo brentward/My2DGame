@@ -1,5 +1,6 @@
 package org.brentwardindustries.main;
 
+import org.brentwardindustries.ai.PathFinder;
 import org.brentwardindustries.entity.Entity;
 import org.brentwardindustries.entity.Player;
 import org.brentwardindustries.tile.TileManager;
@@ -43,7 +44,7 @@ public class GamePanel extends JPanel implements Runnable {
     // SYSTEM
     String os = System.getProperty("os.name");
     public String cursor = ">";
-    TileManager tileManager = new TileManager(this);
+    public TileManager tileManager = new TileManager(this);
     public KeyHandler keyHandler = new KeyHandler(this);
     ControllerHandler controllerHandler = new ControllerHandler(this);
     Sound music = new Sound();
@@ -53,6 +54,7 @@ public class GamePanel extends JPanel implements Runnable {
     public UI ui = new UI(this);
     public EventHandler eventHandler = new EventHandler(this);
     Config config = new Config(this);
+    public PathFinder pathFinder = new PathFinder(this);
     Thread gameThread;
 
     // ENTITY AND OBJECTS

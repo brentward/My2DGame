@@ -74,10 +74,10 @@ public class GreenSlimeMonster extends Entity {
             searchPath(goalCol, goalRow);
 
             int i = new Random().nextInt(200) + 1;
-            if (i > 197 && !projectile.alive && shotAvailableCounter == 0) {
+            if (i > 197 && !projectile.alive && shotAvailableCounter == 30) {
                 projectile.set(worldX, worldY, direction, true, this);
                 gp.projectileList.add(projectile);
-                shotAvailableCounter = 30;
+                shotAvailableCounter = 0;
             }
 
         } else {

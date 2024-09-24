@@ -220,7 +220,7 @@ public class Player extends Entity{
         }
 
         if (gp.keyHandler.shotKeyPressed && !projectile.alive
-                && shotAvailableCounter == 0 && projectile.haveResource(this)) {
+                && shotAvailableCounter == 30 && projectile.haveResource(this)) {
             // SET PROJECTILE COORDINATES, DIRECTION, AND USER
             projectile.set(worldX, worldY, direction, true, this);
 
@@ -229,7 +229,7 @@ public class Player extends Entity{
 
             // ADD IT TO THE LIST
             gp.projectileList.add(projectile);
-            shotAvailableCounter = 30;
+            shotAvailableCounter = 0;
             gp.playSE(10);
         }
         if (invincible) {
@@ -240,8 +240,8 @@ public class Player extends Entity{
             }
         }
 
-        if (shotAvailableCounter > 0) {
-            shotAvailableCounter--;
+        if (shotAvailableCounter < 30) {
+            shotAvailableCounter++;
         }
         if (life > maxLife) {
             life = maxLife;

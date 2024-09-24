@@ -203,8 +203,8 @@ public class Entity {
                 invincibleCounter = 0;
             }
         }
-        if (shotAvailableCounter > 0) {
-            shotAvailableCounter--;
+        if (shotAvailableCounter < 30) {
+            shotAvailableCounter++;
         }
     }
 

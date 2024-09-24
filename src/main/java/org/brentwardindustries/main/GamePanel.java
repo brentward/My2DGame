@@ -65,7 +65,6 @@ public class GamePanel extends JPanel implements Runnable {
     public Entity[][] monsters = new Entity[maxMap][20];
     public InteractiveTile[][] interactiveTiles = new InteractiveTile[maxMap][50];
     public Entity[][] projectiles = new Entity[maxMap][50];
-//    public ArrayList<Entity> projectileList = new ArrayList<>();
     public ArrayList<Entity> particleList = new ArrayList<>();
     ArrayList<Entity> entityList = new ArrayList<>();
 
@@ -107,6 +106,8 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void retry() {
+        clearProjectiles();
+        particleList.clear();
         player.setDefaultPositions();
         player.restoreLifeAndMagic();
         assetSetter.setNpcs();
@@ -114,11 +115,19 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void restart() {
+        clearProjectiles();
+        particleList.clear();
         player.setDefaultValues();
         assetSetter.setObjects();
         assetSetter.setNpcs();
         assetSetter.setMonsters();
         assetSetter.setInteractiveTiles();
+    }
+
+    public void clearProjectiles() {
+        for (int i = 0; i < projectiles[1].length; i++) {
+            projectiles[currentMap][i] = null;
+        }
     }
 
     public void setFullScreen() {
@@ -242,7 +251,7 @@ public class GamePanel extends JPanel implements Runnable {
                         particleList.get(i).update();
                     }
                     if (!particleList.get(i).alive) {
-                        particleList.remove(i);
+                        particleList.remove(i--);
                     }
                 }
             }
@@ -321,16 +330,7 @@ public class GamePanel extends JPanel implements Runnable {
             for (Entity entity : entityList) {
                 entity.draw(g2D);
             }
-            // EMPTY ENTITY LIST (reversed to fix potential bug?)
             entityList.clear();
-//            for (int i = entityList.size(); i > 0; i--) {
-//                entityList.remove(i - 1);
-//            }
-            // EMPTY ENTITY LIST (original)
-//            for (int i = 0; i < entityList.size(); i++) {
-//                entityList.remove(i);
-//            }
-
 
             // UI
             ui.draw(g2D);

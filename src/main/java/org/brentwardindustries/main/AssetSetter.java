@@ -4,7 +4,9 @@ import org.brentwardindustries.entity.NpcMerchant;
 import org.brentwardindustries.entity.NpcOldMan;
 import org.brentwardindustries.monster.GreenSlimeMonster;
 import org.brentwardindustries.object.AxeObject;
+import org.brentwardindustries.object.ChestObject;
 import org.brentwardindustries.object.CoinBronzeObject;
+import org.brentwardindustries.object.DoorObject;
 import org.brentwardindustries.object.HeartObject;
 import org.brentwardindustries.object.KeyObject;
 import org.brentwardindustries.object.MagicCrystalObject;
@@ -23,38 +25,25 @@ public class AssetSetter {
     public void setObjects() {
         int mapNum = 0;
         int i = 0;
-        gp.objects[mapNum][i] = new CoinBronzeObject(gp);
-        gp.objects[mapNum][i].worldX = gp.tileSize * 25;
-        gp.objects[mapNum][i].worldY = gp.tileSize * 23;
-        i++;
-        gp.objects[mapNum][i] = new CoinBronzeObject(gp);
-        gp.objects[mapNum][i].worldX = gp.tileSize * 21;
-        gp.objects[mapNum][i].worldY = gp.tileSize * 19;
-        i++;
-        gp.objects[mapNum][i] = new CoinBronzeObject(gp);
-        gp.objects[mapNum][i].worldX = gp.tileSize * 26;
-        gp.objects[mapNum][i].worldY = gp.tileSize * 21;
-        i++;
         gp.objects[mapNum][i] = new AxeObject(gp);
         gp.objects[mapNum][i].worldX = gp.tileSize * 33;
         gp.objects[mapNum][i].worldY = gp.tileSize * 7;
         i++;
-        gp.objects[mapNum][i] = new ShieldBlueObject(gp);
-        gp.objects[mapNum][i].worldX = gp.tileSize * 35;
-        gp.objects[mapNum][i].worldY = gp.tileSize * 21;
+        gp.objects[mapNum][i] = new DoorObject(gp);
+        gp.objects[mapNum][i].worldX = gp.tileSize * 14;
+        gp.objects[mapNum][i].worldY = gp.tileSize * 28;
         i++;
-        gp.objects[mapNum][i] = new PotionRedObject(gp);
-        gp.objects[mapNum][i].worldX = gp.tileSize * 22;
-        gp.objects[mapNum][i].worldY = gp.tileSize * 27;
+        gp.objects[mapNum][i] = new DoorObject(gp);
+        gp.objects[mapNum][i].worldX = gp.tileSize * 12;
+        gp.objects[mapNum][i].worldY = gp.tileSize * 12;
         i++;
-        gp.objects[mapNum][i] = new HeartObject(gp);
-        gp.objects[mapNum][i].worldX = gp.tileSize * 22;
-        gp.objects[mapNum][i].worldY = gp.tileSize * 19;
+        gp.objects[mapNum][i] = new ChestObject(gp, new KeyObject(gp));
+        gp.objects[mapNum][i].worldX = gp.tileSize * 30;
+        gp.objects[mapNum][i].worldY = gp.tileSize * 29;
         i++;
-        gp.objects[mapNum][i] = new MagicCrystalObject(gp);
-        gp.objects[mapNum][i].worldX = gp.tileSize * 22;
-        gp.objects[mapNum][i].worldY = gp.tileSize * 33;
-        i++;
+        gp.objects[mapNum][i] = new ChestObject(gp, new ShieldBlueObject(gp));
+        gp.objects[mapNum][i].worldX = gp.tileSize * 12;
+        gp.objects[mapNum][i].worldY = gp.tileSize  * 9;
     }
 
     public void setNpcs() {
@@ -136,5 +125,20 @@ public class AssetSetter {
         i++;
         gp.interactiveTiles[mapNum][i] = new InteractiveDryTree(gp, 10, 40);
         i++;
+        gp.interactiveTiles[mapNum][i] = new InteractiveDryTree(gp, 25, 27);
+        i++;
+        gp.interactiveTiles[mapNum][i] = new InteractiveDryTree(gp, 26, 27);
+        i++;
+        gp.interactiveTiles[mapNum][i] = new InteractiveDryTree(gp, 27, 28);
+        i++;
+        gp.interactiveTiles[mapNum][i] = new InteractiveDryTree(gp, 27, 29);
+        i++;
+        gp.interactiveTiles[mapNum][i] = new InteractiveDryTree(gp, 27, 30);
+        i++;
+        gp.interactiveTiles[mapNum][i] = new InteractiveDryTree(gp, 27, 31);
+        i++;
+        gp.interactiveTiles[mapNum][i] = new InteractiveDryTree(gp, 28, 31);
+        i++;
+        gp.interactiveTiles[mapNum][i] = new InteractiveDryTree(gp, 29, 31);
     }
  }

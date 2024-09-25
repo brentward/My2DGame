@@ -59,7 +59,7 @@ public class Player extends Entity{
         dexterity = 1; // More dexterity is less damage received
         exp = 0;
         nextLevelExp = 5;
-        coin = 400;
+        coin = 0;
         currentWeapon = new SwordNormalObject(gp);
 //        currentWeapon = new AxeObject(gp);
         currentShield = new ShieldWoodObject(gp);
@@ -88,8 +88,8 @@ public class Player extends Entity{
         inventory.clear();
         inventory.add(currentWeapon);
         inventory.add(currentShield);
-        inventory.add(new KeyObject(gp));
-        inventory.add(new AxeObject(gp));
+//        inventory.add(new KeyObject(gp));
+//        inventory.add(new AxeObject(gp));
     }
 
     public int getAttack() {
@@ -317,6 +317,11 @@ public class Player extends Entity{
             if (gp.objects[gp.currentMap][i].type == typePickupOnly) {
                 gp.objects[gp.currentMap][i].use(this);
                 gp.objects[gp.currentMap][i] = null;
+            } else if (gp.objects[gp.currentMap][i].type == typeObstacle) {
+                if (keyHandler.enterPressed) {
+                    attackCanceled = true;
+                    gp.objects[gp.currentMap][i].interact();
+            }
             } else {
                 // INVENTORY ITEMS
                 String text;
@@ -454,8 +459,9 @@ public class Player extends Entity{
                 defense = getDefense();
             }
             if (selectedItem.type == typeConsumable) {
-                selectedItem.use(this);
-                inventory.remove(itemIndex);
+                if (selectedItem.use(this)) {
+                    inventory.remove(itemIndex);
+                }
             }
         }
     }

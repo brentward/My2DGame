@@ -86,13 +86,38 @@ public class Entity {
     public final int typeNpc = 1;
     public final int typeMonster = 2;
     public final int typeSword = 3;
-    public final int typeAxe = 5;
-    public final int typeShield = 6;
-    public final int typeConsumable = 7;
-    public final int typePickupOnly = 8;
+    public final int typeAxe = 4;
+    public final int typeShield = 5;
+    public final int typeConsumable = 6;
+    public final int typePickupOnly = 7;
+    public final int typeObstacle = 8;
 
     public Entity(GamePanel gp) {
         this.gp = gp;
+    }
+
+    public int getLeftX() {
+        return worldX + solidArea.x;
+    }
+
+    public int getRightX() {
+        return getLeftX() + solidArea.width;
+    }
+
+    public int getTopY() {
+        return worldY + solidArea.y;
+    }
+
+    public int getBottomY() {
+        return getTopY() + solidArea.height;
+    }
+
+    public int getCol() {
+        return getLeftX() / gp.tileSize;
+    }
+
+    public int getRow() {
+        return getTopY() / gp.tileSize;
     }
 
     public void setAction() {}
@@ -114,7 +139,11 @@ public class Entity {
         }
     }
 
-    public void use(Entity entity) {}
+    public void interact() {}
+
+    public boolean use(Entity entity) {
+        return false;
+    }
 
     public void checkDrop() {}
 
@@ -183,7 +212,8 @@ public class Entity {
                 knockBackCounter = 0;
                 speed = defaultSpeed;
             } else {
-                switch (gp.player.direction) {
+//                switch (gp.player.direction) {
+                switch (direction) {
                     case UP -> worldY -= speed;
                     case DOWN -> worldY += speed;
                     case LEFT -> worldX -= speed;
@@ -395,5 +425,33 @@ public class Entity {
 //                onPath = false;
 //            }
         }
+    }
+
+    public int getDetected(Entity user, Entity[][] target, Name tartetName) {
+        int index = 999;
+
+        // CHECK SURROUNDING OBJECTS
+        int nextWorldX = user.getLeftX();
+        int nextWorldY = user.getTopY();
+
+        switch (user.direction) {
+            case UP -> nextWorldY = user.getTopY() - 1;
+            case DOWN -> nextWorldY = user.getBottomY() + 1;
+            case LEFT -> nextWorldX = user.getLeftX() - 1;
+            case RIGHT -> nextWorldX = user.getRightX() + 1;
+        }
+        int col = nextWorldX / gp.tileSize;
+        int row = nextWorldY / gp.tileSize;
+
+        for (int i = 0; i < target[1].length; i++) {
+            if (target[gp.currentMap][i] != null
+                    && target[gp.currentMap][i].getCol() == col
+                    && target[gp.currentMap][i].getRow() == row
+                    && target[gp.currentMap][i].name == tartetName) {
+                index = i;
+                break;
+            }
+        }
+        return index;
     }
 }

@@ -19,11 +19,12 @@ public class PotionRedObject extends Entity {
         price = 20;
     }
 
-    public void use(Entity entity) {
+    public boolean use(Entity entity) {
         gp.playSE(2);
         gp.gameState = gp.dialogState;
         gp.ui.currentDialogue = "You dring the " + name.toString() + "!\n"
                 + "Your life has recovered by " + value + "!";
         entity.life += value;
+        return true;
     }
 }

@@ -20,9 +20,10 @@ public class MagicCrystalObject extends Entity {
         price = 6;
     }
 
-    public void use(Entity entity) {
+    public boolean use(Entity entity) {
         gp.playSE(2);
         gp.ui.addMessage("Magic +" + value);
         entity.magic += value;
+        return  true;
     }
 }

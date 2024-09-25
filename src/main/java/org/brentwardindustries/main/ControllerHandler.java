@@ -45,7 +45,7 @@ public class ControllerHandler {
                 String id = comp.getIdentifier().getName();
                 float value = event.getValue();
                 switch (id) {
-                    case "0" -> { // A
+                    case "0", "B" -> { // A
                         if (value == 1f) {
                             gp.keyHandler.inputPressed(KeyEvent.VK_ENTER);
                         }
@@ -53,9 +53,9 @@ public class ControllerHandler {
                             gp.keyHandler.inputReleased(KeyEvent.VK_ENTER);
                         }
                     }
-                    case "1" -> {
+                    case "1", "A" -> {
                     } // B
-                    case "2" -> {
+                    case "2", "Y" -> {
                         if (value == 1f) {
                             gp.keyHandler.inputPressed(KeyEvent.VK_F);
                         }
@@ -63,23 +63,29 @@ public class ControllerHandler {
                             gp.keyHandler.inputReleased(KeyEvent.VK_F);
                         }
                     } // X
-                    case "3" -> {
-                    } // Y
-                    case "4" -> {
-                        l = (value == 1f);
-                    } // L
-                    case "5" -> {
-                        r = (value == 1f);
-                    } // R
-                    case "6" -> { // SELECT
+                    case "3", "X" -> {
                         if (value == 1f) {
                             gp.keyHandler.inputPressed(KeyEvent.VK_C);
                         }
                         if (value == 0f) {
                             gp.keyHandler.inputReleased(KeyEvent.VK_C);
                         }
+                    } // Y
+                    case "4", "Right Thumb" -> {
+                        l = (value == 1f);
+                    } // L
+                    case "5", "Left Thumb" -> {
+                        r = (value == 1f);
+                    } // R
+                    case "6", "Select" -> { // SELECT
+                        if (value == 1f) {
+                            gp.keyHandler.inputPressed(KeyEvent.VK_ESCAPE);
+                        }
+                        if (value == 0f) {
+                            gp.keyHandler.inputReleased(KeyEvent.VK_ESCAPE);
+                        }
                     }
-                    case "7" -> { //START
+                    case "7", "Start" -> { //START
                         if (value == 1f) {
                             gp.keyHandler.inputPressed(KeyEvent.VK_P);
                         }
@@ -87,10 +93,10 @@ public class ControllerHandler {
                             gp.keyHandler.inputReleased(KeyEvent.VK_P);
                         }
                     }
-                    case "8" -> {
+                    case "8", "Left Thumb 3" -> {
                         l3 = (value == 1f);
                     } // L3
-                    case "9" -> {
+                    case "9", "Right Thumb 3" -> {
                         r3 = (value == 1f);
                     } // R3
                     case "pov" -> {
@@ -206,11 +212,11 @@ public class ControllerHandler {
                     case "z" -> {
                     } // L2 and R2
                 }
-                if (l3 && r3) {
-                    gp.keyHandler.inputPressed(KeyEvent.VK_ESCAPE);
-                    l3 = false;
-                    r3 = false;
-                }
+//                if (l3 && r3) {
+//                    gp.keyHandler.inputPressed(KeyEvent.VK_ESCAPE);
+//                    l3 = false;
+//                    r3 = false;
+//                }
                 if (l && r) {
                     gp.keyHandler.inputPressed(KeyEvent.VK_L);
                     l = false;

@@ -36,11 +36,10 @@ public class ChestObject extends Entity {
             gp.playSE(3);
             StringBuilder sb = new StringBuilder();
             sb.append("You opened the chest and found a ").append(loot.name).append("!");
-            if (gp.player.inventory.size() == gp.player.maxInventorySize) {
+            if (!gp.player.canObtainItem(loot)) {
                 sb.append("\n... But you cannot carry more items!");
             } else {
                 sb.append("\nYou obtained a ").append(loot.name);
-                gp.player.inventory.add(loot);
                 down1 = image2;
                 opened = true;
             }

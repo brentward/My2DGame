@@ -390,8 +390,20 @@ public class UI {
                 g2D.fillRoundRect(slotX, slotY, gp.tileSize, gp.tileSize, 10, 10);
             }
 
-
             g2D.drawImage(entity.inventory.get(i).down1, slotX, slotY, null);
+            if (entity.inventory.get(i).amount > 1) {
+                g2D.setFont(g2D.getFont().deriveFont(32f));
+                int amountX;
+                int amountY;
+                String s = "" + entity.inventory.get(i).amount;
+                amountX = getXForAlignToRightText(s, slotX + 44);
+                amountY = slotY + gp.tileSize;
+
+                g2D.setColor(new Color(60, 60, 60));
+                g2D.drawString(s, amountX, amountY);
+                g2D.setColor(Color.WHITE);
+                g2D.drawString(s, amountX - 2, amountY - 2);
+            }
             slotX += slotSize;
             if (i == 4 || i == 9 || i == 14) {
                 slotX = slotXStart;
@@ -809,16 +821,13 @@ public class UI {
                     subState = 0;
                     gp.gameState = gp.dialogState;
                     currentDialogue = "I'm sorry. You need more coins to buy that.\nThank you, come again\n       ... you stinkin' freeloader.";
-//                    drawDialogueScreen();
-                } else if (gp.player.inventory.size() == gp.player.maxInventorySize) {
+                } else if (!gp.player.canObtainItem(npc.inventory.get(itemIndex))) {
                     subState = 0;
                     gp.gameState = gp.dialogState;
                     currentDialogue = "You can't possibly carry any more items.";
-//                    drawDialogueScreen();
                 } else {
-                    gp.player.coin -= npc.inventory.get(itemIndex).price;
-                    gp.player.inventory.add(npc.inventory.get(itemIndex)); // INFINITE ITEMS
-//                    gp.player.inventory.add(npc.inventory.remove(itemIndex)); // SINGLE ITEM PER OBJECT
+                    gp.player.coin -= npc.inventory.get(itemIndex).price; // INFINITE NPC INVENTORY
+//                    gp.player.coin -= npc.inventory.remove(itemIndex).price; // FINITE NPC PER OBJECT
                 }
             }
         }
@@ -863,7 +872,11 @@ public class UI {
                     gp.gameState = gp.dialogState;
                     currentDialogue = "You cannot sell an equiped item!";
                 } else {
-                    gp.player.inventory.remove(itemIndex);
+                    if (gp.player.inventory.get(itemIndex).amount > 1) {
+                        gp.player.inventory.get(itemIndex).amount--;
+                    } else {
+                        gp.player.inventory.remove(itemIndex);
+                    }
                     gp.player.coin += price;
                 }
             }

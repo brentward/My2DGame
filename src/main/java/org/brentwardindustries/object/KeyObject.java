@@ -15,7 +15,8 @@ public class KeyObject extends Entity {
         name = Name.KEY;
         down1 = setup("/objects/key", gp.tileSize, gp.tileSize);
         description = "[" + name.toString() + "]\nOpens a door.";
-        price = 1;
+        price = 100;
+        stackable = true;
     }
 
     public boolean use(Entity entity) {

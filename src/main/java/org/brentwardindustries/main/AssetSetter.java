@@ -44,6 +44,22 @@ public class AssetSetter {
         gp.objects[mapNum][i] = new ChestObject(gp, new ShieldBlueObject(gp));
         gp.objects[mapNum][i].worldX = gp.tileSize * 12;
         gp.objects[mapNum][i].worldY = gp.tileSize  * 9;
+        i++;
+        gp.objects[mapNum][i] = new PotionRedObject(gp);
+        gp.objects[mapNum][i].worldX = gp.tileSize * 21;
+        gp.objects[mapNum][i].worldY = gp.tileSize  * 20;
+        i++;
+        gp.objects[mapNum][i] = new PotionRedObject(gp);
+        gp.objects[mapNum][i].worldX = gp.tileSize * 20;
+        gp.objects[mapNum][i].worldY = gp.tileSize  * 20;
+        i++;
+        gp.objects[mapNum][i] = new PotionRedObject(gp);
+        gp.objects[mapNum][i].worldX = gp.tileSize * 17;
+        gp.objects[mapNum][i].worldY = gp.tileSize  * 20;
+        i++;
+        gp.objects[mapNum][i] = new PotionRedObject(gp);
+        gp.objects[mapNum][i].worldX = gp.tileSize * 20;
+        gp.objects[mapNum][i].worldY = gp.tileSize  * 21;
     }
 
     public void setNpcs() {

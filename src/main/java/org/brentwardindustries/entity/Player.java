@@ -59,7 +59,7 @@ public class Player extends Entity{
         dexterity = 1; // More dexterity is less damage received
         exp = 0;
         nextLevelExp = 5;
-        coin = 0;
+        coin = 400;
         currentWeapon = new SwordNormalObject(gp);
 //        currentWeapon = new AxeObject(gp);
         currentShield = new ShieldWoodObject(gp);
@@ -88,8 +88,9 @@ public class Player extends Entity{
         inventory.clear();
         inventory.add(currentWeapon);
         inventory.add(currentShield);
-//        inventory.add(new KeyObject(gp));
-//        inventory.add(new AxeObject(gp));
+        inventory.add(new AxeObject(gp));
+        inventory.add(new KeyObject(gp));
+        inventory.get(3).amount = 4;
     }
 
     public int getAttack() {
@@ -325,8 +326,7 @@ public class Player extends Entity{
             } else {
                 // INVENTORY ITEMS
                 String text;
-                if (inventory.size() != maxInventorySize) {
-                    inventory.add(gp.objects[gp.currentMap][i]);
+                if (canObtainItem(gp.objects[gp.currentMap][i])) {
                     gp.playSE(1);
                     text = "Picked up a " + gp.objects[gp.currentMap][i].name.toString() + "!";
                 } else {
@@ -460,10 +460,49 @@ public class Player extends Entity{
             }
             if (selectedItem.type == typeConsumable) {
                 if (selectedItem.use(this)) {
-                    inventory.remove(itemIndex);
+                    if (selectedItem.amount > 1) {
+                        selectedItem.amount--;
+                    } else {
+                        inventory.remove(itemIndex);
+                    }
                 }
             }
         }
+    }
+
+    public int searchItemInInventory(Name itemName) {
+        int itemIndex = 999;
+
+        for (int i = 0; i < inventory.size(); i++) {
+            if (inventory.get(i).name == itemName) {
+                itemIndex = i;
+                break;
+            }
+        }
+        return itemIndex;
+    }
+
+    public boolean canObtainItem(Entity item) {
+        boolean canObtain = false;
+
+        if (item.stackable) {
+            int index = searchItemInInventory(item.name);
+            if (index != 999) {
+                inventory.get(index).amount++;
+                canObtain = true;
+            } else {
+                if (inventory.size() != maxInventorySize) {
+                    inventory.add(item);
+                    canObtain = true;
+                }
+            }
+        } else {
+            if (inventory.size() != maxInventorySize) {
+                inventory.add(item);
+                canObtain = true;
+            }
+        }
+        return canObtain;
     }
 
     public void draw(Graphics2D g2D) {

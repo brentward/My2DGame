@@ -7,6 +7,7 @@ import org.brentwardindustries.object.AxeObject;
 import org.brentwardindustries.object.ChestObject;
 import org.brentwardindustries.object.DoorObject;
 import org.brentwardindustries.object.KeyObject;
+import org.brentwardindustries.object.LanternObject;
 import org.brentwardindustries.object.PotionRedObject;
 import org.brentwardindustries.object.ShieldBlueObject;
 import org.brentwardindustries.tileinteractive.InteractiveDryTree;
@@ -25,6 +26,10 @@ public class AssetSetter {
         gp.objects[mapNum][i].worldX = gp.tileSize * 33;
         gp.objects[mapNum][i].worldY = gp.tileSize * 7;
         i++;
+        gp.objects[mapNum][i] = new LanternObject(gp);
+        gp.objects[mapNum][i].worldX = gp.tileSize * 18;
+        gp.objects[mapNum][i].worldY = gp.tileSize * 20;
+        i++;
         gp.objects[mapNum][i] = new DoorObject(gp);
         gp.objects[mapNum][i].worldX = gp.tileSize * 14;
         gp.objects[mapNum][i].worldY = gp.tileSize * 28;
@@ -40,22 +45,6 @@ public class AssetSetter {
         gp.objects[mapNum][i] = new ChestObject(gp, new ShieldBlueObject(gp));
         gp.objects[mapNum][i].worldX = gp.tileSize * 12;
         gp.objects[mapNum][i].worldY = gp.tileSize  * 9;
-        i++;
-        gp.objects[mapNum][i] = new PotionRedObject(gp);
-        gp.objects[mapNum][i].worldX = gp.tileSize * 21;
-        gp.objects[mapNum][i].worldY = gp.tileSize  * 20;
-        i++;
-        gp.objects[mapNum][i] = new PotionRedObject(gp);
-        gp.objects[mapNum][i].worldX = gp.tileSize * 20;
-        gp.objects[mapNum][i].worldY = gp.tileSize  * 20;
-        i++;
-        gp.objects[mapNum][i] = new PotionRedObject(gp);
-        gp.objects[mapNum][i].worldX = gp.tileSize * 17;
-        gp.objects[mapNum][i].worldY = gp.tileSize  * 20;
-        i++;
-        gp.objects[mapNum][i] = new PotionRedObject(gp);
-        gp.objects[mapNum][i].worldX = gp.tileSize * 20;
-        gp.objects[mapNum][i].worldY = gp.tileSize  * 21;
     }
 
     public void setNpcs() {

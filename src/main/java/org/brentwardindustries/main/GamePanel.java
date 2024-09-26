@@ -262,6 +262,7 @@ public class GamePanel extends JPanel implements Runnable {
                     interactiveTile.update();
                 }
             }
+            environmentManager.update();
         }
         if (gameState == pauseState) {
             // nothing
@@ -334,7 +335,7 @@ public class GamePanel extends JPanel implements Runnable {
             }
             entityList.clear();
 
-//            environmentManager.draw(g2D);
+            environmentManager.draw(g2D);
 
             // UI
             ui.draw(g2D);

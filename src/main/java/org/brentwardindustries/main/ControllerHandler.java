@@ -71,12 +71,8 @@ public class ControllerHandler {
                             gp.keyHandler.inputReleased(KeyEvent.VK_C);
                         }
                     } // Y
-                    case "4", "Right Thumb" -> {
-                        l = (value == 1f);
-                    } // L
-                    case "5", "Left Thumb" -> {
-                        r = (value == 1f);
-                    } // R
+                    case "4", "Right Thumb" -> l = (value == 1f); // L
+                    case "5", "Left Thumb" -> r = (value == 1f); // R
                     case "6", "Select" -> { // SELECT
                         if (value == 1f) {
                             gp.keyHandler.inputPressed(KeyEvent.VK_ESCAPE);
@@ -93,12 +89,8 @@ public class ControllerHandler {
                             gp.keyHandler.inputReleased(KeyEvent.VK_P);
                         }
                     }
-                    case "8", "Left Thumb 3" -> {
-                        l3 = (value == 1f);
-                    } // L3
-                    case "9", "Right Thumb 3" -> {
-                        r3 = (value == 1f);
-                    } // R3
+                    case "8", "Left Thumb 3" -> l3 = (value == 1f); // L3
+                    case "9", "Right Thumb 3" -> r3 = (value == 1f); // R3
                     case "pov" -> {
                         if (value == 0.0F) { // NONE
                             gp.keyHandler.upPressed = false;
@@ -212,13 +204,9 @@ public class ControllerHandler {
                     case "z" -> {
                     } // L2 and R2
                 }
-//                if (l3 && r3) {
-//                    gp.keyHandler.inputPressed(KeyEvent.VK_ESCAPE);
-//                    l3 = false;
-//                    r3 = false;
-//                }
                 if (l && r) {
                     gp.keyHandler.inputPressed(KeyEvent.VK_L);
+                    gp.keyHandler.inputPressed(KeyEvent.VK_F6);
                     l = false;
                     r = false;
                 }

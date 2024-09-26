@@ -3,7 +3,6 @@ package org.brentwardindustries.main;
 import org.brentwardindustries.ai.PathFinder;
 import org.brentwardindustries.entity.Entity;
 import org.brentwardindustries.entity.Player;
-import org.brentwardindustries.entity.Projectile;
 import org.brentwardindustries.environment.EnvironmentManager;
 import org.brentwardindustries.tile.TileManager;
 import org.brentwardindustries.tileinteractive.InteractiveTile;

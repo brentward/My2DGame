@@ -13,7 +13,9 @@ public class DoorObject extends Entity {
 
         type = typeObstacle;
         name = Name.DOOR;
-        down1 = setup("/objects/door", gp.tileSize, gp.tileSize);
+        image = setup("/objects/door", gp.tileSize, gp.tileSize);
+        image2 = setup("/objects/blank", gp.tileSize, gp.tileSize);
+        down1 = image;
         collision = true;
         solidArea.x = 0;
         solidArea.y = 16;
@@ -24,7 +26,27 @@ public class DoorObject extends Entity {
     }
 
     public void interact() {
-        gp.gameState = gp.dialogState;
-        gp.ui.currentDialogue = "You need a key to open this.";
+        if (collision) {
+            boolean hasKey = false;
+            for (int i = 0; i < gp.player.inventory.size(); i++) {
+                if (gp.player.inventory.get(i) != null && gp.player.inventory.get(i).name == Name.KEY) {
+                    if (gp.player.inventory.get(i).amount > 1) {
+                        gp.player.inventory.get(i).amount--;
+                    } else {
+                        gp.player.inventory.remove(i);
+                    }
+                    hasKey = true;
+                    break;
+                }
+            }
+            if (hasKey) {
+                gp.playSE(3);
+                collision = false;
+                down1 = image2;
+            } else {
+                gp.gameState = gp.dialogState;
+                gp.ui.currentDialogue = "You need a key to open this.";
+            }
+        }
     }
 }

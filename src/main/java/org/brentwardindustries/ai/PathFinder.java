@@ -1,6 +1,5 @@
 package org.brentwardindustries.ai;
 
-import org.brentwardindustries.entity.Entity;
 import org.brentwardindustries.main.GamePanel;
 import org.brentwardindustries.tileinteractive.InteractiveTile;
 

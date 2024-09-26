@@ -9,7 +9,6 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
 
 public class Player extends Entity{
     KeyHandler keyHandler;
@@ -89,7 +88,7 @@ public class Player extends Entity{
         inventory.add(currentShield);
         inventory.add(new AxeObject(gp));
         inventory.add(new KeyObject(gp));
-        inventory.get(3).amount = 4;
+        inventory.get(3).amount = 10;
     }
 
     public int getAttack() {
@@ -110,14 +109,6 @@ public class Player extends Entity{
         left2 = setup("/player/boy_left_2", gp.tileSize, gp.tileSize);
         right1 = setup("/player/boy_right_1", gp.tileSize, gp.tileSize);
         right2 = setup("/player/boy_right_2", gp.tileSize, gp.tileSize);
-//        up1 = setup("/player/link_up_1");
-//        up2 = setup("/player/link_up_2");
-//        down1 = setup("/player/link_down_1");
-//        down2 = setup("/player/link_down_2");
-//        left1 = setup("/player/link_left_1");
-//        left2 = setup("/player/link_left_2");
-//        right1 = setup("/player/link_right_1");
-//        right2 = setup("/player/link_right_2");
     }
 
     public void getPlayerAttackImage() {
@@ -178,7 +169,7 @@ public class Player extends Entity{
             contactMonster(monsterIndex);
 
             // CHECK INTERACTIVE TILE COLLISION
-            int interactiveTileIndex = gp.collisionChecker.checkEntity(this, gp.interactiveTiles);
+            gp.collisionChecker.checkEntity(this, gp.interactiveTiles);
 
             // CHECK EVENT
             gp.eventHandler.checkEvent();
@@ -579,9 +570,6 @@ public class Player extends Entity{
         if (gp.keyHandler.showHitBox) {
             g2D.setColor(Color.YELLOW);
             g2D.drawRect(screenX + solidArea.x, screenY + solidArea.y, solidArea.width, solidArea.height);
-//            g2D.setFont(new Font("Arial", Font.PLAIN, 26));
-//            g2D.setColor(Color.WHITE);
-//            g2D.drawString("Invincible counter: " + invincibleCounter, 10, 400);
         }
     }
 }

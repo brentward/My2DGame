@@ -5,15 +5,11 @@ import org.brentwardindustries.entity.NpcOldMan;
 import org.brentwardindustries.monster.GreenSlimeMonster;
 import org.brentwardindustries.object.AxeObject;
 import org.brentwardindustries.object.ChestObject;
-import org.brentwardindustries.object.CoinBronzeObject;
 import org.brentwardindustries.object.DoorObject;
-import org.brentwardindustries.object.HeartObject;
 import org.brentwardindustries.object.KeyObject;
-import org.brentwardindustries.object.MagicCrystalObject;
 import org.brentwardindustries.object.PotionRedObject;
 import org.brentwardindustries.object.ShieldBlueObject;
 import org.brentwardindustries.tileinteractive.InteractiveDryTree;
-import org.brentwardindustries.tileinteractive.InteractiveTile;
 
 public class AssetSetter {
     GamePanel gp;
@@ -70,7 +66,6 @@ public class AssetSetter {
         gp.npcs[mapNum][i].worldY = gp.tileSize * 21;
 
         mapNum = 1;
-        i = 0;
         gp.npcs[mapNum][i] = new NpcMerchant(gp);
         gp.npcs[mapNum][i].worldX = gp.tileSize * 12;
         gp.npcs[mapNum][i].worldY = gp.tileSize * 7;

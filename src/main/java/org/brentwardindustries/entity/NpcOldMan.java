@@ -70,6 +70,6 @@ public class NpcOldMan extends Entity {
 
     public void speak() {
         super.speak();
-        onPath = true;
+        onPath = !onPath;
     }
 }

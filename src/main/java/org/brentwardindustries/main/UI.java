@@ -18,7 +18,7 @@ import java.util.ArrayList;
 public class UI {
     GamePanel gp;
     Graphics2D g2D;
-    Font maruMonica, purisoBold;
+    Font maruMonica;
     BufferedImage heartFull, heartHalf, heartBlank, crystalFull, crystalBlank, coin;
     ArrayList<String> messages = new ArrayList<>();
     ArrayList<Integer> messageCounter = new ArrayList<>();
@@ -38,11 +38,7 @@ public class UI {
         try {
             InputStream inputStream = getClass().getResourceAsStream("/font/maru_monica.ttf");
             maruMonica = Font.createFont(Font.TRUETYPE_FONT, inputStream);
-            inputStream = getClass().getResourceAsStream("/font/purisa_bold.ttf");
-            purisoBold = Font.createFont(Font.TRUETYPE_FONT, inputStream);
-        } catch (FontFormatException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+        } catch (FontFormatException | IOException e) {
             e.printStackTrace();
         }
 
@@ -67,7 +63,6 @@ public class UI {
         this.g2D = g2D;
 
         g2D.setFont(maruMonica);
-//        g2D.setFont(purisoBold);
 //        g2D.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
         g2D.setColor(Color.WHITE);
 
@@ -117,7 +112,6 @@ public class UI {
 
         // RESET
         x = gp.halfTileSize;
-        y = gp.halfTileSize;
         i = 0;
 
         // DRAW CURRENT LIFE
@@ -172,7 +166,7 @@ public class UI {
 
                 if (counter > 180) {
                     messages.remove(i);
-                    messageCounter.remove(i);
+                    messageCounter.remove(i--);
                 }
             }
         }
@@ -870,7 +864,7 @@ public class UI {
                         || gp.player.inventory.get(itemIndex) == gp.player.currentShield) {
                     commandNum = 0;
                     gp.gameState = gp.dialogState;
-                    currentDialogue = "You cannot sell an equiped item!";
+                    currentDialogue = "You cannot sell an equipped item!";
                 } else {
                     if (gp.player.inventory.get(itemIndex).amount > 1) {
                         gp.player.inventory.get(itemIndex).amount--;

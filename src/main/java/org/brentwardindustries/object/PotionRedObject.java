@@ -15,7 +15,7 @@ public class PotionRedObject extends Entity {
         name = Name.RED_POTION;
         value = 5;
         down1 = setup("/objects/potion_red", gp.tileSize, gp.tileSize);
-        description = "[" + name.toString() + "]\nHeals your life by" + value + ".";
+        description = "[" + name.toString() + "]\nHeals your life by " + value + ".";
         price = 20;
         stackable = true;
     }
@@ -23,7 +23,7 @@ public class PotionRedObject extends Entity {
     public boolean use(Entity entity) {
         gp.playSE(2);
         gp.gameState = gp.dialogState;
-        gp.ui.currentDialogue = "You dring the " + name.toString() + "!\n"
+        gp.ui.currentDialogue = "You drink the " + name.toString() + "!\n"
                 + "Your life has recovered by " + value + "!";
         entity.life += value;
         return true;

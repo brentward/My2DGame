@@ -1,6 +1,5 @@
 package org.brentwardindustries.tileinteractive;
 
-import org.brentwardindustries.entity.Entity;
 import org.brentwardindustries.main.GamePanel;
 
 public class InteractiveTrunk extends InteractiveTile{

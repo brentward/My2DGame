@@ -64,9 +64,9 @@ public class GreenSlimeMonster extends Entity {
             }
         }
 
-//        if (onPath && tileDistance > 20) {
-//            onPath = false;
-//        }
+        if (onPath && tileDistance > 20) {
+            onPath = false;
+        }
     }
     public void setAction() {
         if (onPath) {

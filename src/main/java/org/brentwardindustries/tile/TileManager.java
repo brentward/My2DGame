@@ -145,7 +145,7 @@ public class TileManager {
 
             }
         }
-        if (drawPath) {
+        if (gp.keyHandler.showPaths) {
             g2D.setColor(new Color(255, 0, 0, 70));
 
             for (Node pathNode : gp.pathFinder.pathList) {

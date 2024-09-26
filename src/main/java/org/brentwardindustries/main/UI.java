@@ -96,6 +96,9 @@ public class UI {
         if (gp.gameState == gp.tradeState) {
             drawTradeScreen();
         }
+        if (gp.gameState == gp.sleepState) {
+            drawSleepScreen();
+        }
     }
 
     public void drawPlayerLife() {
@@ -874,6 +877,27 @@ public class UI {
                     }
                     gp.player.coin += price;
                 }
+            }
+        }
+    }
+
+    public void drawSleepScreen() {
+        counter++;
+
+        if (counter < 120) {
+            gp.environmentManager.lighting.filterAlpha += 0.01f;
+            if (gp.environmentManager.lighting.filterAlpha > 1f) {
+                gp.environmentManager.lighting.filterAlpha = 1f;
+            }
+        }
+        if (counter >= 120) {
+            gp.environmentManager.lighting.filterAlpha -= 0.01f;
+            if (gp.environmentManager.lighting.filterAlpha < 0f) {
+                gp.environmentManager.lighting.filterAlpha = 0f;
+                counter = 0;
+                gp.environmentManager.lighting.setToDay();
+                gp.gameState = gp.playState;
+                gp.player.getPlayerImage();
             }
         }
     }

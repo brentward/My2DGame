@@ -11,6 +11,7 @@ public class KeyHandler implements KeyListener {
     // DEBUG
     public boolean showDebugText = false;
     public boolean showHitBox = false;
+    public boolean showPaths = false;
 
     public KeyHandler(GamePanel gp) {
         this.gp = gp;
@@ -125,6 +126,11 @@ public class KeyHandler implements KeyListener {
         // SHOW HIT BOX
         if (code == KeyEvent.VK_F7) {
             showHitBox = !showHitBox;
+        }
+
+        // SHOW PATHS
+        if (code == KeyEvent.VK_F8) {
+            showPaths = !showPaths;
         }
 
         if (musicKey1Pressed && musicKey2Pressed) {

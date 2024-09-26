@@ -10,6 +10,7 @@ import org.brentwardindustries.object.KeyObject;
 import org.brentwardindustries.object.LanternObject;
 import org.brentwardindustries.object.PotionRedObject;
 import org.brentwardindustries.object.ShieldBlueObject;
+import org.brentwardindustries.object.TentObject;
 import org.brentwardindustries.tileinteractive.InteractiveDryTree;
 
 public class AssetSetter {
@@ -28,6 +29,10 @@ public class AssetSetter {
         i++;
         gp.objects[mapNum][i] = new LanternObject(gp);
         gp.objects[mapNum][i].worldX = gp.tileSize * 18;
+        gp.objects[mapNum][i].worldY = gp.tileSize * 20;
+        i++;
+        gp.objects[mapNum][i] = new TentObject(gp);
+        gp.objects[mapNum][i].worldX = gp.tileSize * 19;
         gp.objects[mapNum][i].worldY = gp.tileSize * 20;
         i++;
         gp.objects[mapNum][i] = new DoorObject(gp);

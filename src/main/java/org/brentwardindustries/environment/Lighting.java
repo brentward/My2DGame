@@ -2,18 +2,23 @@ package org.brentwardindustries.environment;
 
 import org.brentwardindustries.main.GamePanel;
 
+import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.RadialGradientPaint;
-import java.awt.Shape;
-import java.awt.geom.Area;
-import java.awt.geom.Ellipse2D;
-import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 
 public class Lighting {
     GamePanel gp;
     BufferedImage darknessFilter;
+    int dayCounter;
+    public float filterAlpha = 0f;
+
+    final int day = 0;
+    final int dusk = 1;
+    final int night = 2;
+    final int dawn = 3;
+    int dayState = day;
 
     public Lighting(GamePanel gp) {
         this.gp = gp;
@@ -76,9 +81,65 @@ public class Lighting {
             setLightSource();
             gp.player.lightUpdated = false;
         }
+
+        // Check state of the day
+        if (dayState == day) {
+            dayCounter++;
+
+            if (dayCounter > 600) {
+                dayState = dusk;
+                dayCounter = 0;
+            }
+        }
+        if (dayState == dusk) {
+            filterAlpha += 0.001f;
+            if (filterAlpha > 0.90f) {
+                filterAlpha = 0.90f;
+                dayState = night;
+            }
+        }
+        if (dayState == night) {
+            dayCounter++;
+
+            if (dayCounter > 600) {
+                dayState = dawn;
+                dayCounter = 0;
+            }
+        }
+        if (dayState == dawn) {
+            filterAlpha -= 0.001f;
+            if (filterAlpha < 0.0f) {
+                filterAlpha = 0;
+                dayState = day;
+            }
+        }
+
     }
 
     public void draw(Graphics2D g2D) {
+        g2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, filterAlpha));
         g2D.drawImage(darknessFilter, 0, 0, null);
+        g2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
+
+        if (gp.keyHandler.showDebugText) {
+            // DEBUG
+            String situation = "";
+            switch (dayState) {
+                case day -> situation = "Day";
+                case dusk -> situation = "Dusk";
+                case night -> situation = "Night";
+                case dawn -> situation = "Dawn";
+            }
+            g2D.setColor(Color.WHITE);
+            g2D.setFont(g2D.getFont().deriveFont(50f));
+            g2D.drawString(situation, 800, 500);
+            g2D.setFont(g2D.getFont().deriveFont(32f));
+            g2D.drawString("dayCounter: " + dayCounter, 650, 560);
+        }
+    }
+
+    public void setToDay() {
+        dayState = day;
+        dayCounter = 0;
     }
 }

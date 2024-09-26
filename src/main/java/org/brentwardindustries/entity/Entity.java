@@ -5,6 +5,7 @@ import org.brentwardindustries.main.UtilityTool;
 
 import javax.imageio.ImageIO;
 import java.awt.AlphaComposite;
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
@@ -330,6 +331,7 @@ public class Entity {
 
             // DEBUG
             if (gp.keyHandler.showHitBox) {
+                g2D.setStroke(new BasicStroke(1));
                 g2D.setColor(Color.RED);
                 g2D.drawRect(screenX + solidArea.x, screenY + solidArea.y, solidArea.width, solidArea.height);
             }

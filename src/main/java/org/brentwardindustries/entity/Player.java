@@ -5,6 +5,7 @@ import org.brentwardindustries.main.KeyHandler;
 import org.brentwardindustries.object.*;
 
 import java.awt.AlphaComposite;
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
@@ -110,6 +111,17 @@ public class Player extends Entity{
         left2 = setup("/player/boy_left_2", gp.tileSize, gp.tileSize);
         right1 = setup("/player/boy_right_1", gp.tileSize, gp.tileSize);
         right2 = setup("/player/boy_right_2", gp.tileSize, gp.tileSize);
+    }
+
+    public void getPlayerSleepingImage(BufferedImage image) {
+        up1 = image;
+        up2 = image;
+        down1 = image;
+        down2 = image;
+        left1 = image;
+        left2 = image;
+        right1 = image;
+        right2 = image;
     }
 
     public void getPlayerAttackImage() {
@@ -518,6 +530,7 @@ public class Player extends Entity{
                     tempScreenY = screenY - gp.tileSize;
                     image = (spriteNum == 1) ? attackUp1 : attackUp2;
                     if (gp.keyHandler.showHitBox) {
+                        g2D.setStroke(new BasicStroke(1));
                         g2D.setColor(Color.PINK);
                         g2D.drawRect(screenX + solidArea.x, screenY + solidArea.y
                                 - attackArea.height, attackArea.width, attackArea.height);
@@ -531,6 +544,7 @@ public class Player extends Entity{
                 if (attacking) {
                     image = (spriteNum == 1) ? attackDown1 : attackDown2;
                     if (gp.keyHandler.showHitBox) {
+                        g2D.setStroke(new BasicStroke(1));
                         g2D.setColor(Color.PINK);
                         g2D.drawRect(screenX + solidArea.x, screenY + solidArea.y
                                 + attackArea.height, attackArea.width, attackArea.height);
@@ -545,6 +559,7 @@ public class Player extends Entity{
                     tempScreenX = screenX - gp.tileSize;
                     image = (spriteNum == 1) ? attackLeft1 : attackLeft2;
                     if (gp.keyHandler.showHitBox) {
+                        g2D.setStroke(new BasicStroke(1));
                         g2D.setColor(Color.PINK);
                         g2D.drawRect(screenX + solidArea.x - attackArea.width, screenY
                                 + solidArea.y, attackArea.width, attackArea.height);
@@ -558,6 +573,7 @@ public class Player extends Entity{
                 if (attacking) {
                     image = (spriteNum == 1) ? attackRight1 : attackRight2;
                     if (gp.keyHandler.showHitBox) {
+                        g2D.setStroke(new BasicStroke(1));
                         g2D.setColor(Color.PINK);
                         g2D.drawRect(screenX + solidArea.x + attackArea.width, screenY
                                 + solidArea.y, attackArea.width, attackArea.height);
@@ -577,6 +593,7 @@ public class Player extends Entity{
 
         // DEBUG
         if (gp.keyHandler.showHitBox) {
+            g2D.setStroke(new BasicStroke(1));
             g2D.setColor(Color.YELLOW);
             g2D.drawRect(screenX + solidArea.x, screenY + solidArea.y, solidArea.width, solidArea.height);
         }

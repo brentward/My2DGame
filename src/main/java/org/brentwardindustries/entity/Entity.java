@@ -369,8 +369,8 @@ public class Entity {
     }
     
     public void searchPath(int goalCol, int goalRow) {
-        int startCol = (worldX + solidArea.x) / gp.tileSize;
-        int startRow = (worldY + solidArea.y) / gp.tileSize;
+        int startCol = getCol();
+        int startRow = getRow();
         gp.pathFinder.setNodes(startCol, startRow, goalCol, goalRow);
 
         if (gp.pathFinder.search()) {
@@ -379,10 +379,10 @@ public class Entity {
             int nextY = gp.pathFinder.pathList.getFirst().row * gp.tileSize;
 
             // ENTITY'S SOLIDAREA POSITIONS
-            int enLeftX = worldX + solidArea.x;
-            int enRightX = worldX + solidArea.x + solidArea.width;
-            int enTopY = worldY + solidArea.y;
-            int enBottomY = worldY + solidArea.y + solidArea.height;
+            int enLeftX = getLeftX();
+            int enRightX = getRightX();
+            int enTopY = getTopY();
+            int enBottomY = getBottomY();
 
             if (enTopY > nextY && enLeftX >= nextX && enRightX < nextX + gp.tileSize) {
                 direction = Direction.UP;

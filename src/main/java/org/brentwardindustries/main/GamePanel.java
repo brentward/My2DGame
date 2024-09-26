@@ -4,6 +4,7 @@ import org.brentwardindustries.ai.PathFinder;
 import org.brentwardindustries.entity.Entity;
 import org.brentwardindustries.entity.Player;
 import org.brentwardindustries.entity.Projectile;
+import org.brentwardindustries.environment.EnvironmentManager;
 import org.brentwardindustries.tile.TileManager;
 import org.brentwardindustries.tileinteractive.InteractiveTile;
 
@@ -56,6 +57,7 @@ public class GamePanel extends JPanel implements Runnable {
     public EventHandler eventHandler = new EventHandler(this);
     Config config = new Config(this);
     public PathFinder pathFinder = new PathFinder(this);
+    EnvironmentManager environmentManager = new EnvironmentManager(this);
     Thread gameThread;
 
     // ENTITY AND OBJECTS
@@ -94,6 +96,7 @@ public class GamePanel extends JPanel implements Runnable {
         assetSetter.setNpcs();
         assetSetter.setMonsters();
         assetSetter.setInteractiveTiles();
+        environmentManager.setup();
 //        playMusic(0);
         gameState = titleState;
 
@@ -331,6 +334,8 @@ public class GamePanel extends JPanel implements Runnable {
                 entity.draw(g2D);
             }
             entityList.clear();
+
+//            environmentManager.draw(g2D);
 
             // UI
             ui.draw(g2D);

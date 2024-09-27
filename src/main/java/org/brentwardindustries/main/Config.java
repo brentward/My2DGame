@@ -54,17 +54,5 @@ public class Config {
         if (string != null) {
             gp.se.volumeScale = Integer.parseInt(string);
         }
-        string = properties.getProperty("debug.showDebugText");
-        if (string != null) {
-            gp.keyHandler.showDebugText = string.equals("true");
-        }
-        string = properties.getProperty("debug.showHitBox");
-        if (string != null) {
-            gp.keyHandler.showHitBox = string.equals("true");
-        }
-        string = properties.getProperty("debug.showPaths");
-        if (string != null) {
-            gp.keyHandler.showPaths = string.equals("true");
-        }
     }
 }

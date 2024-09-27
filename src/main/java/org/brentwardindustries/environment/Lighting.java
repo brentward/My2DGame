@@ -13,6 +13,7 @@ public class Lighting {
     BufferedImage darknessFilter;
     int dayCounter;
     public float filterAlpha = 0f;
+    final float nightAlpha = 0.98f;
 
     final int day = 0;
     final int dusk = 1;
@@ -30,7 +31,7 @@ public class Lighting {
         Graphics2D g2D = (Graphics2D) darknessFilter.getGraphics();
 
         if (gp.player.currentLight == null) {
-            g2D.setColor(new Color(0, 0, 0, 0.9f));
+            g2D.setColor(new Color(0, 0, 0, nightAlpha));
         } else {
 
             int centerX = gp.player.screenX + gp.halfTileSize;
@@ -40,18 +41,18 @@ public class Lighting {
             Color[] colors = new Color[12];
             float[] fractions = new float[12];
 
-            colors[0] = new Color(0, 0, 0, 0.1f);
-            colors[1] = new Color(0, 0, 0, 0.42f);
-            colors[2] = new Color(0, 0, 0, 0.52f);
-            colors[3] = new Color(0, 0, 0, 0.61f);
-            colors[4] = new Color(0, 0, 0, 0.69f);
-            colors[5] = new Color(0, 0, 0, 0.76f);
-            colors[6] = new Color(0, 0, 0, 0.82f);
-            colors[7] = new Color(0, 0, 0, 0.87f);
-            colors[8] = new Color(0, 0, 0, 0.91f);
-            colors[9] = new Color(0, 0, 0, 0.94f);
-            colors[10] = new Color(0, 0, 0, 0.96f);
-            colors[11] = new Color(0, 0, 0, 0.98f);
+            colors[0] = new Color(0, 0, 0, 0.1f * nightAlpha);
+            colors[1] = new Color(0, 0, 0, 0.42f * nightAlpha);
+            colors[2] = new Color(0, 0, 0, 0.52f * nightAlpha);
+            colors[3] = new Color(0, 0, 0, 0.61f * nightAlpha);
+            colors[4] = new Color(0, 0, 0, 0.69f * nightAlpha);
+            colors[5] = new Color(0, 0, 0, 0.76f * nightAlpha);
+            colors[6] = new Color(0, 0, 0, 0.82f * nightAlpha);
+            colors[7] = new Color(0, 0, 0, 0.87f * nightAlpha);
+            colors[8] = new Color(0, 0, 0, 0.91f * nightAlpha);
+            colors[9] = new Color(0, 0, 0, 0.94f * nightAlpha);
+            colors[10] = new Color(0, 0, 0, 0.96f * nightAlpha);
+            colors[11] = new Color(0, 0, 0, 0.98f * nightAlpha);
 
             fractions[0] = 0.0f;
             fractions[1] = 0.4f;
@@ -93,8 +94,8 @@ public class Lighting {
         }
         if (dayState == dusk) {
             filterAlpha += 0.001f;
-            if (filterAlpha > 0.90f) {
-                filterAlpha = 0.90f;
+            if (filterAlpha > nightAlpha) {
+                filterAlpha = nightAlpha;
                 dayState = night;
             }
         }
@@ -132,9 +133,10 @@ public class Lighting {
             }
             g2D.setColor(Color.WHITE);
             g2D.setFont(g2D.getFont().deriveFont(50f));
-            g2D.drawString(situation, 800, 500);
+            g2D.drawString(situation, 800, 480);
             g2D.setFont(g2D.getFont().deriveFont(32f));
-            g2D.drawString("dayCounter: " + dayCounter, 650, 560);
+            g2D.drawString("dayCounter: " + dayCounter, 650, 520);
+            g2D.drawString("filterAlpha: " + filterAlpha, 650, 560);
         }
     }
 

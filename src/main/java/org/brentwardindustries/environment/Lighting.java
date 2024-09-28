@@ -140,7 +140,7 @@ public class Lighting {
         }
     }
 
-    public void setToDay() {
+    public void startDay() {
         dayState = day;
         dayCounter = 0;
     }

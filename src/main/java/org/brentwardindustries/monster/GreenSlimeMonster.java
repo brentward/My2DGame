@@ -1,6 +1,5 @@
 package org.brentwardindustries.monster;
 
-import org.brentwardindustries.entity.Direction;
 import org.brentwardindustries.entity.Entity;
 import org.brentwardindustries.entity.Name;
 import org.brentwardindustries.main.GamePanel;
@@ -50,79 +49,39 @@ public class GreenSlimeMonster extends Entity {
         right2 = setup("/monsters/greenslime_down_2", gp.tileSize, gp.tileSize);
     }
 
-    public void update() {
-        super.update();
-
-        int xDistance = Math.abs(worldX - gp.player.worldX);
-        int yDistance = Math.abs(worldY - gp.player.worldY);
-        int tileDistance = (xDistance + yDistance) / gp.tileSize;
-
-        if (!onPath && tileDistance < 5) {
-            int i = new Random().nextInt(100) + 1;
-            if (i > 50) {
-                onPath = true;
-            }
-        }
-
-        if (onPath && tileDistance > 20) {
-            onPath = false;
-        }
-    }
     public void setAction() {
         if (onPath) {
-            int goalCol = (gp.player.worldX + gp.player.solidArea.x)/ gp.tileSize;
-            int goalRow = (gp.player.worldY + gp.player.solidArea.y) / gp.tileSize;
-            searchPath(goalCol, goalRow);
+            // Check if stops chasing
+            checkStopChasing(gp.player, 15, 100);
 
-            int die = new Random().nextInt(200) + 1;
-            if (die > 197 && !projectile.alive && shotAvailableCounter == 30) {
-                projectile.set(worldX, worldY, direction, true, this);
-                for (int i = 0; i < gp.projectiles[1].length; i++) {
-                    if (gp.projectiles[gp.currentMap][i] == null) {
-                        gp.projectiles[gp.currentMap][i] = projectile;
-                        break;
-                    }
-                }
-                shotAvailableCounter = 0;
-            }
+            // Search for path to the goal
+            searchPath(getGoalCol(gp.player), getGoalRow(gp.player));
+
+            // Check if it shoots a projectile
+            checkShootProjectile(200, 30);
         } else {
-            actionLockCounter++;
-            if (actionLockCounter == 120) {
-                Random random = new Random();
-                int i = random.nextInt(100) + 1;
+            // Check if it starts chasing
+            checkStartChasing(gp.player, 5, 100);
 
-                if (i <= 25) {
-                    direction = Direction.UP;
-                }
-                if (i > 25 && i <= 50) {
-                    direction = Direction.DOWN;
-                }
-                if (i > 50 && i <= 75) {
-                    direction = Direction.LEFT;
-                }
-                if (i > 75) {
-                    direction = Direction.RIGHT;
-                }
-                actionLockCounter = 0;
-            }
+            // Get a random direction if not on path
+            getRandomDirection(120);
         }
     }
 
     public void damageReaction() {
         actionLockCounter = 0;
         onPath = true;
-//        direction = gp.player.direction;
     }
 
     public void checkDrop() {
-        int i = new Random().nextInt(100) + 1;
-        if (i < 50) {
+        int die = new Random().nextInt(100) + 1;
+        if (die < 50) {
             dropItem(new CoinBronzeObject(gp));
         }
-        if (i >= 50 && i < 75) {
+        if (die >= 50 && die < 75) {
             dropItem(new HeartObject(gp));
         }
-        if (i >= 75 && i < 100) {
+        if (die >= 75 && die < 100) {
             dropItem(new MagicCrystalObject(gp));
         }
     }

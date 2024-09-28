@@ -7,6 +7,7 @@ public enum Name {
     HEART("Heart"),
     KEY("Key"),
     GREEN_SLIME("Green Slime"),
+    ORC("Orc"),
     NORMAL_SWORD("Normal Sword"),
     WOOD_SHIELD("Wood Shield"),
     WOODCUTTERS_AXE("Woodcutter's Axe"),

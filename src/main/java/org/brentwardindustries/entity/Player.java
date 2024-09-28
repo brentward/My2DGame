@@ -40,9 +40,6 @@ public class Player extends Entity{
     public void setDefaultValues() {
         worldX = gp.tileSize * 23;
         worldY = gp.tileSize * 21;
-//        gp.currentMap = 1;
-//        worldX = gp.tileSize * 12;
-//        worldY = gp.tileSize * 13;
         defaultSpeed = 4;
         speed = defaultSpeed;
         direction = Direction.DOWN;
@@ -64,8 +61,8 @@ public class Player extends Entity{
         currentWeapon = new SwordNormalObject(gp);
         currentShield = new ShieldWoodObject(gp);
         projectile = new FireballObject(gp);
-        attack = getAttack();
-        defense = getDefense();
+        setAttack();
+        setDefense();
         getPlayerImage();
         getPlayerAttackImage();
         setItems();
@@ -93,13 +90,15 @@ public class Player extends Entity{
         inventory.get(3).amount = 10;
     }
 
-    public int getAttack() {
+    public void setAttack() {
         attackArea = currentWeapon.attackArea;
-        return strength * currentWeapon.attackValue;
+        attackWindupDuration = currentWeapon.attackWindupDuration;
+        attackDuration = currentWeapon.attackDuration;
+        attack = strength * currentWeapon.attackValue;
     }
 
-    public int getDefense() {
-        return dexterity * currentShield.defenseValue;
+    public void setDefense() {
+        defense = dexterity * currentShield.defenseValue;
     }
 
     public void getPlayerImage() {
@@ -267,54 +266,6 @@ public class Player extends Entity{
         }
     }
 
-    public void attacking() {
-        spriteCounter++;
-        if (spriteCounter <= 5) {
-            spriteNum = 1;
-        }
-        if (spriteCounter > 5 && spriteCounter <= 25) {
-            spriteNum = 2;
-
-            // Save the current worldX, worldY, solidArea
-            int currentWorldX = worldX;
-            int currentWorldY = worldY;
-            int solidAreaWidth = solidArea.width;
-            int solidAreaHeight = solidArea.height;
-
-            // Adjust player's worldX/Y for the attackArea
-            switch (direction) {
-                case UP -> worldY -= attackArea.height;
-                case DOWN -> worldY += attackArea.height;
-                case LEFT -> worldX -= attackArea.width;
-                case RIGHT -> worldX += attackArea.width;
-            }
-
-            // solidArea set to attackArea
-            solidArea.width =  attackArea.width;
-            solidArea.height = attackArea.height;
-
-            int monsterIndex = gp.collisionChecker.checkEntity(this, gp.monsters);
-            damageMonster(monsterIndex, attack, currentWeapon.knockBackPower);
-
-            int interactiveTileIndex = gp.collisionChecker.checkEntity(this, gp.interactiveTiles);
-            damageInteractiveTile(interactiveTileIndex);
-
-            int projectileIndex = gp.collisionChecker.checkEntity(this, gp.projectiles);
-            damageProjectile(projectileIndex);
-
-            // After checking hit collision, restore the original data
-            worldX = currentWorldX;
-            worldY = currentWorldY;
-            solidArea.width = solidAreaWidth;
-            solidArea.height = solidAreaHeight;
-        }
-        if (spriteCounter > 25) {
-            spriteNum = 1;
-            spriteCounter = 0;
-            attacking = false;
-        }
-    }
-
     public void pickUpObject(int i) {
         if (i != 999) {
             // PICKUP ONLY ITEMS
@@ -366,13 +317,13 @@ public class Player extends Entity{
         }
     }
 
-    public void damageMonster(int i, int attack, int knockBackPower) {
+    public void damageMonster(int i, Entity attacker, int attack, int knockBackPower) {
         if (i != 999) {
             if (!gp.monsters[gp.currentMap][i].invincible) {
                 gp.playSE(5);
 
                 if (knockBackPower > 0) {
-                    knockBack(gp.monsters[gp.currentMap][i], knockBackPower);
+                    setKnockBack(gp.monsters[gp.currentMap][i], attacker, knockBackPower);
                 }
 
                 int damage = attack - gp.monsters[gp.currentMap][i].defense;
@@ -393,12 +344,6 @@ public class Player extends Entity{
                 }
             }
         }
-    }
-
-    public void knockBack(Entity entity, int knockBackPower) {
-        entity.direction = direction;
-        entity.speed += knockBackPower;
-        entity.knockBack = true;
     }
 
     public void damageInteractiveTile(int i) {
@@ -436,8 +381,8 @@ public class Player extends Entity{
             magic += 1;
             strength++;
             dexterity++;
-            attack = getAttack();
-            defense = getDefense();
+            setAttack();
+            setDefense();
 
             gp.playSE(8);
             gp.gameState = gp.dialogState;
@@ -454,12 +399,13 @@ public class Player extends Entity{
             Entity selectedItem = inventory.get(itemIndex);
             if (selectedItem.type == typeSword || selectedItem.type == typeAxe) {
                 currentWeapon = selectedItem;
-                attack = getAttack();
+                setAttack();
+
                 getPlayerAttackImage();
             }
             if (selectedItem.type == typeShield) {
                 currentShield = selectedItem;
-                defense = getDefense();
+                setDefense();
             }
             if (selectedItem.type == typeLight) {
                 if (currentLight == selectedItem) {

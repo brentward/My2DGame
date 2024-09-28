@@ -95,10 +95,10 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void setupGame() {
-        assetSetter.setObjects();
-        assetSetter.setNpcs();
-        assetSetter.setMonsters();
-        assetSetter.setInteractiveTiles();
+//        assetSetter.setObjects();
+//        assetSetter.setNpcs();
+//        assetSetter.setMonsters();
+//        assetSetter.setInteractiveTiles();
         environmentManager.setup();
 //        playMusic(0);
         gameState = titleState;
@@ -123,6 +123,7 @@ public class GamePanel extends JPanel implements Runnable {
     public void restart() {
         clearProjectiles();
         particleList.clear();
+        environmentManager.lighting.startDay();
         player.setDefaultValues();
         assetSetter.setObjects();
         assetSetter.setNpcs();

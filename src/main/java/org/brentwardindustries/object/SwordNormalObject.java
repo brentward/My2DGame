@@ -17,5 +17,7 @@ public class SwordNormalObject extends Entity {
         description = "[" + name.toString() + "]\nAn old sword.";
         price = 20;
         knockBackPower = 2;
+        attackWindupDuration = 5;
+        attackDuration = 25;
     }
 }

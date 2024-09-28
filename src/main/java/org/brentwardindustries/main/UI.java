@@ -469,10 +469,6 @@ public class UI {
         g2D.drawString(text, x, y);
         if (commandNum == 0) {
             g2D.drawString(">", x - 25, y);
-            if (gp.keyHandler.enterPressed) {
-                gp.fullScreenOn = !gp.fullScreenOn;
-                subState = 1;
-            }
         }
 
         // BACK
@@ -482,10 +478,6 @@ public class UI {
         g2D.drawString(text, x, y);
         if (commandNum == 1) {
             g2D.drawString(">", x - 25, y);
-            if (gp.keyHandler.enterPressed) {
-                gp.fullScreenOn = !gp.fullScreenOn;
-                subState = 1;
-            }
         }
 
     }
@@ -899,7 +891,7 @@ public class UI {
             if (gp.environmentManager.lighting.filterAlpha < 0f) {
                 gp.environmentManager.lighting.filterAlpha = 0f;
                 counter = 0;
-                gp.environmentManager.lighting.setToDay();
+                gp.environmentManager.lighting.startDay();
                 gp.gameState = gp.playState;
                 gp.player.getPlayerImage();
             }

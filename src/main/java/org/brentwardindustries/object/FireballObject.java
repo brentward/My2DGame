@@ -19,7 +19,7 @@ public class FireballObject extends Projectile {
         maxLife = 80;
         life = maxLife;
         attack = 2;
-        knockBackPower = 0;
+        knockBackPower = 5;
         useCost = 1;
         alive = false;
         getImage();

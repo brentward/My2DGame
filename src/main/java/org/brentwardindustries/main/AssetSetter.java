@@ -3,6 +3,7 @@ package org.brentwardindustries.main;
 import org.brentwardindustries.entity.NpcMerchant;
 import org.brentwardindustries.entity.NpcOldMan;
 import org.brentwardindustries.monster.GreenSlimeMonster;
+import org.brentwardindustries.monster.OrcMonster;
 import org.brentwardindustries.object.AxeObject;
 import org.brentwardindustries.object.ChestObject;
 import org.brentwardindustries.object.DoorObject;
@@ -87,6 +88,10 @@ public class AssetSetter {
         gp.monsters[mapNum][i] = new GreenSlimeMonster(gp);
         gp.monsters[mapNum][i].worldX = gp.tileSize * 38;
         gp.monsters[mapNum][i].worldY = gp.tileSize * 42;
+        i++;
+        gp.monsters[mapNum][i] = new OrcMonster(gp);
+        gp.monsters[mapNum][i].worldX = gp.tileSize * 12;
+        gp.monsters[mapNum][i].worldY = gp.tileSize * 33;
     }
 
     public void setInteractiveTiles() {

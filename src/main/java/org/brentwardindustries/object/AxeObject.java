@@ -17,5 +17,7 @@ public class AxeObject extends Entity {
         description = "[" + name.toString() + "]\nA bit rusty but can still\nfell foul beasts.";
         price = 75;
         knockBackPower = 10;
+        attackWindupDuration = 20;
+        attackDuration = 40;
     }
 }

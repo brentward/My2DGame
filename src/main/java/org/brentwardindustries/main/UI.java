@@ -18,7 +18,7 @@ import java.util.ArrayList;
 public class UI {
     GamePanel gp;
     Graphics2D g2D;
-    Font maruMonica;
+    public Font font;
     BufferedImage heartFull, heartHalf, heartBlank, crystalFull, crystalBlank, coin;
     ArrayList<String> messages = new ArrayList<>();
     ArrayList<Integer> messageCounter = new ArrayList<>();
@@ -37,7 +37,7 @@ public class UI {
 
         try {
             InputStream inputStream = getClass().getResourceAsStream("/font/maru_monica.ttf");
-            maruMonica = Font.createFont(Font.TRUETYPE_FONT, inputStream);
+            font = Font.createFont(Font.TRUETYPE_FONT, inputStream);
         } catch (FontFormatException | IOException e) {
             e.printStackTrace();
         }
@@ -62,7 +62,7 @@ public class UI {
     public void draw(Graphics2D g2D) {
         this.g2D = g2D;
 
-        g2D.setFont(maruMonica);
+        g2D.setFont(font);
 //        g2D.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
         g2D.setColor(Color.WHITE);
 
@@ -648,6 +648,8 @@ public class UI {
         g2D.drawString("Pause", textX, textY);
         textY += gp.tileSize;
         g2D.drawString("Options", textX, textY);
+        textY += gp.tileSize;
+        g2D.drawString("Map", textX, textY);
 
         textX = frameX + gp.tileSize * 6;
         textY = frameY + gp.tileSize * 2;
@@ -662,6 +664,8 @@ public class UI {
         g2D.drawString("P", textX, textY);
         textY += gp.tileSize;
         g2D.drawString("ESC", textX, textY);
+        textY += gp.tileSize;
+        g2D.drawString("M", textX, textY);
 
         // BACK
         textX = frameX + gp.tileSize;

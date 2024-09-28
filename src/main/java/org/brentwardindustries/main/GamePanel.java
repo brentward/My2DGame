@@ -4,6 +4,7 @@ import org.brentwardindustries.ai.PathFinder;
 import org.brentwardindustries.entity.Entity;
 import org.brentwardindustries.entity.Player;
 import org.brentwardindustries.environment.EnvironmentManager;
+import org.brentwardindustries.tile.Map;
 import org.brentwardindustries.tile.TileManager;
 import org.brentwardindustries.tileinteractive.InteractiveTile;
 
@@ -57,6 +58,7 @@ public class GamePanel extends JPanel implements Runnable {
     Config config = new Config(this);
     public PathFinder pathFinder = new PathFinder(this);
     EnvironmentManager environmentManager = new EnvironmentManager(this);
+    Map map = new Map(this);
     Thread gameThread;
 
     // ENTITY AND OBJECTS
@@ -82,6 +84,7 @@ public class GamePanel extends JPanel implements Runnable {
     public final int transitionState = 7;
     public final int tradeState = 8;
     public final int sleepState = 9;
+    public final int mapState = 10;
 
     public GamePanel() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -284,6 +287,8 @@ public class GamePanel extends JPanel implements Runnable {
         // TITLE SCREEN
         if (gameState == titleState) {
             ui.draw(g2D);
+        } else if (gameState == mapState) {
+            map.drawFullMapScreen(g2D);
         } else {
 
             // TILE
@@ -336,7 +341,11 @@ public class GamePanel extends JPanel implements Runnable {
             }
             entityList.clear();
 
+            // ENVIRONMENT
             environmentManager.draw(g2D);
+
+            // DRAW MINI MAP
+            map.drawMiniMap(g2D);
 
             // UI
             ui.draw(g2D);

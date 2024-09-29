@@ -87,6 +87,7 @@ public class Player extends Entity{
         inventory.add(currentShield);
         inventory.add(new AxeObject(gp));
         inventory.add(new KeyObject(gp));
+        inventory.add(new SwordMagicObject(gp));
         inventory.get(3).amount = 10;
     }
 
@@ -124,7 +125,7 @@ public class Player extends Entity{
     }
 
     public void getPlayerAttackImage() {
-        if (currentWeapon.name == Name.NORMAL_SWORD) {
+        if (currentWeapon.name == Name.NORMAL_SWORD || currentWeapon.name == Name.MAGIC_SWORD) {
             attackUp1 = setup("/player/boy_attack_up_1", gp.tileSize, gp.tileSize * 2);
             attackUp2 = setup("/player/boy_attack_up_2", gp.tileSize, gp.tileSize * 2);
             attackDown1 = setup("/player/boy_attack_down_1", gp.tileSize, gp.tileSize * 2);
@@ -493,7 +494,7 @@ public class Player extends Entity{
                         g2D.setStroke(new BasicStroke(1));
                         g2D.setColor(Color.PINK);
                         g2D.drawRect(screenX + solidArea.x, screenY + solidArea.y
-                                + attackArea.height, attackArea.width, attackArea.height);
+                                + solidArea.height, attackArea.width, attackArea.height);
                     }
                 }
             }
@@ -521,7 +522,7 @@ public class Player extends Entity{
                     if (gp.keyHandler.showHitBox) {
                         g2D.setStroke(new BasicStroke(1));
                         g2D.setColor(Color.PINK);
-                        g2D.drawRect(screenX + solidArea.x + attackArea.width, screenY
+                        g2D.drawRect(screenX + solidArea.x + solidArea.width, screenY
                                 + solidArea.y, attackArea.width, attackArea.height);
                     }
                 }

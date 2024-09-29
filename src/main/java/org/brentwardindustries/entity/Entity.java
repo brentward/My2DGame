@@ -403,9 +403,9 @@ public class Entity {
             // Adjust player's worldX/Y for the attackArea
             switch (direction) {
                 case UP -> worldY -= attackArea.height;
-                case DOWN -> worldY += attackArea.height;
+                case DOWN -> worldY += solidArea.height;
                 case LEFT -> worldX -= attackArea.width;
-                case RIGHT -> worldX += attackArea.width;
+                case RIGHT -> worldX += solidArea.width;
             }
 
             // solidArea set to attackArea
@@ -497,7 +497,7 @@ public class Entity {
                             g2D.setStroke(new BasicStroke(1));
                             g2D.setColor(Color.ORANGE);
                             g2D.drawRect(screenX + solidArea.x, screenY + solidArea.y
-                                    + attackArea.height, attackArea.width, attackArea.height);
+                                    + solidArea.height, attackArea.width, attackArea.height);
                         }
                     }
                 }
@@ -525,7 +525,7 @@ public class Entity {
                         if (gp.keyHandler.showHitBox) {
                             g2D.setStroke(new BasicStroke(1));
                             g2D.setColor(Color.ORANGE);
-                            g2D.drawRect(screenX + solidArea.x + attackArea.width, screenY
+                            g2D.drawRect(screenX + solidArea.x + solidArea.width, screenY
                                     + solidArea.y, attackArea.width, attackArea.height);
                         }
                     }

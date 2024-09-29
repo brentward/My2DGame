@@ -42,6 +42,7 @@ public class DoorObject extends Entity {
             if (hasKey) {
                 gp.playSE(3);
                 collision = false;
+                alive = false;
                 down1 = image2;
             } else {
                 gp.gameState = gp.dialogState;

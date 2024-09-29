@@ -274,7 +274,7 @@ public class Player extends Entity{
                 gp.objects[gp.currentMap][i].use(this);
                 gp.objects[gp.currentMap][i] = null;
             } else if (gp.objects[gp.currentMap][i].type == typeObstacle) {
-                if (keyHandler.enterPressed) {
+                if (keyHandler.enterPressed && gp.objects[gp.currentMap][i].alive) {
                     attackCanceled = true;
                     gp.objects[gp.currentMap][i].interact();
             }

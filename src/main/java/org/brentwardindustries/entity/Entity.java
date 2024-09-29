@@ -280,16 +280,16 @@ public class Entity {
                 spriteCounter = 0;
             }
 
-            if (invincible) {
-                invincibleCounter++;
-                if (invincibleCounter > 40) {
-                    invincible = false;
-                    invincibleCounter = 0;
-                }
+        }
+        if (invincible) {
+            invincibleCounter++;
+            if (invincibleCounter > 40) {
+                invincible = false;
+                invincibleCounter = 0;
             }
-            if (shotAvailableCounter < 30) {
-                shotAvailableCounter++;
-            }
+        }
+        if (shotAvailableCounter < 30) {
+            shotAvailableCounter++;
         }
     }
 

@@ -893,7 +893,7 @@ public class UI {
                 counter = 0;
                 gp.environmentManager.lighting.startDay();
                 gp.gameState = gp.playState;
-                gp.player.getPlayerImage();
+                gp.player.getImage();
             }
         }
     }

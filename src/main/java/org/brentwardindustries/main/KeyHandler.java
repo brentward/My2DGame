@@ -5,7 +5,7 @@ import java.awt.event.KeyListener;
 
 public class KeyHandler implements KeyListener {
     public boolean upPressed, downPressed, leftPressed, rightPressed, enterPressed, shotKeyPressed,
-            musicKey1Pressed, musicKey2Pressed;
+            guardPressed, musicKey1Pressed, musicKey2Pressed;
     public GamePanel gp;
 
     // DEBUG
@@ -118,6 +118,9 @@ public class KeyHandler implements KeyListener {
         }
         if (code == KeyEvent.VK_X) {
             gp.map.miniMapOn = !gp.map.miniMapOn;
+        }
+        if (code == KeyEvent.VK_SPACE) {
+            guardPressed = true;
         }
 
         // DEBUG
@@ -397,6 +400,9 @@ public class KeyHandler implements KeyListener {
         }
         if (code == KeyEvent.VK_F6) {
             musicKey2Pressed = false;
+        }
+        if (code == KeyEvent.VK_SPACE) {
+            guardPressed = false;
         }
     }
 }

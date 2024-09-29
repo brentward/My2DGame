@@ -71,8 +71,15 @@ public class ControllerHandler {
                             gp.keyHandler.inputReleased(KeyEvent.VK_C);
                         }
                     } // Y
-                    case "4", "Right Thumb" -> l = (value == 1f); // L
-                    case "5", "Left Thumb" -> r = (value == 1f); // R
+                    case "4", "Right Thumb" ->{
+                        if (value == 1f) {
+                            gp.keyHandler.inputPressed(KeyEvent.VK_SPACE);
+                        }
+                        if (value == 0f) {
+                            gp.keyHandler.inputReleased(KeyEvent.VK_SPACE);
+                        }
+                    } //l = (value == 1f); // L
+                    case "5", "Left Thumb" -> {} //r = (value == 1f); // R
                     case "6", "Select" -> { // SELECT
                         if (value == 1f) {
                             gp.keyHandler.inputPressed(KeyEvent.VK_ESCAPE);
@@ -204,12 +211,12 @@ public class ControllerHandler {
                     case "z" -> {
                     } // L2 and R2
                 }
-                if (l && r) {
-                    gp.keyHandler.inputPressed(KeyEvent.VK_L);
-                    gp.keyHandler.inputPressed(KeyEvent.VK_F6);
-                    l = false;
-                    r = false;
-                }
+//                if (l && r) {
+//                    gp.keyHandler.inputPressed(KeyEvent.VK_L);
+//                    gp.keyHandler.inputPressed(KeyEvent.VK_F6);
+//                    l = false;
+//                    r = false;
+//                }
             }
         }
     }

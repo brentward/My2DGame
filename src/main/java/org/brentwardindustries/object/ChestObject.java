@@ -6,13 +6,10 @@ import org.brentwardindustries.main.GamePanel;
 
 public class ChestObject extends Entity {
     GamePanel gp;
-    Entity loot;
-    boolean opened = false;
 
-    public ChestObject(GamePanel gp, Entity loot) {
+    public ChestObject(GamePanel gp) {
         super(gp);
         this.gp = gp;
-        this.loot = loot;
 
         type = typeObstacle;
         name = Name.CHEST;
@@ -30,7 +27,11 @@ public class ChestObject extends Entity {
         solidAreaDefaultY = solidArea.y;
     }
 
-    public void interact() {
+    public void setLoot(Entity loot) {
+        this.loot = loot;
+    }
+
+    public boolean interact() {
         gp.gameState = gp.dialogState;
         if (!opened) {
             gp.playSE(3);
@@ -47,5 +48,6 @@ public class ChestObject extends Entity {
         } else {
             gp.ui.currentDialogue = "It is empty.";
         }
+        return true;
     }
 }

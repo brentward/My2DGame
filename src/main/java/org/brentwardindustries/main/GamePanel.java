@@ -1,6 +1,7 @@
 package org.brentwardindustries.main;
 
 import org.brentwardindustries.ai.PathFinder;
+import org.brentwardindustries.data.SaveLoad;
 import org.brentwardindustries.entity.Entity;
 import org.brentwardindustries.entity.Player;
 import org.brentwardindustries.environment.EnvironmentManager;
@@ -14,6 +15,7 @@ import java.awt.image.BufferedImage;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
 
 public class GamePanel extends JPanel implements Runnable {
@@ -59,6 +61,7 @@ public class GamePanel extends JPanel implements Runnable {
     public PathFinder pathFinder = new PathFinder(this);
     EnvironmentManager environmentManager = new EnvironmentManager(this);
     Map map = new Map(this);
+    SaveLoad saveLoad = new SaveLoad(this);
     Thread gameThread;
 
     // ENTITY AND OBJECTS
@@ -95,10 +98,10 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void setupGame() {
-//        assetSetter.setObjects();
-//        assetSetter.setNpcs();
-//        assetSetter.setMonsters();
-//        assetSetter.setInteractiveTiles();
+        assetSetter.setObjects();
+        assetSetter.setNpcs();
+        assetSetter.setMonsters();
+        assetSetter.setInteractiveTiles();
         environmentManager.setup();
 //        playMusic(0);
         gameState = titleState;
@@ -111,29 +114,53 @@ public class GamePanel extends JPanel implements Runnable {
         }
     }
 
-    public void retry() {
+    public void resetGame(boolean restart){
         clearProjectiles();
         particleList.clear();
+        environmentManager.lighting.resetDay();
         player.setDefaultPositions();
-        player.restoreLifeAndMagic();
+        player.restoreStatus();
+        clearNpcs();
         assetSetter.setNpcs();
+        clearMonsters();
         assetSetter.setMonsters();
+
+        if (restart) {
+            player.setDefaultValues();
+            clearObjects();
+            assetSetter.setObjects();
+            clearInteractiveTiles();
+            assetSetter.setInteractiveTiles();
+        }
     }
 
-    public void restart() {
-        clearProjectiles();
-        particleList.clear();
-        environmentManager.lighting.startDay();
-        player.setDefaultValues();
-        assetSetter.setObjects();
-        assetSetter.setNpcs();
-        assetSetter.setMonsters();
-        assetSetter.setInteractiveTiles();
+    public void clearObjects() {
+        for (Entity[] object : objects) {
+            Arrays.fill(object, null);
+        }
+    }
+
+    public void clearNpcs() {
+        for (Entity[] npc : npcs) {
+            Arrays.fill(npc, null);
+        }
+    }
+
+    public void clearMonsters() {
+        for (Entity[] monster : monsters) {
+            Arrays.fill(monster, null);
+        }
+    }
+
+    public void clearInteractiveTiles() {
+        for (InteractiveTile[] interactiveTile : interactiveTiles) {
+            Arrays.fill(interactiveTile, null);
+        }
     }
 
     public void clearProjectiles() {
-        for (int i = 0; i < projectiles[1].length; i++) {
-            projectiles[currentMap][i] = null;
+        for (Entity[] projectile : projectiles) {
+            Arrays.fill(projectile, null);
         }
     }
 
@@ -223,13 +250,13 @@ public class GamePanel extends JPanel implements Runnable {
             // PLAYER
             player.update();
             // NPC
-            for (int i = 0; i < npcs[1].length; i++) {
+            for (int i = 0; i < npcs[currentMap].length; i++) {
                 if (npcs[currentMap][i] != null) {
                     npcs[currentMap][i].update();
                 }
             }
             // MONSTERS
-            for (int i = 0; i < monsters[1].length; i ++) {
+            for (int i = 0; i < monsters[currentMap].length; i ++) {
                 if (monsters[currentMap][i] != null) {
                     if (monsters[currentMap][i].alive && !monsters[currentMap][i].dying) {
                         monsters[currentMap][i].update();
@@ -241,7 +268,7 @@ public class GamePanel extends JPanel implements Runnable {
                 }
             }
             // PROJECTILES
-            for (int i = 0; i < projectiles[1].length; i ++) {
+            for (int i = 0; i < projectiles[currentMap].length; i ++) {
                 if (projectiles[currentMap][i] != null) {
                     if (projectiles[currentMap][i].alive) {
                         projectiles[currentMap][i].update();

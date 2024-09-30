@@ -44,13 +44,25 @@ public class AssetSetter {
         gp.objects[mapNum][i].worldX = gp.tileSize * 12;
         gp.objects[mapNum][i].worldY = gp.tileSize * 12;
         i++;
-        gp.objects[mapNum][i] = new ChestObject(gp, new KeyObject(gp));
+        gp.objects[mapNum][i] = new ChestObject(gp);
+        gp.objects[mapNum][i].setLoot(new KeyObject(gp));
         gp.objects[mapNum][i].worldX = gp.tileSize * 30;
         gp.objects[mapNum][i].worldY = gp.tileSize * 29;
         i++;
-        gp.objects[mapNum][i] = new ChestObject(gp, new ShieldBlueObject(gp));
+        gp.objects[mapNum][i] = new ChestObject(gp);
+        gp.objects[mapNum][i].setLoot(new ShieldBlueObject(gp));
         gp.objects[mapNum][i].worldX = gp.tileSize * 12;
         gp.objects[mapNum][i].worldY = gp.tileSize  * 9;
+        i++;
+        gp.objects[mapNum][i] = new ChestObject(gp);
+        gp.objects[mapNum][i].setLoot(new TentObject(gp));
+        gp.objects[mapNum][i].worldX = gp.tileSize * 17;
+        gp.objects[mapNum][i].worldY = gp.tileSize  * 20;
+        i++;
+        gp.objects[mapNum][i] = new ChestObject(gp);
+        gp.objects[mapNum][i].setLoot(new PotionRedObject(gp));
+        gp.objects[mapNum][i].worldX = gp.tileSize * 16;
+        gp.objects[mapNum][i].worldY = gp.tileSize  * 20;
     }
 
     public void setNpcs() {

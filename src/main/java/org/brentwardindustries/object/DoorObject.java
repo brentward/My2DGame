@@ -25,7 +25,8 @@ public class DoorObject extends Entity {
         solidAreaDefaultY = solidArea.y;
     }
 
-    public void interact() {
+    public boolean interact() {
+        boolean stillExists = true;
         if (collision) {
             boolean hasKey = false;
             for (int i = 0; i < gp.player.inventory.size(); i++) {
@@ -41,13 +42,15 @@ public class DoorObject extends Entity {
             }
             if (hasKey) {
                 gp.playSE(3);
-                collision = false;
-                alive = false;
-                down1 = image2;
+                stillExists = false;
+//                collision = false;
+//                alive = false;
+//                down1 = image2;
             } else {
                 gp.gameState = gp.dialogState;
                 gp.ui.currentDialogue = "You need a key to open this.";
             }
         }
+        return stillExists;
     }
 }

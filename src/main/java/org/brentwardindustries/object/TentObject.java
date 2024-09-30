@@ -24,7 +24,7 @@ public class TentObject extends Entity {
         gp.playSE(14);
         gp.player.life = gp.player.maxLife;
         gp.player.magic = gp.player.maxMagic;
-        gp.player.getSleepImage(down1);
+        gp.player.setSleepImage(down1);
         return true;
     }
 }

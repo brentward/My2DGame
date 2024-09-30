@@ -695,6 +695,7 @@ public class UI {
                 commandNum = 2;
                 gp.stopMusic();
                 gp.gameState = gp.titleState;
+                gp.resetGame(true);
             }
         }
 
@@ -891,9 +892,9 @@ public class UI {
             if (gp.environmentManager.lighting.filterAlpha < 0f) {
                 gp.environmentManager.lighting.filterAlpha = 0f;
                 counter = 0;
-                gp.environmentManager.lighting.startDay();
+                gp.environmentManager.lighting.resetDay();
                 gp.gameState = gp.playState;
-                gp.player.getImage();
+                gp.player.setImage();
             }
         }
     }

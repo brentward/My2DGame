@@ -62,11 +62,12 @@ public class Player extends Entity{
         currentWeapon = new SwordNormalObject(gp);
         currentShield = new ShieldWoodObject(gp);
         projectile = new FireballObject(gp);
+        currentLight = null;
         setAttack();
         setDefense();
-        getImage();
-        getAttackImage();
-        getGuardImage();
+        setImage();
+        setAttackImage();
+        setGuardImage();
         setItems();
     }
 
@@ -76,12 +77,15 @@ public class Player extends Entity{
         direction = Direction.DOWN;
     }
 
-    public void restoreLifeAndMagic() {
+    public void restoreStatus() {
         life = maxLife;
         magic = maxMagic;
         invincible = false;
         transparent = false;
         attacking = false;
+        guarding = false;
+        knockBack = false;
+        lightUpdated = true;
     }
 
     public void setItems() {
@@ -105,7 +109,7 @@ public class Player extends Entity{
         defense = dexterity * currentShield.defenseValue;
     }
 
-    public void getImage() {
+    public void setImage() {
         up1 = setup("/player/boy_up_1", gp.tileSize, gp.tileSize);
         up2 = setup("/player/boy_up_2", gp.tileSize, gp.tileSize);
         down1 = setup("/player/boy_down_1", gp.tileSize, gp.tileSize);
@@ -116,7 +120,7 @@ public class Player extends Entity{
         right2 = setup("/player/boy_right_2", gp.tileSize, gp.tileSize);
     }
 
-    public void getSleepImage(BufferedImage image) {
+    public void setSleepImage(BufferedImage image) {
         up1 = image;
         up2 = image;
         down1 = image;
@@ -127,7 +131,7 @@ public class Player extends Entity{
         right2 = image;
     }
 
-    public void getAttackImage() {
+    public void setAttackImage() {
         if (currentWeapon.name == Name.NORMAL_SWORD || currentWeapon.name == Name.MAGIC_SWORD) {
             attackUp1 = setup("/player/boy_attack_up_1", gp.tileSize, gp.tileSize * 2);
             attackUp2 = setup("/player/boy_attack_up_2", gp.tileSize, gp.tileSize * 2);
@@ -150,11 +154,41 @@ public class Player extends Entity{
         }
     }
 
-    public void getGuardImage() {
+    public void setGuardImage() {
         guardUp = setup("/player/boy_guard_up", gp.tileSize, gp.tileSize);
         guardDown = setup("/player/boy_guard_down", gp.tileSize, gp.tileSize);
         guardLeft = setup("/player/boy_guard_left", gp.tileSize, gp.tileSize);
         guardRight = setup("/player/boy_guard_right", gp.tileSize, gp.tileSize);
+    }
+
+    public int getCurrentWeaponSlot() {
+        int currentWeaponSlot = -1;
+        for (int i = 0; i < inventory.size(); i++) {
+            if (inventory.get(i) == currentWeapon) {
+                currentWeaponSlot = i;
+            }
+        }
+        return currentWeaponSlot;
+    }
+
+    public int getCurrentShieldSlot() {
+        int currentShieldSlot = -1;
+        for (int i = 0; i < inventory.size(); i++) {
+            if (inventory.get(i) == currentShield) {
+                currentShieldSlot = i;
+            }
+        }
+        return currentShieldSlot;
+    }
+
+    public int getCurrentLightSlot() {
+        int currentLightSlot = -1;
+        for (int i = 0; i < inventory.size(); i++) {
+            if (inventory.get(i) == currentLight) {
+                currentLightSlot = i;
+            }
+        }
+        return currentLightSlot;
     }
 
     public void update() {
@@ -285,7 +319,7 @@ public class Player extends Entity{
             projectile.subtractResource(this);
 
             // ADD IT TO THE LIST
-            for (int i = 0; i < gp.projectiles[1].length; i++) {
+            for (int i = 0; i < gp.projectiles[gp.currentMap].length; i++) {
                 if (gp.projectiles[gp.currentMap][i] == null) {
                     gp.projectiles[gp.currentMap][i] = projectile;
                     break;
@@ -327,10 +361,13 @@ public class Player extends Entity{
                 gp.objects[gp.currentMap][i].use(this);
                 gp.objects[gp.currentMap][i] = null;
             } else if (gp.objects[gp.currentMap][i].type == typeObstacle) {
-                if (keyHandler.enterPressed && gp.objects[gp.currentMap][i].alive) {
+                if (keyHandler.enterPressed) {
                     attackCanceled = true;
-                    gp.objects[gp.currentMap][i].interact();
-            }
+                    boolean stillExists = gp.objects[gp.currentMap][i].interact();
+                    if (!stillExists) {
+                        gp.objects[gp.currentMap][i] = null;
+                    }
+                }
             } else {
                 // INVENTORY ITEMS
                 String text;
@@ -458,7 +495,7 @@ public class Player extends Entity{
             if (selectedItem.type == typeSword || selectedItem.type == typeAxe) {
                 currentWeapon = selectedItem;
                 setAttack();
-                getAttackImage();
+                setAttackImage();
             }
             if (selectedItem.type == typeShield) {
                 currentShield = selectedItem;

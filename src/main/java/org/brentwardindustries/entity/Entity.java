@@ -44,6 +44,8 @@ public class Entity {
     public boolean guarding = false;
     public boolean transparent = false;
     public boolean offBalance = false;
+    public Entity loot;
+    public boolean opened = false;
 
     // COUNTER
     public int spriteCounter = 0;
@@ -155,6 +157,8 @@ public class Entity {
         return (target.worldY + target.solidArea.y) / gp.tileSize;
     }
 
+    public void setLoot(Entity loot) {}
+
     public void setAction() {}
 
     public void damageReaction() {}
@@ -174,7 +178,9 @@ public class Entity {
         }
     }
 
-    public void interact() {}
+    public boolean interact() {
+        return true;
+    }
 
     public boolean use(Entity entity) {
         return false;
@@ -183,7 +189,7 @@ public class Entity {
     public void checkDrop() {}
 
     public void dropItem(Entity droppedItem) {
-        for (int i = 0; i < gp.objects[1].length; i++) {
+        for (int i = 0; i < gp.objects[gp.currentMap].length; i++) {
             if (gp.objects[gp.currentMap][i] == null) {
                 gp.objects[gp.currentMap][i] = droppedItem;
                 gp.objects[gp.currentMap][i].worldX = worldX;
@@ -346,7 +352,7 @@ public class Entity {
         int die = new Random().nextInt(rate);
         if (die == 0 && !projectile.alive && shotAvailableCounter == shotInterval) {
             projectile.set(worldX, worldY, direction, true, this);
-            for (int i = 0; i < gp.projectiles[1].length; i++) {
+            for (int i = 0; i < gp.projectiles[gp.currentMap].length; i++) {
                 if (gp.projectiles[gp.currentMap][i] == null) {
                     gp.projectiles[gp.currentMap][i] = projectile;
                     break;
@@ -718,15 +724,15 @@ public class Entity {
         int nextWorldY = user.getTopY();
 
         switch (user.direction) {
-            case UP -> nextWorldY = user.getTopY() - 1;
-            case DOWN -> nextWorldY = user.getBottomY() + 1;
-            case LEFT -> nextWorldX = user.getLeftX() - 1;
-            case RIGHT -> nextWorldX = user.getRightX() + 1;
+            case UP -> nextWorldY = user.getTopY() - gp.player.speed;
+            case DOWN -> nextWorldY = user.getBottomY() + gp.player.speed;
+            case LEFT -> nextWorldX = user.getLeftX() - gp.player.speed;
+            case RIGHT -> nextWorldX = user.getRightX() + gp.player.speed;
         }
         int col = nextWorldX / gp.tileSize;
         int row = nextWorldY / gp.tileSize;
 
-        for (int i = 0; i < target[1].length; i++) {
+        for (int i = 0; i < target[gp.currentMap].length; i++) {
             if (target[gp.currentMap][i] != null
                     && target[gp.currentMap][i].getCol() == col
                     && target[gp.currentMap][i].getRow() == row

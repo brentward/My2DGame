@@ -66,7 +66,7 @@ public class CollisionChecker {
     public int checkObject(Entity entity, boolean player) {
         int index = 999;
 
-        for (int i = 0; i < gp.objects[1].length; i++) {
+        for (int i = 0; i < gp.objects[gp.currentMap].length; i++) {
             if (gp.objects[gp.currentMap][i] != null) {
                 // Get entity's solid area position
                 entity.solidArea.x = entity.worldX + entity.solidArea.x;
@@ -108,7 +108,7 @@ public class CollisionChecker {
             direction = entity.knockBackDirection;
         }
 
-        for (int i = 0; i < target[1].length; i++) {
+        for (int i = 0; i < target[gp.currentMap].length; i++) {
             if (target[gp.currentMap][i] != null) {
                 // Get entity's solid area position
                 entity.solidArea.x = entity.worldX + entity.solidArea.x;

@@ -77,6 +77,12 @@ public class Lighting {
         g2D.dispose();
     }
 
+    public void resetDay() {
+        dayState = day;
+        filterAlpha = 0f;
+        dayCounter = 0;
+    }
+
     public void update() {
         if (gp.player.lightUpdated) {
             setLightSource();
@@ -87,7 +93,7 @@ public class Lighting {
         if (dayState == day) {
             dayCounter++;
 
-            if (dayCounter > 1200) {
+            if (dayCounter > 600) {
                 dayState = dusk;
                 dayCounter = 0;
             }
@@ -138,10 +144,5 @@ public class Lighting {
             g2D.drawString("dayCounter: " + dayCounter, 650, 520);
             g2D.drawString("filterAlpha: " + filterAlpha, 650, 560);
         }
-    }
-
-    public void startDay() {
-        dayState = day;
-        dayCounter = 0;
     }
 }

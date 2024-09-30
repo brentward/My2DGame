@@ -1,6 +1,7 @@
 package org.brentwardindustries.entity;
 
 public enum Name {
+    NONE(""),
     BOOTS("Boots"),
     CHEST("Chest"),
     DOOR("Door"),

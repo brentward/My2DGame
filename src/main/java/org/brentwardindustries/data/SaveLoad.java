@@ -110,7 +110,8 @@ public class SaveLoad {
         }
     }
 
-    public void load() {
+    public boolean load() {
+        boolean loaded = false;
         try {
             ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream("save.dat"));
             DataStorage dataStorage = (DataStorage) objectInputStream.readObject();
@@ -172,10 +173,11 @@ public class SaveLoad {
                 }
 
             }
-
+            loaded = true;
 
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
+        return loaded;
     }
 }

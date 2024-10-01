@@ -17,6 +17,12 @@ public class KeyObject extends Entity {
         description = "[" + name.toString() + "]\nOpens a door.";
         price = 20;
         stackable = true;
+        setDialogue();
+    }
+
+    public void setDialogue() {
+        dialogues[0][0] = "You use the " + name + " and open the door.";
+        dialogues[1][0] = "You can't use a " + name + " here.";
     }
 
     public boolean use(Entity entity) {
@@ -25,12 +31,12 @@ public class KeyObject extends Entity {
 
         int objectIndex = getDetected(entity, gp.objects, Name.DOOR);
         if (objectIndex != 999) {
-            gp.ui.currentDialogue = "You use the " + name.toString() + " and open the door.";
+            startDialogue(this, 0);
             gp.playSE(3);
             gp.objects[gp.currentMap][objectIndex] = null;
             used = true;
         } else {
-            gp.ui.currentDialogue = "You can't use a " + name.toString() + " here.";
+            startDialogue(this, 1);
         }
         return used;
     }

@@ -18,13 +18,17 @@ public class PotionRedObject extends Entity {
         description = "[" + name.toString() + "]\nHeals your life by " + value + ".";
         price = 20;
         stackable = true;
+        setDialogue();
+    }
+
+    public void setDialogue() {
+        dialogues[0][0] = "You drink the " + name.toString() + "!\n"
+                + "Your life has recovered by " + value + "!";
     }
 
     public boolean use(Entity entity) {
         gp.playSE(2);
-        gp.gameState = gp.dialogState;
-        gp.ui.currentDialogue = "You drink the " + name.toString() + "!\n"
-                + "Your life has recovered by " + value + "!";
+        startDialogue(this, 0);
         entity.life += value;
         return true;
     }

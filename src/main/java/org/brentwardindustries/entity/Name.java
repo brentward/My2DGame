@@ -10,7 +10,7 @@ public enum Name {
     GREEN_SLIME("Green Slime"),
     ORC("Orc"),
     NORMAL_SWORD("Normal Sword"),
-    MAGIC_SWORD("Matic Sword"),
+    MAGIC_SWORD("Magic Sword"),
     WOOD_SHIELD("Wood Shield"),
     WOODCUTTERS_AXE("Woodcutter's Axe"),
     BLUE_SHIELD("Shield of Blue"),

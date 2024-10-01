@@ -7,12 +7,17 @@ public class EventHandler {
     GamePanel gp;
     EventRect[][][] eventRect;
     int tempMap, tempCol, tempRow;
+    Entity voiceOfGod;
 
     int previousEventX, previousEventY;
     boolean canTouchEvent = true;
 
     public EventHandler(GamePanel gp) {
         this.gp = gp;
+
+        voiceOfGod = new Entity(gp);
+        setDialogue();
+
         eventRect = new EventRect[gp.maxMap][gp.maxWorldCol][gp.maxWorldRow];
 
         int map = 0;
@@ -38,6 +43,14 @@ public class EventHandler {
                 }
             }
         }
+    }
+
+    public void setDialogue() {
+        voiceOfGod.dialogues[0][0] = "You fell into a pit!";
+        voiceOfGod.dialogues[1][0] = "You drink the water...\nYour life and magic have been restored.";
+        voiceOfGod.dialogues[1][1] = "Damn, this is good water.";
+        voiceOfGod.dialogues[1][2] = "The monsters have returned!";
+        voiceOfGod.dialogues[1][3] = "(Progress has been saved)";
     }
 
     public void checkEvent() {
@@ -93,7 +106,7 @@ public class EventHandler {
     public void damagePit(int gameState) {
         gp.gameState = gameState;
         gp.playSE(6);
-        gp.ui.currentDialogue = "You fell into a pit!";
+        voiceOfGod.startDialogue(voiceOfGod, 0);
         gp.player.life -= 1;
 //        eventRect[col][row].eventDone = true;
         canTouchEvent = false;
@@ -104,8 +117,7 @@ public class EventHandler {
             gp.gameState = gameState;
             gp.player.attackCanceled = true;
             gp.playSE(2);
-            gp.ui.currentDialogue = "You drink the water.\nYour life and magic have been recovered" +
-                    "\nYour progress has been saved";
+            voiceOfGod.startDialogue(voiceOfGod, 1);
             gp.player.life = gp.player.maxLife;
             gp.player.magic = gp.player.maxMagic;
             gp.assetSetter.setMonsters();

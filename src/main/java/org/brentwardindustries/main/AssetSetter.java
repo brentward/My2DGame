@@ -163,4 +163,24 @@ public class AssetSetter {
         i++;
         gp.interactiveTiles[mapNum][i] = new InteractiveDryTree(gp, 29, 31);
     }
- }
+
+    public void resetObjects() {
+        gp.clearObjects();
+        setObjects();
+    }
+
+    public void resetNpcs() {
+        gp.clearNpcs();
+        setNpcs();
+    }
+
+    public void resetMonsters() {
+        gp.clearMonsters();
+        setMonsters();
+    }
+
+    public void resetInteractiveTiles() {
+        gp.clearInteractiveTiles();
+        setInteractiveTiles();
+    }
+}

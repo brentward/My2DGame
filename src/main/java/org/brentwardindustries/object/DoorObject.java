@@ -23,6 +23,11 @@ public class DoorObject extends Entity {
         solidArea.height = 32;
         solidAreaDefaultX = solidArea.x;
         solidAreaDefaultY = solidArea.y;
+        setDialogue();
+    }
+
+    public void setDialogue() {
+        dialogues[0][0] = "You need a key to open this.";
     }
 
     public boolean interact() {
@@ -43,12 +48,8 @@ public class DoorObject extends Entity {
             if (hasKey) {
                 gp.playSE(3);
                 stillExists = false;
-//                collision = false;
-//                alive = false;
-//                down1 = image2;
             } else {
-                gp.gameState = gp.dialogState;
-                gp.ui.currentDialogue = "You need a key to open this.";
+                startDialogue(this, 0);
             }
         }
         return stillExists;

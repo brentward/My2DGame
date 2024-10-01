@@ -29,24 +29,27 @@ public class ChestObject extends Entity {
 
     public void setLoot(Entity loot) {
         this.loot = loot;
+        setDialogue();
+    }
+
+    public void setDialogue() {
+        dialogues[0][0] = "You opened the chest and found a " + loot.name + "!\n... But you cannot carry more items!";
+        dialogues[1][0] = "You opened the chest and found a " + loot.name + "!\nYou obtained a " + loot.name + "!";
+        dialogues[2][0] = "It is empty.";
     }
 
     public boolean interact() {
-        gp.gameState = gp.dialogState;
         if (!opened) {
             gp.playSE(3);
-            StringBuilder sb = new StringBuilder();
-            sb.append("You opened the chest and found a ").append(loot.name).append("!");
             if (!gp.player.canObtainItem(loot)) {
-                sb.append("\n... But you cannot carry more items!");
+                startDialogue(this, 0);
             } else {
-                sb.append("\nYou obtained a ").append(loot.name);
+                startDialogue(this, 1);
                 down1 = image2;
                 opened = true;
             }
-            gp.ui.currentDialogue = sb.toString();
         } else {
-            gp.ui.currentDialogue = "It is empty.";
+            startDialogue(this, 2);
         }
         return true;
     }

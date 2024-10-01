@@ -119,18 +119,15 @@ public class GamePanel extends JPanel implements Runnable {
         particleList.clear();
         environmentManager.lighting.resetDay();
         player.setDefaultPositions();
-        player.restoreStatus();
-        clearNpcs();
-        assetSetter.setNpcs();
-        clearMonsters();
-        assetSetter.setMonsters();
+        player.resetStatus();
+        player.resetCounters();
+        assetSetter.resetNpcs();
+        assetSetter.resetMonsters();
 
         if (restart) {
             player.setDefaultValues();
-            clearObjects();
-            assetSetter.setObjects();
-            clearInteractiveTiles();
-            assetSetter.setInteractiveTiles();
+            assetSetter.resetObjects();
+            assetSetter.resetInteractiveTiles();
         }
     }
 

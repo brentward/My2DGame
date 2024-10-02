@@ -1,18 +1,18 @@
 package org.brentwardindustries.object;
 
 import org.brentwardindustries.entity.Entity;
-import org.brentwardindustries.entity.Name;
 import org.brentwardindustries.main.GamePanel;
 
 public class PotionRedObject extends Entity {
     GamePanel gp;
+    public static final String objectName = "Red Potion";
 
     public PotionRedObject(GamePanel gp) {
         super(gp);
         this.gp = gp;
 
         type = typeConsumable;
-        name = Name.RED_POTION;
+        name = objectName;
         value = 5;
         down1 = setup("/objects/potion_red", gp.tileSize, gp.tileSize);
         description = "[" + name.toString() + "]\nHeals your life by " + value + ".";

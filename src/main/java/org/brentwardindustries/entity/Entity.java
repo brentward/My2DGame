@@ -60,7 +60,7 @@ public class Entity {
     int offBalanceCounter = 0;
 
     // CHARACTER ATTRIBUTES
-    public Name name;
+    public String name;
     public int defaultSpeed;
     public int speed;
     public int maxLife;
@@ -732,7 +732,7 @@ public class Entity {
         }
     }
 
-    public int getDetected(Entity user, Entity[][] target, Name tartetName) {
+    public int getDetected(Entity user, Entity[][] target, String targetName) {
         int index = 999;
 
         // CHECK SURROUNDING OBJECTS
@@ -752,7 +752,7 @@ public class Entity {
             if (target[gp.currentMap][i] != null
                     && target[gp.currentMap][i].getCol() == col
                     && target[gp.currentMap][i].getRow() == row
-                    && target[gp.currentMap][i].name == tartetName) {
+                    && target[gp.currentMap][i].name.equals(targetName)) {
                 index = i;
                 break;
             }

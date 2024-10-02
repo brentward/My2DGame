@@ -1,7 +1,6 @@
 package org.brentwardindustries.monster;
 
 import org.brentwardindustries.entity.Entity;
-import org.brentwardindustries.entity.Name;
 import org.brentwardindustries.main.GamePanel;
 import org.brentwardindustries.object.CoinBronzeObject;
 import org.brentwardindustries.object.HeartObject;
@@ -12,13 +11,15 @@ import java.util.Random;
 
 public class GreenSlimeMonster extends Entity {
     GamePanel gp;
+    public static final String objectName = "Green Slime";
+
     public GreenSlimeMonster(GamePanel gp) {
         super(gp);
 
         this.gp = gp;
 
         type = typeMonster;
-        name = Name.GREEN_SLIME;
+        name = objectName;
         defaultSpeed = 1;
         speed = defaultSpeed;
         maxLife = 4;

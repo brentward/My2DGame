@@ -1,20 +1,7 @@
 package org.brentwardindustries.data;
 
 import org.brentwardindustries.entity.Entity;
-import org.brentwardindustries.entity.Name;
 import org.brentwardindustries.main.GamePanel;
-import org.brentwardindustries.object.AxeObject;
-import org.brentwardindustries.object.BootsObject;
-import org.brentwardindustries.object.ChestObject;
-import org.brentwardindustries.object.DoorObject;
-import org.brentwardindustries.object.KeyObject;
-import org.brentwardindustries.object.LanternObject;
-import org.brentwardindustries.object.PotionRedObject;
-import org.brentwardindustries.object.ShieldBlueObject;
-import org.brentwardindustries.object.ShieldWoodObject;
-import org.brentwardindustries.object.SwordMagicObject;
-import org.brentwardindustries.object.SwordNormalObject;
-import org.brentwardindustries.object.TentObject;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -27,26 +14,6 @@ public class SaveLoad {
 
     public SaveLoad(GamePanel gp) {
         this.gp = gp;
-    }
-
-    public Entity getObject(Name itemName) {
-        Entity object = null;
-
-        switch (itemName) {
-            case WOODCUTTERS_AXE -> object = new AxeObject(gp);
-            case BOOTS -> object = new BootsObject(gp);
-            case KEY -> object = new KeyObject(gp);
-            case LANTERN -> object = new LanternObject(gp);
-            case RED_POTION -> object = new PotionRedObject(gp);
-            case BLUE_SHIELD -> object = new ShieldBlueObject(gp);
-            case WOOD_SHIELD -> object = new ShieldWoodObject(gp);
-            case NORMAL_SWORD -> object = new SwordNormalObject(gp);
-            case MAGIC_SWORD -> object = new SwordMagicObject(gp);
-            case TENT -> object = new TentObject(gp);
-            case DOOR -> object = new DoorObject(gp);
-            case CHEST -> object = new ChestObject(gp);
-        }
-        return object;
     }
 
     public void save() {
@@ -74,17 +41,17 @@ public class SaveLoad {
             dataStorage.currentShieldSlot = gp.player.getCurrentShieldSlot();
             dataStorage.currentLightSlot = gp.player.getCurrentLightSlot();
 
-            dataStorage.mapObjectNames = new Name[gp.maxMap][gp.objects[0].length];
+            dataStorage.mapObjectNames = new String[gp.maxMap][gp.objects[0].length];
             dataStorage.mapObjectWorldX = new int[gp.maxMap][gp.objects[0].length];
             dataStorage.mapObjectWorldY = new int[gp.maxMap][gp.objects[0].length];
-            dataStorage.mapObjectLootNames = new Name[gp.maxMap][gp.objects[0].length];
+            dataStorage.mapObjectLootNames = new String[gp.maxMap][gp.objects[0].length];
             dataStorage.mapObjectOpened = new boolean[gp.maxMap][gp.objects[0].length];
             dataStorage.interactiveTileLife = new int[gp.maxMap][gp.interactiveTiles[0].length];
 
             for (int mapIndex = 0; mapIndex < gp.maxMap; mapIndex++) {
                 for (int objectIndex = 0; objectIndex < gp.objects[mapIndex].length; objectIndex++) {
                     if (gp.objects[mapIndex][objectIndex] == null) {
-                        dataStorage.mapObjectNames[mapIndex][objectIndex] = Name.NONE;
+                        dataStorage.mapObjectNames[mapIndex][objectIndex] = "None";
                     } else {
                         dataStorage.mapObjectNames[mapIndex][objectIndex] = gp.objects[mapIndex][objectIndex].name;
                         dataStorage.mapObjectWorldX[mapIndex][objectIndex] = gp.objects[mapIndex][objectIndex].worldX;
@@ -129,7 +96,7 @@ public class SaveLoad {
 
             gp.player.inventory.clear();
             for (int i = 0; i < dataStorage.itemNames.size(); i++) {
-                Entity object = getObject(dataStorage.itemNames.get(i));
+                Entity object = gp.entityGenerator.getObject(dataStorage.itemNames.get(i));
                 object.amount = dataStorage.itemAmounts.get(i);
                 gp.player.inventory.add(object);
             }
@@ -148,14 +115,14 @@ public class SaveLoad {
             gp.player.setGuardImage();
             for (int mapIndex = 0; mapIndex < dataStorage.mapObjectNames.length; mapIndex++) {
                 for (int objectIndex = 0; objectIndex < dataStorage.mapObjectNames[mapIndex].length; objectIndex++) {
-                    if (dataStorage.mapObjectNames[mapIndex][objectIndex] == Name.NONE) {
+                    if (dataStorage.mapObjectNames[mapIndex][objectIndex].equals("None")) {
                         gp.objects[mapIndex][objectIndex] = null;
                     } else {
-                        gp.objects[mapIndex][objectIndex] = getObject(dataStorage.mapObjectNames[mapIndex][objectIndex]);
+                        gp.objects[mapIndex][objectIndex] = gp.entityGenerator.getObject(dataStorage.mapObjectNames[mapIndex][objectIndex]);
                         gp.objects[mapIndex][objectIndex].worldX = dataStorage.mapObjectWorldX[mapIndex][objectIndex];
                         gp.objects[mapIndex][objectIndex].worldY = dataStorage.mapObjectWorldY[mapIndex][objectIndex];
                         if (dataStorage.mapObjectLootNames[mapIndex][objectIndex] != null) {
-                            gp.objects[mapIndex][objectIndex].loot = getObject(dataStorage.mapObjectLootNames[mapIndex][objectIndex]);
+                            gp.objects[mapIndex][objectIndex].loot = gp.entityGenerator.getObject(dataStorage.mapObjectLootNames[mapIndex][objectIndex]);
                         }
                         gp.objects[mapIndex][objectIndex].opened = dataStorage.mapObjectOpened[mapIndex][objectIndex];
                         if (gp.objects[mapIndex][objectIndex].opened) {

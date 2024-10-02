@@ -1,18 +1,18 @@
 package org.brentwardindustries.object;
 
 import org.brentwardindustries.entity.Entity;
-import org.brentwardindustries.entity.Name;
 import org.brentwardindustries.main.GamePanel;
 
 public class HeartObject extends Entity {
     GamePanel gp;
+    public static final String objectName = "Heart";
 
     public HeartObject(GamePanel gp) {
         super(gp);
         this.gp = gp;
 
         type = typePickupOnly;
-        name = Name.HEART;
+        name = objectName;
         value = 2;
         image = setup("/objects/heart_full", gp.tileSize, gp.tileSize);
         image2 = setup("/objects/heart_half", gp.tileSize, gp.tileSize);

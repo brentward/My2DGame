@@ -139,7 +139,8 @@ public class Player extends Entity{
     }
 
     public void setAttackImage() {
-        if (currentWeapon.name == Name.NORMAL_SWORD || currentWeapon.name == Name.MAGIC_SWORD) {
+        if (currentWeapon.name.equals(SwordNormalObject.objectName)
+                || currentWeapon.name.equals(SwordMagicObject.objectName)) {
             attackUp1 = setup("/player/boy_attack_up_1", gp.tileSize, gp.tileSize * 2);
             attackUp2 = setup("/player/boy_attack_up_2", gp.tileSize, gp.tileSize * 2);
             attackDown1 = setup("/player/boy_attack_down_1", gp.tileSize, gp.tileSize * 2);
@@ -149,7 +150,7 @@ public class Player extends Entity{
             attackRight1 = setup("/player/boy_attack_right_1", gp.tileSize * 2, gp.tileSize);
             attackRight2 = setup("/player/boy_attack_right_2", gp.tileSize * 2, gp.tileSize);
         }
-        if (currentWeapon.name == Name.WOODCUTTERS_AXE) {
+        if (currentWeapon.name.equals(AxeObject.objectName)) {
             attackUp1 = setup("/player/boy_axe_up_1", gp.tileSize, gp.tileSize * 2);
             attackUp2 = setup("/player/boy_axe_up_2", gp.tileSize, gp.tileSize * 2);
             attackDown1 = setup("/player/boy_axe_down_1", gp.tileSize, gp.tileSize * 2);
@@ -527,11 +528,11 @@ public class Player extends Entity{
         }
     }
 
-    public int searchItemInInventory(Name itemName) {
+    public int searchItemInInventory(String itemName) {
         int itemIndex = 999;
 
         for (int i = 0; i < inventory.size(); i++) {
-            if (inventory.get(i).name == itemName) {
+            if (inventory.get(i).name.equals(itemName)) {
                 itemIndex = i;
                 break;
             }
@@ -541,21 +542,22 @@ public class Player extends Entity{
 
     public boolean canObtainItem(Entity item) {
         boolean canObtain = false;
+        Entity newItem = gp.entityGenerator.getObject(item.name);
 
-        if (item.stackable) {
-            int index = searchItemInInventory(item.name);
+        if (newItem.stackable) {
+            int index = searchItemInInventory(newItem.name);
             if (index != 999) {
                 inventory.get(index).amount++;
                 canObtain = true;
             } else {
                 if (inventory.size() != maxInventorySize) {
-                    inventory.add(item);
+                    inventory.add(newItem);
                     canObtain = true;
                 }
             }
         } else {
             if (inventory.size() != maxInventorySize) {
-                inventory.add(item);
+                inventory.add(newItem);
                 canObtain = true;
             }
         }

@@ -1,15 +1,16 @@
 package org.brentwardindustries.object;
 
 import org.brentwardindustries.entity.Entity;
-import org.brentwardindustries.entity.Name;
 import org.brentwardindustries.main.GamePanel;
 
 public class AxeObject extends Entity {
+    public static final String objectName = "Woodcutter's Axe";
+
     public AxeObject(GamePanel gp) {
         super(gp);
 
         type = typeAxe;
-        name = Name.WOODCUTTERS_AXE;
+        name = objectName;
         down1 = setup("/objects/axe", gp.tileSize, gp.tileSize);
         attackValue = 2;
         attackArea.width = 30;

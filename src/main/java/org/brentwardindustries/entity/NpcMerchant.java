@@ -1,7 +1,15 @@
 package org.brentwardindustries.entity;
 
 import org.brentwardindustries.main.GamePanel;
-import org.brentwardindustries.object.*;
+import org.brentwardindustries.object.AxeObject;
+import org.brentwardindustries.object.BootsObject;
+import org.brentwardindustries.object.KeyObject;
+import org.brentwardindustries.object.PotionRedObject;
+import org.brentwardindustries.object.ShieldBlueObject;
+import org.brentwardindustries.object.ShieldWoodObject;
+import org.brentwardindustries.object.SwordMagicObject;
+import org.brentwardindustries.object.SwordNormalObject;
+import org.brentwardindustries.object.TentObject;
 
 public class NpcMerchant extends Entity{
     public NpcMerchant(GamePanel gp) {

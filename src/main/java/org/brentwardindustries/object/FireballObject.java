@@ -1,7 +1,6 @@
 package org.brentwardindustries.object;
 
 import org.brentwardindustries.entity.Entity;
-import org.brentwardindustries.entity.Name;
 import org.brentwardindustries.entity.Projectile;
 import org.brentwardindustries.main.GamePanel;
 
@@ -9,12 +8,13 @@ import java.awt.Color;
 
 public class FireballObject extends Projectile {
     GamePanel gp;
+    public static final String objectName = "Fireball";
 
     public FireballObject(GamePanel gp) {
         super(gp);
         this.gp = gp;
 
-        name = Name.FIREBALL;
+        name = objectName;
         speed = 5;
         maxLife = 80;
         life = maxLife;

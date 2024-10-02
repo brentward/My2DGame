@@ -1,24 +1,24 @@
 package org.brentwardindustries.monster;
 
 import org.brentwardindustries.entity.Entity;
-import org.brentwardindustries.entity.Name;
 import org.brentwardindustries.main.GamePanel;
 import org.brentwardindustries.object.CoinBronzeObject;
 import org.brentwardindustries.object.HeartObject;
 import org.brentwardindustries.object.MagicCrystalObject;
-import org.brentwardindustries.object.RockObject;
 
 import java.util.Random;
 
 public class OrcMonster extends Entity {
     GamePanel gp;
+    public static final String objectName = "Orc";
+
     public OrcMonster(GamePanel gp) {
         super(gp);
 
         this.gp = gp;
 
         type = typeMonster;
-        name = Name.ORC;
+        name = objectName;
         defaultSpeed = 1;
         speed = defaultSpeed;
         maxLife = 10;

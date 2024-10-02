@@ -1,18 +1,18 @@
 package org.brentwardindustries.object;
 
 import org.brentwardindustries.entity.Entity;
-import org.brentwardindustries.entity.Name;
 import org.brentwardindustries.main.GamePanel;
 
 public class ChestObject extends Entity {
     GamePanel gp;
+    public static final String objectName = "Chest";
 
     public ChestObject(GamePanel gp) {
         super(gp);
         this.gp = gp;
 
         type = typeObstacle;
-        name = Name.CHEST;
+        name = objectName;
 
         image = setup("/objects/chest", gp.tileSize, gp.tileSize);
         image2 = setup("/objects/chest_opened", gp.tileSize, gp.tileSize);

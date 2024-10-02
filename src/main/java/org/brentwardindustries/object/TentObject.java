@@ -1,18 +1,18 @@
 package org.brentwardindustries.object;
 
 import org.brentwardindustries.entity.Entity;
-import org.brentwardindustries.entity.Name;
 import org.brentwardindustries.main.GamePanel;
 
 public class TentObject extends Entity {
     GamePanel gp;
+    public static final String objectName = "Tent";
 
     public TentObject(GamePanel gp) {
         super(gp);
         this.gp = gp;
 
         type = typeConsumable;
-        name = Name.TENT;
+        name = objectName;
         down1 = setup("/objects/tent", gp.tileSize, gp.tileSize);
         description = "[" + name.toString() + "]\nYou can sleep until\nnext morning.";
         price = 300;

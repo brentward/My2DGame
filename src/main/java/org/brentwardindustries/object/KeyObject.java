@@ -1,18 +1,18 @@
 package org.brentwardindustries.object;
 
 import org.brentwardindustries.entity.Entity;
-import org.brentwardindustries.entity.Name;
 import org.brentwardindustries.main.GamePanel;
 
 public class KeyObject extends Entity {
     GamePanel gp;
+    public static final String objectName = "Key";
 
     public KeyObject(GamePanel gp) {
         super(gp);
         this.gp = gp;
 
         type = typeConsumable;
-        name = Name.KEY;
+        name = objectName;
         down1 = setup("/objects/key", gp.tileSize, gp.tileSize);
         description = "[" + name.toString() + "]\nOpens a door.";
         price = 20;
@@ -29,7 +29,7 @@ public class KeyObject extends Entity {
         gp.gameState = gp.dialogState;
         boolean used = false;
 
-        int objectIndex = getDetected(entity, gp.objects, Name.DOOR);
+        int objectIndex = getDetected(entity, gp.objects, DoorObject.objectName);
         if (objectIndex != 999) {
             startDialogue(this, 0);
             gp.playSE(3);

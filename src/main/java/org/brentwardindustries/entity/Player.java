@@ -439,7 +439,7 @@ public class Player extends Entity{
 
                 if (gp.monsters[gp.currentMap][i].life <= 0) {
                     gp.monsters[gp.currentMap][i].dying = true;
-                    gp.ui.addMessage("Killed the "+ gp.monsters[gp.currentMap][i].name.toString() + "!");
+                    gp.ui.addMessage("Killed the "+ gp.monsters[gp.currentMap][i].name + "!");
                     gp.ui.addMessage("Exp + "+ gp.monsters[gp.currentMap][i].exp);
                     exp += gp.monsters[gp.currentMap][i].exp;
                     checkLevelUp();

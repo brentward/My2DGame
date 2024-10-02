@@ -4,6 +4,7 @@ import org.brentwardindustries.entity.NpcMerchant;
 import org.brentwardindustries.entity.NpcOldMan;
 import org.brentwardindustries.monster.GreenSlimeMonster;
 import org.brentwardindustries.monster.OrcMonster;
+import org.brentwardindustries.monster.RedSlimeMonster;
 import org.brentwardindustries.object.AxeObject;
 import org.brentwardindustries.object.ChestObject;
 import org.brentwardindustries.object.DoorObject;
@@ -48,11 +49,6 @@ public class AssetSetter {
         gp.objects[mapNum][i].setLoot(new KeyObject(gp));
         gp.objects[mapNum][i].worldX = gp.tileSize * 30;
         gp.objects[mapNum][i].worldY = gp.tileSize * 29;
-        i++;
-        gp.objects[mapNum][i] = new ChestObject(gp);
-        gp.objects[mapNum][i].setLoot(new ShieldBlueObject(gp));
-        gp.objects[mapNum][i].worldX = gp.tileSize * 12;
-        gp.objects[mapNum][i].worldY = gp.tileSize  * 9;
         i++;
         gp.objects[mapNum][i] = new ChestObject(gp);
         gp.objects[mapNum][i].setLoot(new TentObject(gp));
@@ -104,6 +100,18 @@ public class AssetSetter {
         gp.monsters[mapNum][i] = new OrcMonster(gp);
         gp.monsters[mapNum][i].worldX = gp.tileSize * 12;
         gp.monsters[mapNum][i].worldY = gp.tileSize * 33;
+        i++;
+        gp.monsters[mapNum][i] = new RedSlimeMonster(gp);
+        gp.monsters[mapNum][i].worldX = gp.tileSize * 37;
+        gp.monsters[mapNum][i].worldY = gp.tileSize * 8;
+        i++;
+        gp.monsters[mapNum][i] = new RedSlimeMonster(gp);
+        gp.monsters[mapNum][i].worldX = gp.tileSize * 40;
+        gp.monsters[mapNum][i].worldY = gp.tileSize * 10;
+        i++;
+        gp.monsters[mapNum][i] = new RedSlimeMonster(gp);
+        gp.monsters[mapNum][i].worldX = gp.tileSize * 38;
+        gp.monsters[mapNum][i].worldY = gp.tileSize * 11;
     }
 
     public void setInteractiveTiles() {

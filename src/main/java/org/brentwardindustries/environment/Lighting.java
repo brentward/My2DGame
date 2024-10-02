@@ -124,8 +124,12 @@ public class Lighting {
     }
 
     public void draw(Graphics2D g2D) {
-        g2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, filterAlpha));
-        g2D.drawImage(darknessFilter, 0, 0, null);
+        if (gp.currentArea == gp.outsideArea) {
+            g2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, filterAlpha));
+        }
+        if (gp.currentArea == gp.outsideArea || gp.currentArea == gp.dungeonArea) {
+            g2D.drawImage(darknessFilter, 0, 0, null);
+        }
         g2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
 
         if (gp.keyHandler.showDebugText) {

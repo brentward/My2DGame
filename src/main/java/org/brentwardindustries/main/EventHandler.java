@@ -67,12 +67,20 @@ public class EventHandler {
             }
             if (hit(0, 23, 12, Direction.UP)) {
                 healingPool(gp.dialogState);
-            } else if (hit(0, 10, 39, Direction.UP)) {
-                teleport(1, 12, 13);
-            } else if (hit(1, 12, 13, Direction.DOWN )) {
-                teleport(0, 10, 39);
+            } else if (hit(0, 10, 39, Direction.UP)) { // from Merchant's house world map
+                teleport(1, 12, 13, gp.indoorArea); // to Merchant's house indoors
+            } else if (hit(1, 12, 13, Direction.DOWN )) { // from Merchant's house indoors
+                teleport(0, 10, 39, gp.outsideArea); // to Merchant's house map
             } else if (hit(1, 12, 9, Direction.UP)) {
                 speak(gp.npcs[1][0]);
+            } else if (hit(0, 12, 9, Direction.ANY)) { // from world map stairs
+                teleport(2, 9, 41, gp.dungeonArea); // to the dungeon
+            } else if (hit(2, 9, 41, Direction.ANY)) { // from the dungeon
+                teleport(0, 12, 9, gp.outsideArea); // to world map stairs
+            } else if (hit(2, 8, 7, Direction.ANY)) { // from B1
+                teleport(3, 26, 41, gp.dungeonArea); // to B2
+            } else if (hit(3, 26, 41, Direction.ANY)) { // from B2
+                teleport(2, 8, 7, gp.dungeonArea); // to B1
             }
         }
     }
@@ -125,8 +133,9 @@ public class EventHandler {
         }
     }
 
-    public void teleport(int map, int col, int row) {
+    public void teleport(int map, int col, int row, int area) {
         gp.gameState = gp.transitionState;
+        gp.nextArea = area;
         tempMap = map;
         tempCol = col;
         tempRow = row;

@@ -211,12 +211,6 @@ public class ControllerHandler {
                     case "z" -> {
                     } // L2 and R2
                 }
-//                if (l && r) {
-//                    gp.keyHandler.inputPressed(KeyEvent.VK_L);
-//                    gp.keyHandler.inputPressed(KeyEvent.VK_F6);
-//                    l = false;
-//                    r = false;
-//                }
             }
         }
     }

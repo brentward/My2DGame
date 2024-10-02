@@ -262,11 +262,17 @@ public class UI {
 
 
             if (gp.keyHandler.enterPressed) {
-                charIndex = 0;
-                combinedText = "";
-                if (gp.gameState == gp.dialogState) {
-                    npc.dialogueIndex++;
+                if (charIndex < characters.length) {
+                    currentDialogue = npc.dialogues[npc.dialogueSet][npc.dialogueIndex];
+                    charIndex = characters.length;
                     gp.keyHandler.enterPressed = false;
+                } else {
+                    charIndex = 0;
+                    combinedText = "";
+                    if (gp.gameState == gp.dialogState) {
+                        npc.dialogueIndex++;
+                        gp.keyHandler.enterPressed = false;
+                    }
                 }
             }
         } else {

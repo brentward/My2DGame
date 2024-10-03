@@ -28,7 +28,7 @@ public class InteractiveDestructibleWall extends InteractiveTile{
         return entity.currentWeapon.type == typePickaxe;
     }
     public void playSE() {
-        gp.playSE(11);
+        gp.playSE(20);
     }
 
 //    public InteractiveTile getDestroyedForm() {
@@ -50,6 +50,7 @@ public class InteractiveDestructibleWall extends InteractiveTile{
     public int getParticleMaxLife() {
         return 20;
     }
+
     public void draw(Graphics2D g2D) {
         int screenX = worldX - gp.player.worldX + gp.player.screenX;
         int screenY = worldY - gp.player.worldY + gp.player.screenY;

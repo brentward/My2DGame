@@ -124,7 +124,7 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void resetGame(boolean restart){
-        clearProjectiles();
+        assetSetter.clearProjectiles();
         particleList.clear();
         environmentManager.lighting.resetDay();
         player.setDefaultPositions();
@@ -137,36 +137,6 @@ public class GamePanel extends JPanel implements Runnable {
             player.setDefaultValues();
             assetSetter.resetObjects();
             assetSetter.resetInteractiveTiles();
-        }
-    }
-
-    public void clearObjects() {
-        for (Entity[] object : objects) {
-            Arrays.fill(object, null);
-        }
-    }
-
-    public void clearNpcs() {
-        for (Entity[] npc : npcs) {
-            Arrays.fill(npc, null);
-        }
-    }
-
-    public void clearMonsters() {
-        for (Entity[] monster : monsters) {
-            Arrays.fill(monster, null);
-        }
-    }
-
-    public void clearInteractiveTiles() {
-        for (InteractiveTile[] interactiveTile : interactiveTiles) {
-            Arrays.fill(interactiveTile, null);
-        }
-    }
-
-    public void clearProjectiles() {
-        for (Entity[] projectile : projectiles) {
-            Arrays.fill(projectile, null);
         }
     }
 
@@ -448,6 +418,8 @@ public class GamePanel extends JPanel implements Runnable {
             if (nextArea == dungeonArea) {
                 playMusic(19);
             }
+            // Reset NPCs; for rock puzzle
+            assetSetter.resetNpcs();
         }
         currentArea = nextArea;
         assetSetter.resetMonsters();

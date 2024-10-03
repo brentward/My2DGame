@@ -1,5 +1,6 @@
 package org.brentwardindustries.main;
 
+import org.brentwardindustries.entity.Entity;
 import org.brentwardindustries.entity.NpcBigRock;
 import org.brentwardindustries.entity.NpcMerchant;
 import org.brentwardindustries.entity.NpcOldMan;
@@ -19,6 +20,9 @@ import org.brentwardindustries.object.TentObject;
 import org.brentwardindustries.tileinteractive.InteractiveDestructibleWall;
 import org.brentwardindustries.tileinteractive.InteractiveDryTree;
 import org.brentwardindustries.tileinteractive.InteractiveMetalPlate;
+import org.brentwardindustries.tileinteractive.InteractiveTile;
+
+import java.util.Arrays;
 
 public class AssetSetter {
     GamePanel gp;
@@ -262,23 +266,53 @@ public class AssetSetter {
 
     }
 
+    public void clearObjects() {
+        for (Entity[] objectsList : gp.objects) {
+            Arrays.fill(objectsList, null);
+        }
+    }
+
+    public void clearNpcs() {
+        for (Entity[] npcsList : gp.npcs) {
+            Arrays.fill(npcsList, null);
+        }
+    }
+
+    public void clearMonsters() {
+        for (Entity[] monstersList : gp.monsters) {
+            Arrays.fill(monstersList, null);
+        }
+    }
+
+    public void clearInteractiveTiles() {
+        for (InteractiveTile[] interactiveTilesList : gp.interactiveTiles) {
+            Arrays.fill(interactiveTilesList, null);
+        }
+    }
+
+    public void clearProjectiles() {
+        for (Entity[] projectile : gp.projectiles) {
+            Arrays.fill(projectile, null);
+        }
+    }
+
     public void resetObjects() {
-        gp.clearObjects();
+        clearObjects();
         setObjects();
     }
 
     public void resetNpcs() {
-        gp.clearNpcs();
+        clearNpcs();
         setNpcs();
     }
 
     public void resetMonsters() {
-        gp.clearMonsters();
+        clearMonsters();
         setMonsters();
     }
 
     public void resetInteractiveTiles() {
-        gp.clearInteractiveTiles();
+        clearInteractiveTiles();
         setInteractiveTiles();
     }
 }

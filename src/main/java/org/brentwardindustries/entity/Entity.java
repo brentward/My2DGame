@@ -26,6 +26,7 @@ public class Entity {
     public boolean collisionOn = false;
     public String[][] dialogues = new String[20][20];
     public Entity attacker;
+    public Entity linkedEntity;
 
     // STATE
     public int worldX, worldY;
@@ -109,6 +110,7 @@ public class Entity {
     public final int typePickupOnly = 7;
     public final int typeObstacle = 8;
     public final int typeLight = 9;
+    public final int typePickaxe = 10;
 
     public Entity(GamePanel gp) {
         this.gp = gp;
@@ -174,6 +176,8 @@ public class Entity {
     public void setLoot(Entity loot) {}
 
     public void setAction() {}
+
+    public void move(Direction direction) {}
 
     public void damageReaction() {}
 
@@ -247,7 +251,7 @@ public class Entity {
         gp.particleList.add(particle4);
     }
 
-    private void checkCollision() {
+    public void checkCollision() {
         collisionOn = false;
         gp.collisionChecker.checkTile(this);
         gp.collisionChecker.checkObject(this, false);

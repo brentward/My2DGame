@@ -1,5 +1,6 @@
 package org.brentwardindustries.main;
 
+import org.brentwardindustries.entity.NpcBigRock;
 import org.brentwardindustries.entity.NpcMerchant;
 import org.brentwardindustries.entity.NpcOldMan;
 import org.brentwardindustries.monster.GreenSlimeMonster;
@@ -7,13 +8,17 @@ import org.brentwardindustries.monster.OrcMonster;
 import org.brentwardindustries.monster.RedSlimeMonster;
 import org.brentwardindustries.object.AxeObject;
 import org.brentwardindustries.object.ChestObject;
+import org.brentwardindustries.object.DoorIronObject;
 import org.brentwardindustries.object.DoorObject;
 import org.brentwardindustries.object.KeyObject;
 import org.brentwardindustries.object.LanternObject;
+import org.brentwardindustries.object.PickaxeObject;
 import org.brentwardindustries.object.PotionRedObject;
 import org.brentwardindustries.object.ShieldBlueObject;
 import org.brentwardindustries.object.TentObject;
+import org.brentwardindustries.tileinteractive.InteractiveDestructibleWall;
 import org.brentwardindustries.tileinteractive.InteractiveDryTree;
+import org.brentwardindustries.tileinteractive.InteractiveMetalPlate;
 
 public class AssetSetter {
     GamePanel gp;
@@ -59,6 +64,32 @@ public class AssetSetter {
         gp.objects[mapNum][i].setLoot(new PotionRedObject(gp));
         gp.objects[mapNum][i].worldX = gp.tileSize * 16;
         gp.objects[mapNum][i].worldY = gp.tileSize  * 20;
+
+        mapNum = 2;
+        i = 0;
+        gp.objects[mapNum][i] = new ChestObject(gp);
+        gp.objects[mapNum][i].setLoot(new PickaxeObject(gp));
+        gp.objects[mapNum][i].worldX = gp.tileSize * 40;
+        gp.objects[mapNum][i].worldY = gp.tileSize  * 41;
+        i++;
+        gp.objects[mapNum][i] = new ChestObject(gp);
+        gp.objects[mapNum][i].setLoot(new PotionRedObject(gp));
+        gp.objects[mapNum][i].worldX = gp.tileSize * 26;
+        gp.objects[mapNum][i].worldY = gp.tileSize  * 34;
+        i++;
+        gp.objects[mapNum][i] = new ChestObject(gp);
+        gp.objects[mapNum][i].setLoot(new PotionRedObject(gp));
+        gp.objects[mapNum][i].worldX = gp.tileSize * 27;
+        gp.objects[mapNum][i].worldY = gp.tileSize  * 15;
+        i++;
+        gp.objects[mapNum][i] = new ChestObject(gp);
+        gp.objects[mapNum][i].setLoot(new PotionRedObject(gp));
+        gp.objects[mapNum][i].worldX = gp.tileSize * 13;
+        gp.objects[mapNum][i].worldY = gp.tileSize  * 16;
+        i++;
+        gp.objects[mapNum][i] = new DoorIronObject(gp);
+        gp.objects[mapNum][i].worldX = gp.tileSize * 18;
+        gp.objects[mapNum][i].worldY = gp.tileSize  * 23;
     }
 
     public void setNpcs() {
@@ -69,9 +100,24 @@ public class AssetSetter {
         gp.npcs[mapNum][i].worldY = gp.tileSize * 21;
 
         mapNum = 1;
+//        i = 0;
         gp.npcs[mapNum][i] = new NpcMerchant(gp);
         gp.npcs[mapNum][i].worldX = gp.tileSize * 12;
         gp.npcs[mapNum][i].worldY = gp.tileSize * 7;
+
+        mapNum = 2;
+//        i = 0;
+        gp.npcs[mapNum][i] = new NpcBigRock(gp);
+        gp.npcs[mapNum][i].worldX = gp.tileSize * 20;
+        gp.npcs[mapNum][i].worldY = gp.tileSize * 25;
+        i++;
+        gp.npcs[mapNum][i] = new NpcBigRock(gp);
+        gp.npcs[mapNum][i].worldX = gp.tileSize * 11;
+        gp.npcs[mapNum][i].worldY = gp.tileSize * 18;
+        i++;
+        gp.npcs[mapNum][i] = new NpcBigRock(gp);
+        gp.npcs[mapNum][i].worldX = gp.tileSize * 23;
+        gp.npcs[mapNum][i].worldY = gp.tileSize * 14;
     }
 
     public void setMonsters() {
@@ -170,6 +216,50 @@ public class AssetSetter {
         gp.interactiveTiles[mapNum][i] = new InteractiveDryTree(gp, 28, 31);
         i++;
         gp.interactiveTiles[mapNum][i] = new InteractiveDryTree(gp, 29, 31);
+
+        mapNum = 2;
+        i = 0;
+        gp.interactiveTiles[mapNum][i] = new InteractiveDestructibleWall(gp, 18, 30);
+        i++;
+        gp.interactiveTiles[mapNum][i] = new InteractiveDestructibleWall(gp, 17, 31);
+        i++;
+        gp.interactiveTiles[mapNum][i] = new InteractiveDestructibleWall(gp, 17, 32);
+        i++;
+        gp.interactiveTiles[mapNum][i] = new InteractiveDestructibleWall(gp, 17, 34);
+        i++;
+        gp.interactiveTiles[mapNum][i] = new InteractiveDestructibleWall(gp, 18, 34);
+        i++;
+        gp.interactiveTiles[mapNum][i] = new InteractiveDestructibleWall(gp, 18, 35);
+        i++;
+        gp.interactiveTiles[mapNum][i] = new InteractiveDestructibleWall(gp, 10, 22);
+        i++;
+        gp.interactiveTiles[mapNum][i] = new InteractiveDestructibleWall(gp, 10, 24);
+        i++;
+        gp.interactiveTiles[mapNum][i] = new InteractiveDestructibleWall(gp, 38, 18);
+        i++;
+        gp.interactiveTiles[mapNum][i] = new InteractiveDestructibleWall(gp, 38, 19);
+        i++;
+        gp.interactiveTiles[mapNum][i] = new InteractiveDestructibleWall(gp, 38, 20);
+        i++;
+        gp.interactiveTiles[mapNum][i] = new InteractiveDestructibleWall(gp, 38, 21);
+        i++;
+        gp.interactiveTiles[mapNum][i] = new InteractiveDestructibleWall(gp, 18, 13);
+        i++;
+        gp.interactiveTiles[mapNum][i] = new InteractiveDestructibleWall(gp, 18, 14);
+        i++;
+        gp.interactiveTiles[mapNum][i] = new InteractiveDestructibleWall(gp, 22, 28);
+        i++;
+        gp.interactiveTiles[mapNum][i] = new InteractiveDestructibleWall(gp, 30, 28);
+        i++;
+        gp.interactiveTiles[mapNum][i] = new InteractiveDestructibleWall(gp, 32, 28);
+
+        i++;
+        gp.interactiveTiles[mapNum][i] = new InteractiveMetalPlate(gp, 20, 22);
+        i++;
+        gp.interactiveTiles[mapNum][i] = new InteractiveMetalPlate(gp, 8, 17);
+        i++;
+        gp.interactiveTiles[mapNum][i] = new InteractiveMetalPlate(gp, 39, 31);
+
     }
 
     public void resetObjects() {

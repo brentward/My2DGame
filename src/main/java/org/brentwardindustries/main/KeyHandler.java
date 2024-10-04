@@ -4,14 +4,15 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class KeyHandler implements KeyListener {
+    public GamePanel gp;
     public boolean upPressed, downPressed, leftPressed, rightPressed, enterPressed, shotKeyPressed,
             guardPressed;
-    public GamePanel gp;
 
     // DEBUG
     public boolean showDebugText = false;
     public boolean showHitBox = false;
     public boolean showPaths = false;
+    public boolean godModeOn = false;
 
     public KeyHandler(GamePanel gp) {
         this.gp = gp;
@@ -124,6 +125,9 @@ public class KeyHandler implements KeyListener {
         // DEBUG
         if (code == KeyEvent.VK_T) {
             showDebugText = !showDebugText;
+        }
+        if (code == KeyEvent.VK_G) {
+            godModeOn = !godModeOn;
         }
 
         if (code == KeyEvent.VK_R) {
@@ -241,8 +245,8 @@ public class KeyHandler implements KeyListener {
         if (code == KeyEvent.VK_ENTER) {
             if (gp.ui.commandNum == 0) {
                 gp.resetGame(false);
-                gp.gameState = gp.playState;
                 gp.playMusic(0);
+                gp.gameState = gp.playState;
             } else if (gp.ui.commandNum == 1) {
                 gp.ui.commandNum = 2;
                 gp.resetGame(true);

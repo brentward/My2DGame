@@ -15,7 +15,7 @@ public class PickaxeObject extends Entity {
         attackValue = 2;
         attackArea.width = 30;
         attackArea.height = 30;
-        description = "[" + name.toString() + "]\nOften used in mining\n... and crafting?";
+        description = "[" + name + "]\nOften used in mining\n... and crafting?";
         price = 75;
         knockBackPower = 10;
         attackWindupDuration = 10;

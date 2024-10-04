@@ -48,6 +48,7 @@ public class Entity {
     public boolean offBalance = false;
     public Entity loot;
     public boolean opened = false;
+    public boolean inRage = false;
 
     // COUNTER
     public int spriteCounter = 0;
@@ -140,12 +141,19 @@ public class Entity {
         return getTopY() / gp.tileSize;
     }
 
+    public int getCenterX() {
+        return worldX + up1.getWidth() / 2;
+    }
+
+    public int getCenterY() {
+        return worldY + up1.getHeight() / 2;
+    }
     public int getXDistance(Entity target) {
-        return Math.abs(worldX - target.worldX);
+        return Math.abs(getCenterX() - target.getCenterX());
     }
 
     public int getYDistance(Entity target) {
-        return Math.abs(worldY - target.worldY);
+        return Math.abs(getCenterY() - target.getCenterY());
     }
 
     public int getTileDistance(Entity target) {
@@ -177,7 +185,7 @@ public class Entity {
 
     public void setAction() {}
 
-    public void move(Direction direction) {}
+    public void move(Direction moveDirection, int moveSpeed) {}
 
     public void damageReaction() {}
 
@@ -337,22 +345,22 @@ public class Entity {
 
         switch (direction) {
             case UP -> {
-                if (gp.player.worldY < worldY && yDistance < rangeLength && xDistance < rangeWidth) {
+                if (gp.player.getCenterY() < getCenterY() && yDistance < rangeLength && xDistance < rangeWidth) {
                     targetInRange = true;
                 }
             }
             case DOWN -> {
-                if (gp.player.worldY > worldY && yDistance < rangeLength && xDistance < rangeWidth) {
+                if (gp.player.getCenterY() > getCenterY() && yDistance < rangeLength && xDistance < rangeWidth) {
                     targetInRange = true;
                 }
             }
             case LEFT -> {
-                if (gp.player.worldX < worldY && xDistance < rangeLength && yDistance < rangeWidth) {
+                if (gp.player.getCenterX() < getCenterX() && xDistance < rangeLength && yDistance < rangeWidth) {
                     targetInRange = true;
                 }
             }
             case RIGHT -> {
-                if (gp.player.worldX > worldX && xDistance < rangeLength && yDistance < rangeWidth) {
+                if (gp.player.getCenterX() > getCenterX() && xDistance < rangeLength && yDistance < rangeWidth) {
                     targetInRange = true;
                 }
             }
@@ -401,9 +409,9 @@ public class Entity {
         }
     }
 
-    public void getRandomDirection(int distance) {
+    public void getRandomDirection(int interval) {
         actionLockCounter++;
-        if (actionLockCounter == distance) {
+        if (actionLockCounter > interval) {
             int oneHundredSidedDie = new Random().nextInt(100) + 1;
 
             if (oneHundredSidedDie <= 25) {
@@ -421,6 +429,26 @@ public class Entity {
             actionLockCounter = 0;
         }
 
+    }
+
+    public void moveTowardPlayer(int interval) {
+        actionLockCounter++;
+        if (actionLockCounter > interval) {
+            if (getXDistance(gp.player) > getYDistance(gp.player)) {
+                if (gp.player.getCenterX() < getCenterX()) {
+                    direction = Direction.LEFT;
+                } else {
+                    direction = Direction.RIGHT;
+                }
+            } else if (getXDistance(gp.player) < getYDistance(gp.player)) {
+                if (gp.player.getCenterY() < getCenterY()) {
+                    direction = Direction.UP;
+                } else {
+                    direction = Direction.DOWN;
+                }
+            }
+            actionLockCounter = 0;
+        }
     }
 
 //    public Direction getOppositeDirection(Direction direction) {
@@ -450,10 +478,22 @@ public class Entity {
 
             // Adjust player's worldX/Y for the attackArea
             switch (direction) {
-                case UP -> worldY -= attackArea.height;
-                case DOWN -> worldY += solidArea.height;
-                case LEFT -> worldX -= attackArea.width;
-                case RIGHT -> worldX += solidArea.width;
+                case UP -> {
+                    worldY -= attackArea.height;
+                    worldX += (solidArea.width - attackArea.width) / 2;
+                }
+                case DOWN -> {
+                    worldY += solidArea.height;
+                    worldX += (solidArea.width - attackArea.width) / 2;
+                }
+                case LEFT -> {
+                    worldX -= attackArea.width;
+                    worldY += (solidArea.height - attackArea.height) / 2;
+                }
+                case RIGHT -> {
+                    worldX += solidArea.width;
+                    worldY += (solidArea.height - attackArea.height) / 2;
+                }
             }
 
             // solidArea set to attackArea
@@ -531,10 +571,10 @@ public class Entity {
         int screenX = worldX - gp.player.worldX + gp.player.screenX;
         int screenY = worldY - gp.player.worldY + gp.player.screenY;
 
-        if (worldX > gp.player.worldX - gp.player.screenX - gp.tileSize
-                && worldX < gp.player.worldX + gp.player.screenX + gp.tileSize
-                && worldY > gp.player.worldY - gp.player.screenY - gp.tileSize
-                && worldY < gp.player.worldY + gp.player.screenY+ gp.tileSize) {
+        if (worldX + gp.tileSize * 5 > gp.player.worldX - gp.player.screenX
+                && worldX - gp.tileSize * 5 < gp.player.worldX + gp.player.screenX
+                && worldY + gp.tileSize * 5 > gp.player.worldY - gp.player.screenY
+                && worldY - gp.tileSize * 5 < gp.player.worldY + gp.player.screenY) {
 
             int tempScreenX = screenX;
             int tempScreenY = screenY;
@@ -545,13 +585,14 @@ public class Entity {
                         image = (spriteNum == 1) ? up1 : up2;
                     }
                     if (attacking) {
-                        tempScreenY = screenY - gp.tileSize;
+                        tempScreenY = screenY - up1.getHeight();
                         image = (spriteNum == 1) ? attackUp1 : attackUp2;
                         if (gp.keyHandler.showHitBox) {
                             g2D.setStroke(new BasicStroke(1));
                             g2D.setColor(Color.ORANGE);
-                            g2D.drawRect(screenX + solidArea.x, screenY + solidArea.y
-                                    - attackArea.height, attackArea.width, attackArea.height);
+                            g2D.drawRect(screenX + solidArea.x + (solidArea.width - attackArea.width) / 2,
+                                    screenY + solidArea.y - attackArea.height,
+                                    attackArea.width, attackArea.height);
                         }
                     }
                 }
@@ -564,8 +605,9 @@ public class Entity {
                         if (gp.keyHandler.showHitBox) {
                             g2D.setStroke(new BasicStroke(1));
                             g2D.setColor(Color.ORANGE);
-                            g2D.drawRect(screenX + solidArea.x, screenY + solidArea.y
-                                    + solidArea.height, attackArea.width, attackArea.height);
+                            g2D.drawRect(screenX + solidArea.x + (solidArea.width - attackArea.width) / 2,
+                                    screenY + solidArea.y+ solidArea.height,
+                                    attackArea.width, attackArea.height);
                         }
                     }
                 }
@@ -574,13 +616,14 @@ public class Entity {
                         image = (spriteNum == 1) ? left1 : left2;
                     }
                     if (attacking) {
-                        tempScreenX = screenX - gp.tileSize;
+                        tempScreenX = screenX - left1.getWidth();
                         image = (spriteNum == 1) ? attackLeft1 : attackLeft2;
                         if (gp.keyHandler.showHitBox) {
                             g2D.setStroke(new BasicStroke(1));
                             g2D.setColor(Color.ORANGE);
-                            g2D.drawRect(screenX + solidArea.x - attackArea.width, screenY
-                                    + solidArea.y, attackArea.width, attackArea.height);
+                            g2D.drawRect(screenX + solidArea.x - attackArea.width,
+                                    screenY + solidArea.y + (solidArea.height - attackArea.height) / 2,
+                                    attackArea.width, attackArea.height);
                         }
                     }
                 }
@@ -593,8 +636,9 @@ public class Entity {
                         if (gp.keyHandler.showHitBox) {
                             g2D.setStroke(new BasicStroke(1));
                             g2D.setColor(Color.ORANGE);
-                            g2D.drawRect(screenX + solidArea.x + solidArea.width, screenY
-                                    + solidArea.y, attackArea.width, attackArea.height);
+                            g2D.drawRect(screenX + solidArea.x + solidArea.width,
+                                    screenY + solidArea.y + (solidArea.height - attackArea.height) / 2,
+                                    attackArea.width, attackArea.height);
                         }
                     }
                 }

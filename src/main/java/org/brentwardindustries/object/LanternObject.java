@@ -12,8 +12,8 @@ public class LanternObject extends Entity {
         type = typeLight;
         name = objectName;
         down1 = setup("/objects/lantern", gp.tileSize, gp.tileSize);
-        description = "[" + name.toString() + "]\nIlluminates your\nsurroundings.";
+        description = "[" + name + "]\nIlluminates your\nsurroundings.";
         price = 200;
-        lightRadius = 250;
+        lightRadius = 350;
     }
 }

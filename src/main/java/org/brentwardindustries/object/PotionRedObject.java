@@ -15,14 +15,14 @@ public class PotionRedObject extends Entity {
         name = objectName;
         value = 5;
         down1 = setup("/objects/potion_red", gp.tileSize, gp.tileSize);
-        description = "[" + name.toString() + "]\nHeals your life by " + value + ".";
+        description = "[" + name + "]\nHeals your life by " + value + ".";
         price = 20;
         stackable = true;
         setDialogue();
     }
 
     public void setDialogue() {
-        dialogues[0][0] = "You drink the " + name.toString() + "!\n"
+        dialogues[0][0] = "You drink the " + name + "!\n"
                 + "Your life has recovered by " + value + "!";
     }
 

@@ -15,7 +15,7 @@ public class SwordMagicObject extends Entity {
         attackValue = 4;
         attackArea.width = 48;
         attackArea.height = 48;
-        description = "[" + name.toString() + "]\nA magical sword.";
+        description = "[" + name + "]\nA magical sword.";
         price = 200;
         knockBackPower = 2;
         attackWindupDuration = 1;

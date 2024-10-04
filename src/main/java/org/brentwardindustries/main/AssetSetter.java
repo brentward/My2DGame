@@ -4,9 +4,11 @@ import org.brentwardindustries.entity.Entity;
 import org.brentwardindustries.entity.NpcBigRock;
 import org.brentwardindustries.entity.NpcMerchant;
 import org.brentwardindustries.entity.NpcOldMan;
+import org.brentwardindustries.monster.BatMonster;
 import org.brentwardindustries.monster.GreenSlimeMonster;
 import org.brentwardindustries.monster.OrcMonster;
 import org.brentwardindustries.monster.RedSlimeMonster;
+import org.brentwardindustries.monster.SkeletonLordMonster;
 import org.brentwardindustries.object.AxeObject;
 import org.brentwardindustries.object.ChestObject;
 import org.brentwardindustries.object.DoorIronObject;
@@ -15,7 +17,6 @@ import org.brentwardindustries.object.KeyObject;
 import org.brentwardindustries.object.LanternObject;
 import org.brentwardindustries.object.PickaxeObject;
 import org.brentwardindustries.object.PotionRedObject;
-import org.brentwardindustries.object.ShieldBlueObject;
 import org.brentwardindustries.object.TentObject;
 import org.brentwardindustries.tileinteractive.InteractiveDestructibleWall;
 import org.brentwardindustries.tileinteractive.InteractiveDryTree;
@@ -162,6 +163,35 @@ public class AssetSetter {
         gp.monsters[mapNum][i] = new RedSlimeMonster(gp);
         gp.monsters[mapNum][i].worldX = gp.tileSize * 38;
         gp.monsters[mapNum][i].worldY = gp.tileSize * 11;
+
+        mapNum = 2;
+        i = 0;
+        gp.monsters[mapNum][i] = new BatMonster(gp);
+        gp.monsters[mapNum][i].worldX = gp.tileSize * 34;
+        gp.monsters[mapNum][i].worldY = gp.tileSize * 39;
+        i++;
+        gp.monsters[mapNum][i] = new BatMonster(gp);
+        gp.monsters[mapNum][i].worldX = gp.tileSize * 36;
+        gp.monsters[mapNum][i].worldY = gp.tileSize * 25;
+        i++;
+        gp.monsters[mapNum][i] = new BatMonster(gp);
+        gp.monsters[mapNum][i].worldX = gp.tileSize * 39;
+        gp.monsters[mapNum][i].worldY = gp.tileSize * 26;
+        i++;
+        gp.monsters[mapNum][i] = new BatMonster(gp);
+        gp.monsters[mapNum][i].worldX = gp.tileSize * 28;
+        gp.monsters[mapNum][i].worldY = gp.tileSize * 11;
+        i++;
+        gp.monsters[mapNum][i] = new BatMonster(gp);
+        gp.monsters[mapNum][i].worldX = gp.tileSize * 10;
+        gp.monsters[mapNum][i].worldY = gp.tileSize * 19;
+
+        mapNum = 3;
+        i = 0;
+        gp.monsters[mapNum][i] = new SkeletonLordMonster(gp);
+        gp.monsters[mapNum][i].worldX = gp.tileSize * 23;
+        gp.monsters[mapNum][i].worldY = gp.tileSize * 16;
+
     }
 
     public void setInteractiveTiles() {

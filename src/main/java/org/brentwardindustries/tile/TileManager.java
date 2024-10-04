@@ -61,10 +61,10 @@ public class TileManager {
 
         mapTileNum = new int[gp.maxMap][gp.maxWorldCol][gp.maxWorldRow];
 
-        loadMap("/maps/worldmap.txt", 0);
-        loadMap("/maps/indoor01.txt", 1);
-        loadMap("/maps/dungeon01.txt", 2);
-        loadMap("/maps/dungeon02.txt", 3);
+        loadMap("/maps/worldmap.txt", gp.worldMap);
+        loadMap("/maps/indoor01.txt", gp.indoorMap);
+        loadMap("/maps/dungeon01.txt", gp.dungeonB1Map);
+        loadMap("/maps/dungeon02.txt", gp.dungeonB2Map);
     }
 
     public void getTileImage() {

@@ -10,12 +10,18 @@ import org.brentwardindustries.tile.TileManager;
 import org.brentwardindustries.tileinteractive.InteractiveTile;
 
 import javax.swing.JPanel;
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.GraphicsDevice;
+import java.awt.GraphicsEnvironment;
+import java.awt.Window;
 import java.awt.image.BufferedImage;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Comparator;
 
 public class GamePanel extends JPanel implements Runnable {
@@ -32,8 +38,12 @@ public class GamePanel extends JPanel implements Runnable {
     // WORLD SETTINGS
     public int maxWorldCol;
     public int maxWorldRow;
+    public final int worldMap = 0;
+    public final int indoorMap = 1;
+    public final int dungeonB1Map = 2;
+    public final int dungeonB2Map = 3;
     public final int maxMap = 10;
-    public int currentMap = 0;
+    public int currentMap = worldMap;
 
     // FULL SCREEN
     int screenWidth2 = screenWidth;
@@ -97,6 +107,7 @@ public class GamePanel extends JPanel implements Runnable {
     public final int indoorArea = 51;
     public final int dungeonArea = 52;
 
+
     public GamePanel() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
         this.setBackground(Color.BLACK);
@@ -124,14 +135,15 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void resetGame(boolean restart){
+        currentArea = outsideArea;
         assetSetter.clearProjectiles();
         particleList.clear();
+        assetSetter.resetNpcs();
+        assetSetter.resetMonsters();
         environmentManager.lighting.resetDay();
         player.setDefaultPositions();
         player.resetStatus();
         player.resetCounters();
-        assetSetter.resetNpcs();
-        assetSetter.resetMonsters();
 
         if (restart) {
             player.setDefaultValues();
@@ -374,6 +386,8 @@ public class GamePanel extends JPanel implements Runnable {
             g2D.drawString("Row: " + (player.worldY + player.solidArea.y) / tileSize, x, y);
             y += lineHeight;
             g2D.drawString("Draw Time: " + passed, x, y);
+            y += lineHeight;
+            g2D.drawString("God Mode: " + keyHandler.godModeOn, x, y);
 //            System.out.println("Draw Time: " + passed);
         }
     }

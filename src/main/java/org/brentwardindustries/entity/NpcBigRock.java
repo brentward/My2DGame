@@ -57,17 +57,17 @@ public class NpcBigRock extends Entity{
         }
     }
 
-    public void move(Direction direction) {
-        this.direction = direction;
+    public void move(Direction moveDirection, int moveSpeed) {
+        this.direction = moveDirection;
 
         checkCollision();
 
         if (!collisionOn) {
             switch (direction) {
-                case UP -> worldY -= speed;
-                case DOWN -> worldY += speed;
-                case LEFT -> worldX -= speed;
-                case RIGHT -> worldX += speed;
+                case UP -> worldY -= moveSpeed;
+                case DOWN -> worldY +=  moveSpeed;
+                case LEFT -> worldX -=  moveSpeed;
+                case RIGHT -> worldX +=  moveSpeed;
             }
         }
 

@@ -38,10 +38,17 @@ public class Player extends Entity{
     }
 
     public void setDefaultValues() {
+        // TESTING VALUES
+//        worldX = gp.tileSize * 12;
+//        worldY = gp.tileSize * 10;
+        worldX = gp.tileSize * 26;
+        worldY = gp.tileSize * 40;
+        strength = 5;
+        gp.currentMap = gp.dungeonB2Map;
+        gp.currentArea = gp.dungeonArea;
+
 //        worldX = gp.tileSize * 23;
 //        worldY = gp.tileSize * 21;
-        worldX = gp.tileSize * 12;
-        worldY = gp.tileSize * 10;
         defaultSpeed = 4;
         speed = defaultSpeed;
         direction = Direction.DOWN;
@@ -56,7 +63,7 @@ public class Player extends Entity{
         attacking = false;
         magic = maxMagic;
         ammo = 10;
-        strength = 1; // More strength is more damage given
+//        strength = 1; // More strength is more damage given
         dexterity = 1; // More dexterity is less damage received
         exp = 0;
         nextLevelExp = 5;
@@ -72,9 +79,11 @@ public class Player extends Entity{
         setGuardImage();
         setItems();
         setDialogue();
+
     }
 
     public void setDefaultPositions() {
+        gp.currentMap = gp.worldMap;
         worldX = gp.tileSize * 23;
         worldY = gp.tileSize * 21;
         direction = Direction.DOWN;
@@ -367,7 +376,7 @@ public class Player extends Entity{
         if (magic > maxMagic) {
             magic = maxMagic;
         }
-        if (life <= 0) {
+        if (life <= 0 && !keyHandler.godModeOn) {
             gp.gameState = gp.gameOverState;
             gp.ui.commandNum = -1;
             gp.stopMusic();
@@ -394,7 +403,7 @@ public class Player extends Entity{
                 String text;
                 if (canObtainItem(gp.objects[gp.currentMap][i])) {
                     gp.playSE(1);
-                    text = "Picked up a " + gp.objects[gp.currentMap][i].name.toString() + "!";
+                    text = "Picked up a " + gp.objects[gp.currentMap][i].name + "!";
                 } else {
                     text = "You are overburdened!";
                 }
@@ -411,7 +420,7 @@ public class Player extends Entity{
                 gp.npcs[gp.currentMap][i].speak();
             }
 
-            gp.npcs[gp.currentMap][i].move(direction);
+            gp.npcs[gp.currentMap][i].move(direction, speed);
         }
     }
 
@@ -597,8 +606,9 @@ public class Player extends Entity{
                     if (gp.keyHandler.showHitBox) {
                         g2D.setStroke(new BasicStroke(1));
                         g2D.setColor(Color.PINK);
-                        g2D.drawRect(screenX + solidArea.x, screenY + solidArea.y
-                                - attackArea.height, attackArea.width, attackArea.height);
+                        g2D.drawRect(screenX + solidArea.x + (solidArea.width - attackArea.width) / 2,
+                                screenY + solidArea.y - attackArea.height,
+                                attackArea.width, attackArea.height);
                     }
                 }
                 if (guarding) {
@@ -614,8 +624,9 @@ public class Player extends Entity{
                     if (gp.keyHandler.showHitBox) {
                         g2D.setStroke(new BasicStroke(1));
                         g2D.setColor(Color.PINK);
-                        g2D.drawRect(screenX + solidArea.x, screenY + solidArea.y
-                                + solidArea.height, attackArea.width, attackArea.height);
+                        g2D.drawRect(screenX + solidArea.x + (solidArea.width - attackArea.width) / 2,
+                                screenY + solidArea.y + solidArea.height,
+                                attackArea.width, attackArea.height);
                     }
                 }
                 if (guarding) {
@@ -632,8 +643,9 @@ public class Player extends Entity{
                     if (gp.keyHandler.showHitBox) {
                         g2D.setStroke(new BasicStroke(1));
                         g2D.setColor(Color.PINK);
-                        g2D.drawRect(screenX + solidArea.x - attackArea.width, screenY
-                                + solidArea.y, attackArea.width, attackArea.height);
+                        g2D.drawRect(screenX + solidArea.x - attackArea.width,
+                                screenY + solidArea.y + (solidArea.height - attackArea.height) / 2,
+                                attackArea.width, attackArea.height);
                     }
                 }
                 if (guarding) {
@@ -649,8 +661,9 @@ public class Player extends Entity{
                     if (gp.keyHandler.showHitBox) {
                         g2D.setStroke(new BasicStroke(1));
                         g2D.setColor(Color.PINK);
-                        g2D.drawRect(screenX + solidArea.x + solidArea.width, screenY
-                                + solidArea.y, attackArea.width, attackArea.height);
+                        g2D.drawRect(screenX + solidArea.x + solidArea.width,
+                                screenY + solidArea.y + (solidArea.height - attackArea.height) / 2,
+                                attackArea.width, attackArea.height);
                     }
                 }
                 if (guarding) {

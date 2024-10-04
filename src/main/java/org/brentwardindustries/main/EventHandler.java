@@ -62,25 +62,25 @@ public class EventHandler {
         }
 
         if (canTouchEvent) {
-            if (hit(0, 27, 16, Direction.RIGHT)) {
+            if (hit(gp.worldMap, 27, 16, Direction.RIGHT)) {
                 damagePit(gp.dialogState);
             }
-            if (hit(0, 23, 12, Direction.UP)) {
+            if (hit(gp.worldMap, 23, 12, Direction.UP)) {
                 healingPool(gp.dialogState);
-            } else if (hit(0, 10, 39, Direction.UP)) { // from Merchant's house world map
-                teleport(1, 12, 13, gp.indoorArea); // to Merchant's house indoors
-            } else if (hit(1, 12, 13, Direction.DOWN )) { // from Merchant's house indoors
-                teleport(0, 10, 39, gp.outsideArea); // to Merchant's house map
-            } else if (hit(1, 12, 9, Direction.UP)) {
+            } else if (hit(gp.worldMap, 10, 39, Direction.UP)) { // from Merchant's house world map
+                teleport(gp.indoorMap, 12, 13, gp.indoorArea); // to Merchant's house indoors
+            } else if (hit(gp.indoorMap, 12, 13, Direction.DOWN )) { // from Merchant's house indoors
+                teleport(gp.worldMap, 10, 39, gp.outsideArea); // to Merchant's house map
+            } else if (hit(gp.indoorMap, 12, 9, Direction.UP)) {
                 speak(gp.npcs[1][0]);
-            } else if (hit(0, 12, 9, Direction.ANY)) { // from world map stairs
-                teleport(2, 9, 41, gp.dungeonArea); // to the dungeon
-            } else if (hit(2, 9, 41, Direction.ANY)) { // from the dungeon
-                teleport(0, 12, 9, gp.outsideArea); // to world map stairs
-            } else if (hit(2, 8, 7, Direction.ANY)) { // from B1
-                teleport(3, 26, 41, gp.dungeonArea); // to B2
-            } else if (hit(3, 26, 41, Direction.ANY)) { // from B2
-                teleport(2, 8, 7, gp.dungeonArea); // to B1
+            } else if (hit(gp.worldMap, 12, 9, Direction.ANY)) { // from world map stairs
+                teleport(gp.dungeonB1Map, 9, 41, gp.dungeonArea); // to the dungeon
+            } else if (hit(gp.dungeonB1Map, 9, 41, Direction.ANY)) { // from the dungeon
+                teleport(gp.worldMap, 12, 9, gp.outsideArea); // to world map stairs
+            } else if (hit(gp.dungeonB1Map, 8, 7, Direction.ANY)) { // from B1
+                teleport(gp.dungeonB2Map, 26, 41, gp.dungeonArea); // to B2
+            } else if (hit(gp.dungeonB2Map, 26, 41, Direction.ANY)) { // from B2
+                teleport(gp.dungeonB1Map, 8, 7, gp.dungeonArea); // to B1
             }
         }
     }

@@ -13,7 +13,7 @@ public class Lighting {
     BufferedImage darknessFilter;
     int dayCounter;
     public float filterAlpha = 0f;
-    final float nightAlpha = 0.98f;
+    final float nightAlpha = 0.95f;
 
     final int day = 0;
     final int dusk = 1;
@@ -41,18 +41,18 @@ public class Lighting {
             Color[] colors = new Color[12];
             float[] fractions = new float[12];
 
-            colors[0] = new Color(0, 0, 0, 0.1f * nightAlpha);
-            colors[1] = new Color(0, 0, 0, 0.42f * nightAlpha);
-            colors[2] = new Color(0, 0, 0, 0.52f * nightAlpha);
-            colors[3] = new Color(0, 0, 0, 0.61f * nightAlpha);
-            colors[4] = new Color(0, 0, 0, 0.69f * nightAlpha);
-            colors[5] = new Color(0, 0, 0, 0.76f * nightAlpha);
-            colors[6] = new Color(0, 0, 0, 0.82f * nightAlpha);
-            colors[7] = new Color(0, 0, 0, 0.87f * nightAlpha);
-            colors[8] = new Color(0, 0, 0, 0.91f * nightAlpha);
-            colors[9] = new Color(0, 0, 0, 0.94f * nightAlpha);
-            colors[10] = new Color(0, 0, 0, 0.96f * nightAlpha);
-            colors[11] = new Color(0, 0, 0, 0.98f * nightAlpha);
+            colors[0] = new Color(0, 0, 0, 0.1f);
+            colors[1] = new Color(0, 0, 0, 0.42f);
+            colors[2] = new Color(0, 0, 0, 0.52f);
+            colors[3] = new Color(0, 0, 0, 0.61f);
+            colors[4] = new Color(0, 0, 0, 0.69f);
+            colors[5] = new Color(0, 0, 0, 0.76f);
+            colors[6] = new Color(0, 0, 0, 0.81f);
+            colors[7] = new Color(0, 0, 0, 0.86f);
+            colors[8] = new Color(0, 0, 0, 0.89f);
+            colors[9] = new Color(0, 0, 0, 0.90f);
+            colors[10] = new Color(0, 0, 0, 0.91f);
+            colors[11] = new Color(0, 0, 0, 0.92f);
 
             fractions[0] = 0.0f;
             fractions[1] = 0.4f;

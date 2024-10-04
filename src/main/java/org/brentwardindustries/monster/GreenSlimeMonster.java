@@ -10,7 +10,7 @@ import java.util.Random;
 
 public class GreenSlimeMonster extends Entity {
     GamePanel gp;
-    public static final String objectName = "Green Slime";
+    public static final String monsterName = "Green Slime";
 
     public GreenSlimeMonster(GamePanel gp) {
         super(gp);
@@ -18,7 +18,7 @@ public class GreenSlimeMonster extends Entity {
         this.gp = gp;
 
         type = typeMonster;
-        name = objectName;
+        name = monsterName;
         defaultSpeed = 1;
         speed = defaultSpeed;
         maxLife = 4;

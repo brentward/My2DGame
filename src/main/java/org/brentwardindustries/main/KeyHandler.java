@@ -13,6 +13,7 @@ public class KeyHandler implements KeyListener {
     public boolean showHitBox = false;
     public boolean showPaths = false;
     public boolean godModeOn = false;
+    public boolean levelUpPressed = false;
 
     public KeyHandler(GamePanel gp) {
         this.gp = gp;
@@ -128,6 +129,10 @@ public class KeyHandler implements KeyListener {
         }
         if (code == KeyEvent.VK_G) {
             godModeOn = !godModeOn;
+        }
+
+        if (code == KeyEvent.VK_L) {
+            levelUpPressed = true;
         }
 
         if (code == KeyEvent.VK_R) {

@@ -20,6 +20,7 @@ public class SkeletonLordMonster extends Entity {
         this.gp = gp;
 
         type = typeMonster;
+        boss = true;
         name = objectName;
         defaultSpeed = 1;
         speed = defaultSpeed;

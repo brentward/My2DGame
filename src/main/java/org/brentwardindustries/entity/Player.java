@@ -38,17 +38,17 @@ public class Player extends Entity{
     }
 
     public void setDefaultValues() {
-        // TESTING VALUES
+//        // TESTING VALUES
 //        worldX = gp.tileSize * 12;
 //        worldY = gp.tileSize * 10;
-        worldX = gp.tileSize * 26;
-        worldY = gp.tileSize * 40;
-        strength = 5;
-        gp.currentMap = gp.dungeonB2Map;
-        gp.currentArea = gp.dungeonArea;
+//        worldX = gp.tileSize * 26;
+//        worldY = gp.tileSize * 40;
+//        strength = 5;
+//        gp.currentMap = gp.dungeonB2Map;
+//        gp.currentArea = gp.dungeonArea;
 
-//        worldX = gp.tileSize * 23;
-//        worldY = gp.tileSize * 21;
+        worldX = gp.tileSize * 23;
+        worldY = gp.tileSize * 21;
         defaultSpeed = 4;
         speed = defaultSpeed;
         direction = Direction.DOWN;
@@ -63,7 +63,7 @@ public class Player extends Entity{
         attacking = false;
         magic = maxMagic;
         ammo = 10;
-//        strength = 1; // More strength is more damage given
+        strength = 1; // More strength is more damage given
         dexterity = 1; // More dexterity is less damage received
         exp = 0;
         nextLevelExp = 5;
@@ -222,6 +222,10 @@ public class Player extends Entity{
     }
 
     public void update() {
+        if (keyHandler.levelUpPressed) {
+            gp.player.nextLevel();
+            keyHandler.levelUpPressed = false;
+        }
         if (knockBack) {
             // CHECK TILE COLLISION
             collisionOn = false;
@@ -499,13 +503,19 @@ public class Player extends Entity{
     }
 
     public void checkLevelUp() {
+        while (levelUp());
+    }
+
+    public boolean levelUp() {
+        boolean levelUp = false;
         if (exp >= nextLevelExp) {
+            levelUp = true;
             level++;
-            nextLevelExp = nextLevelExp * 3;
+            nextLevelExp = nextLevelExp * 2;
             maxLife += 2;
             life += 2;
-            maxMagic += 1;
-            magic += 1;
+            maxMagic++;
+            magic++;
             strength++;
             dexterity++;
             setAttack();
@@ -517,6 +527,12 @@ public class Player extends Entity{
             setDialogue();
             startDialogue(this, 0);
         }
+        return levelUp;
+    }
+
+    public void nextLevel() {
+        exp = nextLevelExp;
+        checkLevelUp();
     }
 
     public void selectItem() {

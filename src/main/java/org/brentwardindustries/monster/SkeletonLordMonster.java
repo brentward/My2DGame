@@ -1,8 +1,10 @@
 package org.brentwardindustries.monster;
 
+import org.brentwardindustries.data.Progress;
 import org.brentwardindustries.entity.Entity;
 import org.brentwardindustries.main.GamePanel;
 import org.brentwardindustries.object.CoinBronzeObject;
+import org.brentwardindustries.object.DoorIronObject;
 import org.brentwardindustries.object.HeartObject;
 import org.brentwardindustries.object.MagicCrystalObject;
 
@@ -10,7 +12,7 @@ import java.util.Random;
 
 public class SkeletonLordMonster extends Entity {
     GamePanel gp;
-    public static final String objectName = "Skeleton Lord";
+    public static final String monsterName = "Skeleton Lord";
 
     public final int imageScale = 5;
 
@@ -21,7 +23,7 @@ public class SkeletonLordMonster extends Entity {
 
         type = typeMonster;
         boss = true;
-        name = objectName;
+        name = monsterName;
         defaultSpeed = 1;
         speed = defaultSpeed;
         maxLife = 50;
@@ -30,6 +32,7 @@ public class SkeletonLordMonster extends Entity {
         defense = 2;
         exp = 50;
         knockBackPower = 5;
+        sleep = true;
 
         int size = gp.tileSize * imageScale;
         solidArea.x = 48;
@@ -45,6 +48,7 @@ public class SkeletonLordMonster extends Entity {
 
         getImage();
         getAttackImage();
+        setDialogue();
     }
 
     public void getImage() {
@@ -91,6 +95,12 @@ public class SkeletonLordMonster extends Entity {
         }
     }
 
+    public void setDialogue() {
+        dialogues[0][0] = "No one can steal my treasure!";
+        dialogues[0][1] = "You will not leave this place alive!";
+        dialogues[0][2] = "Welcome to your DOOM!!!";
+    }
+
     public void setAction() {
         if (!inRage && life < maxLife / 2) {
             inRage = true;
@@ -118,6 +128,22 @@ public class SkeletonLordMonster extends Entity {
     }
 
     public void checkDrop() {
+        gp.bossBattleOn = false;
+        Progress.skeletonLordDefeated = true;
+
+        // Restore the previous music
+        gp.stopMusic();
+        gp.playMusic(19);
+
+        // Remove the iron doors
+        for (int i = 0; i < gp.objects[gp.currentMap].length; i++) {
+            if (gp.objects[gp.currentMap][i] != null
+                    && gp.objects[gp.currentMap][i].name.equals(DoorIronObject.objectName)) {
+                gp.playSE(21);
+                gp.objects[gp.currentMap][i] = null;
+            }
+        }
+
         int die = new Random().nextInt(100) + 1;
         if (die < 50) {
             dropItem(new CoinBronzeObject(gp));

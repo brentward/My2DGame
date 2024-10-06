@@ -33,7 +33,7 @@ public class AssetSetter {
     }
 
     public void setObjects() {
-        int mapNum = 0;
+        int mapNum = gp.worldMap;
         int i = 0;
         gp.objects[mapNum][i] = new AxeObject(gp);
         gp.objects[mapNum][i].worldX = gp.tileSize * 33;
@@ -70,7 +70,7 @@ public class AssetSetter {
         gp.objects[mapNum][i].worldX = gp.tileSize * 16;
         gp.objects[mapNum][i].worldY = gp.tileSize  * 20;
 
-        mapNum = 2;
+        mapNum = gp.dungeonB1Map;
         i = 0;
         gp.objects[mapNum][i] = new ChestObject(gp);
         gp.objects[mapNum][i].setLoot(new PickaxeObject(gp));
@@ -95,22 +95,28 @@ public class AssetSetter {
         gp.objects[mapNum][i] = new DoorIronObject(gp);
         gp.objects[mapNum][i].worldX = gp.tileSize * 18;
         gp.objects[mapNum][i].worldY = gp.tileSize  * 23;
+
+        mapNum = gp.dungeonB2Map;
+        i = 0;
+        gp.objects[mapNum][i] = new DoorIronObject(gp);
+        gp.objects[mapNum][i].worldX = gp.tileSize * 25;
+        gp.objects[mapNum][i].worldY = gp.tileSize  * 15;
     }
 
     public void setNpcs() {
-        int mapNum = 0;
+        int mapNum = gp.worldMap;
         int i = 0;
         gp.npcs[mapNum][i] = new NpcOldMan(gp);
         gp.npcs[mapNum][i].worldX = gp.tileSize * 21;
         gp.npcs[mapNum][i].worldY = gp.tileSize * 21;
 
-        mapNum = 1;
+        mapNum = gp.indoorMap;
 //        i = 0;
         gp.npcs[mapNum][i] = new NpcMerchant(gp);
         gp.npcs[mapNum][i].worldX = gp.tileSize * 12;
         gp.npcs[mapNum][i].worldY = gp.tileSize * 7;
 
-        mapNum = 2;
+        mapNum = gp.dungeonB1Map;
 //        i = 0;
         gp.npcs[mapNum][i] = new NpcBigRock(gp);
         gp.npcs[mapNum][i].worldX = gp.tileSize * 20;
@@ -126,7 +132,7 @@ public class AssetSetter {
     }
 
     public void setMonsters() {
-        int mapNum = 0;
+        int mapNum = gp.worldMap;
         int i = 0;
         gp.monsters[mapNum][i] = new GreenSlimeMonster(gp);
         gp.monsters[mapNum][i].worldX = gp.tileSize * 23;
@@ -164,7 +170,7 @@ public class AssetSetter {
         gp.monsters[mapNum][i].worldX = gp.tileSize * 38;
         gp.monsters[mapNum][i].worldY = gp.tileSize * 11;
 
-        mapNum = 2;
+        mapNum = gp.dungeonB1Map;
         i = 0;
         gp.monsters[mapNum][i] = new BatMonster(gp);
         gp.monsters[mapNum][i].worldX = gp.tileSize * 34;
@@ -186,7 +192,7 @@ public class AssetSetter {
         gp.monsters[mapNum][i].worldX = gp.tileSize * 10;
         gp.monsters[mapNum][i].worldY = gp.tileSize * 19;
 
-        mapNum = 3;
+        mapNum = gp.dungeonB2Map;
         i = 0;
         gp.monsters[mapNum][i] = new SkeletonLordMonster(gp);
         gp.monsters[mapNum][i].worldX = gp.tileSize * 23;
@@ -195,7 +201,7 @@ public class AssetSetter {
     }
 
     public void setInteractiveTiles() {
-        int mapNum = 0;
+        int mapNum = gp.worldMap;
         int i = 0;
         gp.interactiveTiles[mapNum][i] = new InteractiveDryTree(gp, 27, 12);
         i++;
@@ -251,7 +257,7 @@ public class AssetSetter {
         i++;
         gp.interactiveTiles[mapNum][i] = new InteractiveDryTree(gp, 29, 31);
 
-        mapNum = 2;
+        mapNum = gp.dungeonB1Map;
         i = 0;
         gp.interactiveTiles[mapNum][i] = new InteractiveDestructibleWall(gp, 18, 30);
         i++;

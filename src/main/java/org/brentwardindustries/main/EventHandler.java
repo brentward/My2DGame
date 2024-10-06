@@ -1,5 +1,6 @@
 package org.brentwardindustries.main;
 
+import org.brentwardindustries.data.Progress;
 import org.brentwardindustries.entity.Direction;
 import org.brentwardindustries.entity.Entity;
 
@@ -81,6 +82,8 @@ public class EventHandler {
                 teleport(gp.dungeonB2Map, 26, 41, gp.dungeonArea); // to B2
             } else if (hit(gp.dungeonB2Map, 26, 41, Direction.ANY)) { // from B2
                 teleport(gp.dungeonB1Map, 8, 7, gp.dungeonArea); // to B1
+            } else if (hit(gp.dungeonB2Map, 25, 27, Direction.ANY)) {
+                skeletonLoad();
             }
         }
     }
@@ -148,6 +151,13 @@ public class EventHandler {
             gp.gameState = gp.dialogState;
             gp.player.attackCanceled = true;
             entity.speak();
+        }
+    }
+
+    public void skeletonLoad() {
+        if (!gp.bossBattleOn && !Progress.skeletonLordDefeated) {
+            gp.gameState = gp.cutsceneState;
+            gp.cutsceneManager.sceneNum = gp.cutsceneManager.skeletonLordScene;
         }
     }
 }

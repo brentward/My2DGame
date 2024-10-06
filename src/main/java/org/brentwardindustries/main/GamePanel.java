@@ -73,6 +73,7 @@ public class GamePanel extends JPanel implements Runnable {
     Map map = new Map(this);
     SaveLoad saveLoad = new SaveLoad(this);
     public EntityGenerator entityGenerator = new EntityGenerator(this);
+    public CutsceneManager cutsceneManager = new CutsceneManager(this);
     Thread gameThread;
 
     // ENTITY AND OBJECTS
@@ -99,6 +100,10 @@ public class GamePanel extends JPanel implements Runnable {
     public final int tradeState = 8;
     public final int sleepState = 9;
     public final int mapState = 10;
+    public final int cutsceneState = 11;
+
+    // OTHERS
+    public boolean bossBattleOn = false;
 
     // AREA STATE
     public int currentArea;
@@ -136,6 +141,8 @@ public class GamePanel extends JPanel implements Runnable {
 
     public void resetGame(boolean restart){
         currentArea = outsideArea;
+        removeTempEntity();
+        bossBattleOn = false;
         assetSetter.clearProjectiles();
         particleList.clear();
         assetSetter.resetNpcs();
@@ -363,6 +370,9 @@ public class GamePanel extends JPanel implements Runnable {
             // DRAW MINI MAP
             map.drawMiniMap(g2D);
 
+            // CUTSCENE
+            cutsceneManager.draw(g2D);
+
             // UI
             ui.draw(g2D);
         }
@@ -437,5 +447,15 @@ public class GamePanel extends JPanel implements Runnable {
         }
         currentArea = nextArea;
         assetSetter.resetMonsters();
+    }
+
+    public void removeTempEntity() {
+        for (int mapNum = 0; mapNum < objects.length; mapNum++) {
+            for (int objectIndex = 0; objectIndex < objects[mapNum].length; objectIndex++) {
+                if (objects[mapNum][objectIndex] != null && objects[mapNum][objectIndex].temp) {
+                    objects[mapNum][objectIndex] = null;
+                }
+            }
+        }
     }
 }

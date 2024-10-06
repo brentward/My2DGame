@@ -27,6 +27,7 @@ public class Entity {
     public String[][] dialogues = new String[20][20];
     public Entity attacker;
     public Entity linkedEntity;
+    public boolean temp = false;
 
     // STATE
     public int worldX, worldY;
@@ -49,6 +50,8 @@ public class Entity {
     public Entity loot;
     public boolean opened = false;
     public boolean inRage = false;
+    public boolean sleep = false;
+    public boolean drawing = true;
 
     // COUNTER
     public int spriteCounter = 0;
@@ -283,66 +286,68 @@ public class Entity {
     }
 
     public void update() {
-        if (knockBack) {
-            checkCollision();
-            if (collisionOn) {
-                knockBack = false;
-                knockBackCounter = 0;
-                speed = defaultSpeed;
+        if (!sleep) {
+            if (knockBack) {
+                checkCollision();
+                if (collisionOn) {
+                    knockBack = false;
+                    knockBackCounter = 0;
+                    speed = defaultSpeed;
+                } else {
+                    switch (knockBackDirection) {
+                        case UP -> worldY -= speed;
+                        case DOWN -> worldY += speed;
+                        case LEFT -> worldX -= speed;
+                        case RIGHT -> worldX += speed;
+                    }
+                }
+                knockBackCounter++;
+                if (knockBackCounter > 10) {
+                    knockBack = false;
+                    knockBackCounter = 0;
+                    speed = defaultSpeed;
+                }
+            } else if (attacking) {
+                attacking();
             } else {
-                switch (knockBackDirection) {
-                    case UP -> worldY -= speed;
-                    case DOWN -> worldY += speed;
-                    case LEFT -> worldX -= speed;
-                    case RIGHT -> worldX += speed;
-                }
-            }
-            knockBackCounter++;
-            if (knockBackCounter > 10) {
-                knockBack = false;
-                knockBackCounter = 0;
-                speed = defaultSpeed;
-            }
-        } else if (attacking) {
-            attacking();
-        } else {
-            setAction();
-            checkCollision();
+                setAction();
+                checkCollision();
 
-            if (!collisionOn) {
-                switch (direction) {
-                    case UP -> worldY -= speed;
-                    case DOWN -> worldY += speed;
-                    case LEFT -> worldX -= speed;
-                    case RIGHT -> worldX += speed;
+                if (!collisionOn) {
+                    switch (direction) {
+                        case UP -> worldY -= speed;
+                        case DOWN -> worldY += speed;
+                        case LEFT -> worldX -= speed;
+                        case RIGHT -> worldX += speed;
+                    }
                 }
-            }
-            spriteCounter++;
-            if (spriteCounter > 24) {
-                if (spriteNum == 1) {
-                    spriteNum = 2;
-                } else if (spriteNum == 2) {
-                    spriteNum = 1;
+                spriteCounter++;
+                if (spriteCounter > 24) {
+                    if (spriteNum == 1) {
+                        spriteNum = 2;
+                    } else if (spriteNum == 2) {
+                        spriteNum = 1;
+                    }
+                    spriteCounter = 0;
                 }
-                spriteCounter = 0;
-            }
 
-        }
-        if (invincible) {
-            invincibleCounter++;
-            if (invincibleCounter > 40) {
-                invincible = false;
-                invincibleCounter = 0;
             }
-        }
-        if (shotAvailableCounter < 30) {
-            shotAvailableCounter++;
-        }
-        if (offBalance) {
-            offBalanceCounter++;
-            if (offBalanceCounter > 60) {
-                offBalance = false;
-                offBalanceCounter = 0;
+            if (invincible) {
+                invincibleCounter++;
+                if (invincibleCounter > 40) {
+                    invincible = false;
+                    invincibleCounter = 0;
+                }
+            }
+            if (shotAvailableCounter < 30) {
+                shotAvailableCounter++;
+            }
+            if (offBalance) {
+                offBalanceCounter++;
+                if (offBalanceCounter > 60) {
+                    offBalance = false;
+                    offBalanceCounter = 0;
+                }
             }
         }
     }

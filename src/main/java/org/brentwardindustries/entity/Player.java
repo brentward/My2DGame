@@ -41,10 +41,10 @@ public class Player extends Entity{
 //        // TESTING VALUES
 //        worldX = gp.tileSize * 12;
 //        worldY = gp.tileSize * 10;
-//        worldX = gp.tileSize * 26;
-//        worldY = gp.tileSize * 40;
+//        worldX = gp.tileSize * 9;
+//        worldY = gp.tileSize * 8;
 //        strength = 5;
-//        gp.currentMap = gp.dungeonB2Map;
+//        gp.currentMap = gp.dungeonB1Map;
 //        gp.currentArea = gp.dungeonArea;
 
         worldX = gp.tileSize * 23;
@@ -63,7 +63,7 @@ public class Player extends Entity{
         attacking = false;
         magic = maxMagic;
         ammo = 10;
-        strength = 1; // More strength is more damage given
+//        strength = 1; // More strength is more damage given
         dexterity = 1; // More dexterity is less damage received
         exp = 0;
         nextLevelExp = 5;
@@ -691,8 +691,9 @@ public class Player extends Entity{
         if (transparent) {
             g2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.4f));
         }
-        g2D.drawImage(image, tempScreenX, tempScreenY, null);
-
+        if (drawing) {
+            g2D.drawImage(image, tempScreenX, tempScreenY, null);
+        }
 
         // Reset alpha
         g2D.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));

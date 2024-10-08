@@ -31,31 +31,35 @@ public class DoorIronObject extends Entity {
     }
 
     public boolean interact() {
-        if (collision) {
-            startDialogue(this, 0);
+        boolean stillExists = true;
+
+        if (gp.keyHandler.godModeOn) {
+            if (collision) {
+                boolean hasKey = false;
+                for (int i = 0; i < gp.player.inventory.size(); i++) {
+                    if (gp.player.inventory.get(i) != null && gp.player.inventory.get(i).name.equals(KeyObject.objectName)) {
+                        if (gp.player.inventory.get(i).amount > 1) {
+                            gp.player.inventory.get(i).amount--;
+                        } else {
+                            gp.player.inventory.remove(i);
+                        }
+                        hasKey = true;
+                        break;
+                    }
+                }
+                if (hasKey) {
+                    gp.playSE(3);
+                    stillExists = false;
+                } else {
+                    startDialogue(this, 0);
+                }
+            }
+        } else {
+            if (collision) {
+                startDialogue(this, 0);
+            }
         }
-        return true;
-//        boolean stillExists = true;
-//        if (collision) {
-//            boolean hasKey = false;
-//            for (int i = 0; i < gp.player.inventory.size(); i++) {
-//                if (gp.player.inventory.get(i) != null && gp.player.inventory.get(i).name == KeyObject.objectName) {
-//                    if (gp.player.inventory.get(i).amount > 1) {
-//                        gp.player.inventory.get(i).amount--;
-//                    } else {
-//                        gp.player.inventory.remove(i);
-//                    }
-//                    hasKey = true;
-//                    break;
-//                }
-//            }
-//            if (hasKey) {
-//                gp.playSE(3);
-//                stillExists = false;
-//            } else {
-//                startDialogue(this, 0);
-//            }
-//        }
-//        return stillExists;
+
+        return stillExists;
     }
 }

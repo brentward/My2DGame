@@ -39,8 +39,6 @@ public class Player extends Entity{
 
     public void setDefaultValues() {
 //        // TESTING VALUES
-//        worldX = gp.tileSize * 12;
-//        worldY = gp.tileSize * 10;
 //        worldX = gp.tileSize * 9;
 //        worldY = gp.tileSize * 8;
 //        strength = 5;
@@ -63,11 +61,11 @@ public class Player extends Entity{
         attacking = false;
         magic = maxMagic;
         ammo = 10;
-//        strength = 1; // More strength is more damage given
+        strength = 1; // More strength is more damage given
         dexterity = 1; // More dexterity is less damage received
         exp = 0;
         nextLevelExp = 5;
-        coin = 400;
+        coin = 300;
         currentWeapon = new SwordNormalObject(gp);
         currentShield = new ShieldWoodObject(gp);
         projectile = new FireballObject(gp);
@@ -110,12 +108,12 @@ public class Player extends Entity{
         inventory.clear();
         inventory.add(currentWeapon);
         inventory.add(currentShield);
-        inventory.add(new AxeObject(gp));
-        inventory.add(new PickaxeObject(gp));
-        inventory.add(new LanternObject(gp));
+//        inventory.add(new AxeObject(gp));
+//        inventory.add(new PickaxeObject(gp));
+//        inventory.add(new LanternObject(gp));
         inventory.add(new KeyObject(gp));
-        inventory.add(new SwordMagicObject(gp));
-        inventory.get(5).amount = 2;
+//        inventory.add(new SwordMagicObject(gp));
+        inventory.get(2).amount = 1;
     }
 
     public void setAttack() {

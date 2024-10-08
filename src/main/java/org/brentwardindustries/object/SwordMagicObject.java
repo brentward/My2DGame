@@ -12,13 +12,13 @@ public class SwordMagicObject extends Entity {
         type = typeSword;
         name = objectName;
         down1 = setup("/objects/sword_normal", gp.tileSize, gp.tileSize);
-        attackValue = 4;
-        attackArea.width = 48;
-        attackArea.height = 48;
-        description = "[" + name + "]\nA magical sword.";
-        price = 200;
-        knockBackPower = 2;
+        attackValue = 3;
+        attackArea.width = 42;
+        attackArea.height = 42;
+        description = "[" + name + "]\nA sword made of blue.";
+        price = 400;
+        knockBackPower = 1;
         attackWindupDuration = 1;
-        attackDuration = 5;
+        attackDuration = 4;
     }
 }

@@ -792,7 +792,7 @@ public class UI {
             if (gp.keyHandler.enterPressed) {
                 subState = 0;
                 commandNum = 2;
-                gp.stopMusic();
+//                gp.stopMusic();
                 gp.gameState = gp.titleState;
                 gp.resetGame(true);
             }

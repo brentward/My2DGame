@@ -1,5 +1,6 @@
 package org.brentwardindustries.main;
 
+import org.brentwardindustries.data.Progress;
 import org.brentwardindustries.entity.Entity;
 import org.brentwardindustries.entity.NpcBigRock;
 import org.brentwardindustries.entity.NpcMerchant;
@@ -194,10 +195,11 @@ public class AssetSetter {
 
         mapNum = gp.dungeonB2Map;
         i = 0;
-        gp.monsters[mapNum][i] = new SkeletonLordMonster(gp);
-        gp.monsters[mapNum][i].worldX = gp.tileSize * 23;
-        gp.monsters[mapNum][i].worldY = gp.tileSize * 16;
-
+        if (!Progress.skeletonLordDefeated) {
+            gp.monsters[mapNum][i] = new SkeletonLordMonster(gp);
+            gp.monsters[mapNum][i].worldX = gp.tileSize * 23;
+            gp.monsters[mapNum][i].worldY = gp.tileSize * 16;
+        }
     }
 
     public void setInteractiveTiles() {

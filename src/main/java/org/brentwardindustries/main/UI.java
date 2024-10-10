@@ -14,6 +14,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class UI {
     GamePanel gp;
@@ -38,7 +39,8 @@ public class UI {
         this.gp = gp;
 
         try {
-            InputStream inputStream = getClass().getResourceAsStream("/font/maru_monica.ttf");
+            InputStream inputStream = Objects.requireNonNull(
+                    getClass().getResourceAsStream("/font/maru_monica.ttf"));
             font = Font.createFont(Font.TRUETYPE_FONT, inputStream);
         } catch (FontFormatException | IOException e) {
             e.printStackTrace();
@@ -153,8 +155,8 @@ public class UI {
         while (i < gp.player.maxMagic) {
             g2D.drawImage(crystalBlank, x, y,iconSize, iconSize,null);
             i++;
-            x += 24;
-            if (i % 9 == 0) {
+            x += 20;
+            if (i % 10 == 0) {
                 x = magicStartX;
                 y += iconSize;
             }
@@ -167,8 +169,8 @@ public class UI {
         while (i < gp.player.magic) {
             g2D.drawImage(crystalFull, x, y, iconSize, iconSize,null);
             i++;
-            x += 24;
-            if (i % 9 == 0) {
+            x += 20;
+            if (i % 10 == 0) {
                 x = magicStartX;
                 y += iconSize;
             }

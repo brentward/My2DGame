@@ -15,8 +15,8 @@ public class RockObject extends Projectile {
         this.gp = gp;
 
         name = objectName;
-        speed = 8;
-        maxLife = 80;
+        speed = 3;
+        maxLife = 130;
         life = maxLife;
         attack = 2;
         useCost = 1;

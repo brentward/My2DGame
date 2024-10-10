@@ -12,7 +12,7 @@ public class AxeObject extends Entity {
         type = typeAxe;
         name = objectName;
         down1 = setup("/objects/axe", gp.tileSize, gp.tileSize);
-        attackValue = 2;
+        attackValue = 4;
         attackArea.width = 30;
         attackArea.height = 30;
         description = "[" + name + "]\nA bit rusty but can still\nfell foul beasts.";

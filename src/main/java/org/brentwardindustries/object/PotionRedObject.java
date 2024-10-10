@@ -30,6 +30,7 @@ public class PotionRedObject extends Entity {
         gp.playSE(2);
         startDialogue(this, 0);
         entity.life += value;
+        gp.playSE(2);
         return true;
     }
 }

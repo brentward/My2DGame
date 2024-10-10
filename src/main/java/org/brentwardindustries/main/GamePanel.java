@@ -22,7 +22,9 @@ import java.awt.image.BufferedImage;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
+import java.util.Iterator;
 
 public class GamePanel extends JPanel implements Runnable {
     // SCREEN SETTINGS
@@ -41,7 +43,8 @@ public class GamePanel extends JPanel implements Runnable {
     public final int worldMap = 0;
     public final int indoorMap = 1;
     public final int dungeonB1Map = 2;
-    public final int dungeonB2Map = 3;
+    public final int dungeonB1bMap = 3;
+    public final int dungeonB2Map = 4;
     public final int maxMap = 10;
     public int currentMap = worldMap;
 
@@ -330,14 +333,14 @@ public class GamePanel extends JPanel implements Runnable {
                     entityList.add(npc);
                 }
             }
-            for (Entity monster : monsters[currentMap]) {
-                if (monster != null) {
-                    entityList.add(monster);
-                }
-            }
             for (Entity object : objects[currentMap]) {
                 if (object != null) {
                     entityList.add(object);
+                }
+            }
+            for (Entity monster : monsters[currentMap]) {
+                if (monster != null) {
+                    entityList.add(monster);
                 }
             }
             for (Entity projectile : projectiles[currentMap]) {

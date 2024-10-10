@@ -3,8 +3,11 @@ package org.brentwardindustries.tileinteractive;
 import org.brentwardindustries.entity.Entity;
 import org.brentwardindustries.main.GamePanel;
 import org.brentwardindustries.object.CoinBronzeObject;
+import org.brentwardindustries.object.CoinGoldObject;
+import org.brentwardindustries.object.CoinSilverObject;
 import org.brentwardindustries.object.HeartObject;
 import org.brentwardindustries.object.MagicCrystalObject;
+import org.brentwardindustries.object.PotionRedObject;
 
 import java.awt.Color;
 import java.awt.Graphics2D;
@@ -67,14 +70,17 @@ public class InteractiveDestructibleWall extends InteractiveTile{
 
     public void checkDrop() {
         int die = new Random().nextInt(100) + 1;
-        if (die < 50) {
-            dropItem(new CoinBronzeObject(gp));
+        if (die >= 70 && die < 85) {
+            dropItem(new CoinSilverObject(gp));
         }
-        if (die >= 50 && die < 75) {
+        if (die >= 85 && die < 90) {
             dropItem(new HeartObject(gp));
         }
-        if (die >= 75 && die < 100) {
-            dropItem(new MagicCrystalObject(gp));
+        if (die >= 90 && die < 95) {
+            dropItem(new CoinGoldObject(gp));
+        }
+        if (die >= 95) {
+            dropItem(new PotionRedObject(gp));
         }
     }
 }

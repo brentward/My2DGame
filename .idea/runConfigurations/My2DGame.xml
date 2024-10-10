@@ -2,6 +2,7 @@
   <configuration default="false" name="My2DGame" type="Application" factoryName="Application">
     <option name="MAIN_CLASS_NAME" value="org.brentwardindustries.main.Main" />
     <module name="My2DGame.main" />
+    <option name="PROGRAM_PARAMETERS" value="-Djinput.loglevel SEVERE" />
     <extension name="coverage">
       <pattern>
         <option name="PATTERN" value="org.brentwardindustries.main.*" />

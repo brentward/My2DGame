@@ -14,8 +14,8 @@ public class TentObject extends Entity {
         type = typeConsumable;
         name = objectName;
         down1 = setup("/objects/tent", gp.tileSize, gp.tileSize);
-        description = "[" + name + "]\nYou can sleep until\nnext morning.";
-        price = 300;
+        description = "[" + name + "]\nSleep until morning.\nRecover life and magic.";
+        price = 30;
         stackable = true;
     }
 

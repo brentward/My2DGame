@@ -14,9 +14,10 @@ public class HeartObject extends Entity {
         type = typePickupOnly;
         name = objectName;
         value = 2;
-        image = setup("/objects/heart_full", gp.tileSize, gp.tileSize);
-        image2 = setup("/objects/heart_half", gp.tileSize, gp.tileSize);
-        image3 = setup("/objects/heart_blank", gp.tileSize, gp.tileSize);
+        int size = 32;
+        image = setup("/objects/heart_full", size, size);
+        image2 = setup("/objects/heart_half", size, size);
+        image3 = setup("/objects/heart_blank", size, size);
         down1 = image;
         price = 6;
     }

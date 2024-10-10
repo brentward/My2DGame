@@ -12,6 +12,7 @@ import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Random;
 
 public class Entity {
@@ -52,6 +53,7 @@ public class Entity {
     public boolean inRage = false;
     public boolean sleep = false;
     public boolean drawing = true;
+    public boolean idle = false;
 
     // COUNTER
     public int spriteCounter = 0;
@@ -63,6 +65,7 @@ public class Entity {
     int knockBackCounter = 0;
     public int guardCounter = 0;
     int offBalanceCounter = 0;
+    public int idleCounter = 0;
 
     // CHARACTER ATTRIBUTES
     public String name;
@@ -88,6 +91,7 @@ public class Entity {
     public Entity currentLight;
     public Projectile projectile;
     public boolean boss;
+    public int idleTime = 60;
 
     // ITEM ATTRIBUTES
     public ArrayList<Entity> inventory = new ArrayList<>();
@@ -313,12 +317,19 @@ public class Entity {
                 setAction();
                 checkCollision();
 
-                if (!collisionOn) {
+                if (!collisionOn && !idle) {
                     switch (direction) {
                         case UP -> worldY -= speed;
                         case DOWN -> worldY += speed;
                         case LEFT -> worldX -= speed;
                         case RIGHT -> worldX += speed;
+                    }
+                }
+                if (idle) {
+                    idleCounter++;
+                    if (idleCounter == idleTime) {
+                        idleCounter = 0;
+                        idle = false;
                     }
                 }
                 spriteCounter++;
@@ -428,17 +439,20 @@ public class Entity {
         if (actionLockCounter > interval) {
             int oneHundredSidedDie = new Random().nextInt(100) + 1;
 
-            if (oneHundredSidedDie <= 25) {
+            if (oneHundredSidedDie <= 20) {
                 direction = Direction.UP;
             }
-            if (oneHundredSidedDie > 25 && oneHundredSidedDie <= 50) {
+            if (oneHundredSidedDie > 20 && oneHundredSidedDie <= 40) {
                 direction = Direction.DOWN;
             }
-            if (oneHundredSidedDie > 50 && oneHundredSidedDie <= 75) {
+            if (oneHundredSidedDie > 40 && oneHundredSidedDie <= 60) {
                 direction = Direction.LEFT;
             }
-            if (oneHundredSidedDie > 75) {
+            if (oneHundredSidedDie > 60 && oneHundredSidedDie <= 80) {
                 direction = Direction.RIGHT;
+            }
+            if (oneHundredSidedDie > 80) {
+                idle = true;
             }
             actionLockCounter = 0;
         }
@@ -716,7 +730,7 @@ public class Entity {
         BufferedImage image = null;
 
         try {
-            image = ImageIO.read(getClass().getResourceAsStream(imagePath + ".png"));
+            image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream(imagePath + ".png")));
             image = utilityTool.scaleImage(image, width, height);
         } catch (IOException e) {
             e.printStackTrace();

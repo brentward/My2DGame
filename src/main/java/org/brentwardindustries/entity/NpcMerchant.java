@@ -4,10 +4,14 @@ import org.brentwardindustries.main.GamePanel;
 import org.brentwardindustries.object.AxeObject;
 import org.brentwardindustries.object.BootsObject;
 import org.brentwardindustries.object.KeyObject;
+import org.brentwardindustries.object.LanternObject;
+import org.brentwardindustries.object.PickaxeObject;
+import org.brentwardindustries.object.PotionBlueObject;
 import org.brentwardindustries.object.PotionRedObject;
+import org.brentwardindustries.object.ReturnOrbObject;
 import org.brentwardindustries.object.ShieldBlueObject;
 import org.brentwardindustries.object.ShieldWoodObject;
-import org.brentwardindustries.object.SwordMagicObject;
+import org.brentwardindustries.object.SwordBlueObject;
 import org.brentwardindustries.object.SwordNormalObject;
 import org.brentwardindustries.object.TentObject;
 
@@ -49,14 +53,16 @@ public class NpcMerchant extends Entity{
 
     public void setItems() {
         inventory.add(new PotionRedObject(gp));
+        inventory.add(new PotionBlueObject(gp));
+        inventory.add(new ReturnOrbObject(gp));
+        inventory.add(new TentObject(gp));
+        inventory.add(new LanternObject(gp));
         inventory.add(new KeyObject(gp));
         inventory.add(new SwordNormalObject(gp));
         inventory.add(new AxeObject(gp));
+        inventory.add(new PickaxeObject(gp));
         inventory.add(new ShieldWoodObject(gp));
-        inventory.add(new ShieldBlueObject(gp));
-        inventory.add(new TentObject(gp));
-        inventory.add(new BootsObject(gp));
-        inventory.add(new SwordMagicObject(gp));
+        inventory.add(new SwordBlueObject(gp));
     }
 
     public void speak() {

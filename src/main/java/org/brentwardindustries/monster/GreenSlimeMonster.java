@@ -21,10 +21,10 @@ public class GreenSlimeMonster extends Entity {
         name = monsterName;
         defaultSpeed = 1;
         speed = defaultSpeed;
-        maxLife = 4;
+        maxLife = 5;
         life = maxLife;
         attack = 5;
-        defense = 0;
+        defense = 2;
         exp = 2;
 
         solidArea.x = 3;
@@ -49,35 +49,28 @@ public class GreenSlimeMonster extends Entity {
     }
 
     public void setAction() {
-        if (onPath) {
-            // Check if stops chasing
-            checkStopChasing(gp.player, 15, 100);
-
-            // Search for path to the goal
-            searchPath(getGoalCol(gp.player), getGoalRow(gp.player));
-        } else {
-            // Check if it starts chasing
-            checkStartChasing(gp.player, 5, 100);
-
-            // Get a random direction if not on path
-            getRandomDirection(120);
+        if (!onPath) {
+            getRandomDirection(100);
         }
     }
 
     public void damageReaction() {
+        getRandomDirection(0);
         actionLockCounter = 0;
-        onPath = true;
     }
 
     public void checkDrop() {
         int die = new Random().nextInt(100) + 1;
-        if (die < 50) {
+        if (die < 60) {
             dropItem(new CoinBronzeObject(gp));
         }
-        if (die >= 50 && die < 75) {
+        if (die >= 60 && die < 70) {
+            dropItem(new CoinBronzeObject(gp));
+        }
+        if (die >= 70 && die < 90) {
             dropItem(new HeartObject(gp));
         }
-        if (die >= 75 && die < 100) {
+        if (die >= 90 && die < 100) {
             dropItem(new MagicCrystalObject(gp));
         }
     }

@@ -40,7 +40,7 @@ tasks.named("assembleDist") {
 
 tasks.named<CreateStartScripts>("startScripts") {
     dependsOn(unzipJinput)
-    classpath = files(layout.buildDirectory.dir("native_libs").get().asFile) + classpath
+    classpath = files(layout.buildDirectory.dir("native_libs").get().asFile) + classpath as FileCollection
     defaultJvmOpts = listOf("-Djava.library.path=\${APP_HOME}/lib/native_libs")
     doLast {
         // Access Unix start script

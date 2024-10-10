@@ -18,7 +18,7 @@ public class FireballObject extends Projectile {
         speed = 5;
         maxLife = 80;
         life = maxLife;
-        attack = 1;
+        attack = 2;
         knockBackPower = 5;
         useCost = 1;
         alive = false;

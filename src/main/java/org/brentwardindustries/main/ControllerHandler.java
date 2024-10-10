@@ -27,7 +27,6 @@ public class ControllerHandler {
 
         for (Controller potentialController : controllers) {
             if (potentialController.getType() == Controller.Type.GAMEPAD) {
-                /* Remember to poll each one */
                 controller = potentialController;
                 break;
             }
@@ -99,12 +98,12 @@ public class ControllerHandler {
                     case "8", "Left Thumb 3" -> l3 = (value == 1f); // L3
                     case "9", "Right Thumb 3" -> r3 = (value == 1f); // R3
                     case "pov" -> {
-                        if (value == 0.0F) { // NONE
+                        if (value == Component.POV.CENTER) { // NONE
                             gp.keyHandler.upPressed = false;
                             gp.keyHandler.downPressed = false;
                             gp.keyHandler.leftPressed = false;
                             gp.keyHandler.rightPressed = false;
-                        } else if (value == 0.125F) { // UP LEFT
+                        } else if (value == Component.POV.UP_LEFT) { // UP LEFT
                             if (gp.keyHandler.upPressed) {
                                 gp.keyHandler.upPressed = false;
                                 gp.keyHandler.downPressed = false;
@@ -116,12 +115,12 @@ public class ControllerHandler {
                                 gp.keyHandler.rightPressed = false;
                                 gp.keyHandler.inputPressed(KeyEvent.VK_W);
                             }
-                        } else if (value == 0.25F) { // UP
+                        } else if (value == Component.POV.UP) { // UP
                             gp.keyHandler.downPressed = false;
                             gp.keyHandler.leftPressed = false;
                             gp.keyHandler.rightPressed = false;
                             gp.keyHandler.inputPressed(KeyEvent.VK_W);
-                        } else if (value == 0.375F) { // UP RIGHT
+                        } else if (value == Component.POV.UP_RIGHT) { // UP RIGHT
                             if (gp.keyHandler.upPressed) {
                                 gp.keyHandler.upPressed = false;
                                 gp.keyHandler.downPressed = false;
@@ -133,12 +132,12 @@ public class ControllerHandler {
                                 gp.keyHandler.rightPressed = false;
                                 gp.keyHandler.inputPressed(KeyEvent.VK_W);
                             }
-                        } else if (value == 0.5F) { // RIGHT
+                        } else if (value == Component.POV.RIGHT) { // RIGHT
                             gp.keyHandler.upPressed = false;
                             gp.keyHandler.downPressed = false;
                             gp.keyHandler.leftPressed = false;
                             gp.keyHandler.inputPressed(KeyEvent.VK_D);
-                        } else if (value == 0.625F) { // DOWN RIGHT
+                        } else if (value == Component.POV.DOWN_RIGHT) { // DOWN RIGHT
                             if (gp.keyHandler.downPressed) {
                                 gp.keyHandler.upPressed = false;
                                 gp.keyHandler.downPressed = false;
@@ -150,12 +149,12 @@ public class ControllerHandler {
                                 gp.keyHandler.rightPressed = false;
                                 gp.keyHandler.inputPressed(KeyEvent.VK_S);
                             }
-                        } else if (value == 0.75F) { // DOWN
+                        } else if (value == Component.POV.DOWN) { // DOWN
                             gp.keyHandler.upPressed = false;
                             gp.keyHandler.leftPressed = false;
                             gp.keyHandler.rightPressed = false;
                             gp.keyHandler.inputPressed(KeyEvent.VK_S);
-                        } else if (value == 0.875F) { // DOWN LEFT
+                        } else if (value == Component.POV.DOWN_LEFT) { // DOWN LEFT
                             if (gp.keyHandler.downPressed) {
                                 gp.keyHandler.upPressed = false;
                                 gp.keyHandler.downPressed = false;
@@ -167,7 +166,7 @@ public class ControllerHandler {
                                 gp.keyHandler.rightPressed = false;
                                 gp.keyHandler.inputPressed(KeyEvent.VK_S);
                             }
-                        } else if (value == 1.0F) { // LEFT
+                        } else if (value == Component.POV.LEFT) { // LEFT
                             gp.keyHandler.upPressed = false;
                             gp.keyHandler.downPressed = false;
                             gp.keyHandler.rightPressed = false;

@@ -79,9 +79,13 @@ public class EventHandler {
             } else if (hit(gp.dungeonB1Map, 9, 41, Direction.ANY)) { // from the dungeon
                 teleport(gp.worldMap, 12, 9, gp.outsideArea); // to world map stairs
             } else if (hit(gp.dungeonB1Map, 8, 7, Direction.ANY)) { // from B1
+                teleport(gp.dungeonB1bMap, 8, 7, gp.dungeonArea); // to B1b
+            } else if (hit(gp.dungeonB1bMap, 8, 7, Direction.ANY)) { // from B2
+                teleport(gp.dungeonB1Map, 8, 7, gp.dungeonArea); // to B1
+            } else if (hit(gp.dungeonB1bMap, 26, 41, Direction.ANY)) { // from B1
                 teleport(gp.dungeonB2Map, 26, 41, gp.dungeonArea); // to B2
             } else if (hit(gp.dungeonB2Map, 26, 41, Direction.ANY)) { // from B2
-                teleport(gp.dungeonB1Map, 8, 7, gp.dungeonArea); // to B1
+                teleport(gp.dungeonB1bMap, 26, 41, gp.dungeonArea); // to B1
             } else if (hit(gp.dungeonB2Map, 25, 27, Direction.ANY)) {
                 skeletonLoad();
             }

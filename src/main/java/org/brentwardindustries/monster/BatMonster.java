@@ -2,9 +2,12 @@ package org.brentwardindustries.monster;
 
 import org.brentwardindustries.entity.Entity;
 import org.brentwardindustries.main.GamePanel;
-import org.brentwardindustries.object.CoinBronzeObject;
+import org.brentwardindustries.object.CoinGoldObject;
+import org.brentwardindustries.object.CoinSilverObject;
 import org.brentwardindustries.object.HeartObject;
-import org.brentwardindustries.object.MagicCrystalObject;
+import org.brentwardindustries.object.PotionBlueObject;
+import org.brentwardindustries.object.PotionRedObject;
+import org.brentwardindustries.object.ReturnOrbObject;
 
 import java.util.Random;
 
@@ -21,10 +24,10 @@ public class BatMonster extends Entity {
         name = monsterName;
         defaultSpeed = 4;
         speed = defaultSpeed;
-        maxLife = 7;
+        maxLife = 10;
         life = maxLife;
-        attack = 7;
-        defense = 0;
+        attack = 9;
+        defense = 3;
         exp = 7;
 
         solidArea.x = 3;
@@ -50,7 +53,7 @@ public class BatMonster extends Entity {
 
     public void setAction() {
         if (!onPath) {
-            getRandomDirection(10);
+            getRandomDirection(15);
         }
     }
 
@@ -60,14 +63,23 @@ public class BatMonster extends Entity {
 
     public void checkDrop() {
         int die = new Random().nextInt(100) + 1;
-        if (die < 50) {
-            dropItem(new CoinBronzeObject(gp));
+        if (die < 45) {
+            dropItem(new CoinSilverObject(gp));
         }
-        if (die >= 50 && die < 75) {
+        if (die >= 45 && die < 55) {
+            dropItem(new CoinGoldObject(gp));
+        }
+        if (die >= 55 && die < 65) {
+            dropItem(new ReturnOrbObject(gp));
+        }
+        if (die >= 65 && die < 75) {
             dropItem(new HeartObject(gp));
         }
-        if (die >= 75 && die < 100) {
-            dropItem(new MagicCrystalObject(gp));
+        if (die >= 75 && die < 85) {
+            dropItem(new PotionRedObject(gp));
+        }
+        if (die >= 85) {
+            dropItem(new PotionBlueObject(gp));
         }
     }
 }

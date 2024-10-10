@@ -12,13 +12,13 @@ public class SwordNormalObject extends Entity {
         type = typeSword;
         name = objectName;
         down1 = setup("/objects/sword_normal", gp.tileSize, gp.tileSize);
-        attackValue = 1;
+        attackValue = 2;
         attackArea.width = 36;
         attackArea.height = 36;
         description = "[" + name + "]\nAn old sword.";
         price = 20;
         knockBackPower = 2;
         attackWindupDuration = 5;
-        attackDuration = 25;
+        attackDuration = 20;
     }
 }

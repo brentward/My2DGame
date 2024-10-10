@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class TileManager {
     GamePanel gp;
@@ -25,7 +26,7 @@ public class TileManager {
         this.gp = gp;
 
         // READ TILE DATA FILE
-        InputStream is = getClass().getResourceAsStream("/maps/tiledata.txt");
+        InputStream is = Objects.requireNonNull(getClass().getResourceAsStream("/maps/tiledata.txt"));
         BufferedReader br = new BufferedReader(new InputStreamReader(is));
 
         // GET TILE NAMES AND COLLISION INFO FROM THE FILE
@@ -44,7 +45,7 @@ public class TileManager {
         getTileImage();
 
         // GET THE maxWorldCol
-        is = getClass().getResourceAsStream("/maps/worldmap.txt");
+        is = Objects.requireNonNull(getClass().getResourceAsStream("/maps/worldmap.txt"));
         br = new BufferedReader(new InputStreamReader(is));
 
 
@@ -64,6 +65,7 @@ public class TileManager {
         loadMap("/maps/worldmap.txt", gp.worldMap);
         loadMap("/maps/indoor01.txt", gp.indoorMap);
         loadMap("/maps/dungeon01.txt", gp.dungeonB1Map);
+        loadMap("/maps/dungeon01b.txt", gp.dungeonB1bMap);
         loadMap("/maps/dungeon02.txt", gp.dungeonB2Map);
     }
 
@@ -82,8 +84,8 @@ public class TileManager {
 
         try {
             tile[index] = new Tile();
-            tile[index].image = ImageIO.read(getClass().getResourceAsStream("/tiles/"
-                    + imageName));
+            tile[index].image = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/"
+                    + imageName)));
             tile[index].image = utilityTool.scaleImage(tile[index].image, gp.tileSize, gp.tileSize);
             tile[index].collision = collision;
         } catch (Exception e) {
@@ -93,7 +95,7 @@ public class TileManager {
 
     public void loadMap(String filePath, int map) {
         try {
-            InputStream is = getClass().getResourceAsStream(filePath);
+            InputStream is = Objects.requireNonNull(getClass().getResourceAsStream(filePath));
             BufferedReader br = new BufferedReader(new InputStreamReader(is));
 
             int col = 0;

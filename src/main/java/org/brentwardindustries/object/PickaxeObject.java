@@ -12,13 +12,13 @@ public class PickaxeObject extends Entity {
         type =typePickaxe;
         name = objectName;
         down1 = setup("/objects/pickaxe", gp.tileSize, gp.tileSize);
-        attackValue = 2;
+        attackValue = 4;
         attackArea.width = 30;
         attackArea.height = 30;
         description = "[" + name + "]\nOften used in mining\n... and crafting?";
         price = 75;
         knockBackPower = 10;
-        attackWindupDuration = 10;
-        attackDuration = 20;
+        attackWindupDuration = 15;
+        attackDuration = 25;
     }
 }

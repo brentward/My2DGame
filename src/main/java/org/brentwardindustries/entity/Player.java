@@ -1,5 +1,6 @@
 package org.brentwardindustries.entity;
 
+import org.brentwardindustries.data.Progress;
 import org.brentwardindustries.main.GamePanel;
 import org.brentwardindustries.main.KeyHandler;
 import org.brentwardindustries.object.*;
@@ -38,12 +39,6 @@ public class Player extends Entity{
     }
 
     public void setDefaultValues() {
-//        // TESTING VALUES
-//        worldX = gp.tileSize * 9;
-//        worldY = gp.tileSize * 8;
-//        strength = 5;
-//        gp.currentMap = gp.dungeonB1Map;
-//        gp.currentArea = gp.dungeonArea;
 
         worldX = gp.tileSize * 23;
         worldY = gp.tileSize * 21;
@@ -55,7 +50,7 @@ public class Player extends Entity{
         level = 1;
         maxLife = 6;
         life = maxLife;
-        maxMagic = 4;
+        maxMagic = 2;
         invincible = false;
         transparent = false;
         attacking = false;
@@ -65,7 +60,7 @@ public class Player extends Entity{
         dexterity = 1; // More dexterity is less damage received
         exp = 0;
         nextLevelExp = 5;
-        coin = 300;
+        coin = 0;
         currentWeapon = new SwordNormalObject(gp);
         currentShield = new ShieldWoodObject(gp);
         projectile = new FireballObject(gp);
@@ -78,7 +73,30 @@ public class Player extends Entity{
         setItems();
         setDialogue();
 
+        // TESTING VALUES
+//        worldX = gp.tileSize * 26;
+//        worldY = gp.tileSize * 39;
+//        gp.currentMap = gp.dungeonB2Map;
+//        gp.currentArea = gp.dungeonArea;
+//        Progress.skeletonLordDefeated = true;
+//
+//        cheatStats();
     }
+
+    public void cheatStats() {
+        level = 3;
+        maxLife = 28;
+        life = maxLife;
+        maxMagic = 8;
+        magic = maxMagic;
+        strength = 20;
+        dexterity = 4;
+        coin = 500;
+        setAttack();
+        setDefense();
+        setCheatItems();
+    }
+
 
     public void setDefaultPositions() {
         gp.currentMap = gp.worldMap;
@@ -108,23 +126,27 @@ public class Player extends Entity{
         inventory.clear();
         inventory.add(currentWeapon);
         inventory.add(currentShield);
-//        inventory.add(new AxeObject(gp));
-//        inventory.add(new PickaxeObject(gp));
-//        inventory.add(new LanternObject(gp));
+    }
+
+    public void setCheatItems() {
         inventory.add(new KeyObject(gp));
-//        inventory.add(new SwordMagicObject(gp));
-        inventory.get(2).amount = 1;
+        inventory.getLast().amount = 5;
+        inventory.add(new AxeObject(gp));
+        inventory.add(new PickaxeObject(gp));
+        inventory.add(new LanternObject(gp));
+        inventory.add(new SwordBlueObject(gp));
+        inventory.add(new ShieldBlueObject(gp));
     }
 
     public void setAttack() {
         attackArea = currentWeapon.attackArea;
         attackWindupDuration = currentWeapon.attackWindupDuration;
         attackDuration = currentWeapon.attackDuration;
-        attack = strength * currentWeapon.attackValue;
+        attack = strength + currentWeapon.attackValue;
     }
 
     public void setDefense() {
-        defense = dexterity * currentShield.defenseValue;
+        defense = dexterity + currentShield.defenseValue;
     }
 
     public void setImage() {
@@ -151,14 +173,25 @@ public class Player extends Entity{
 
     public void setAttackImage() {
         if (currentWeapon.type == typeSword) {
-            attackUp1 = setup("/player/boy_attack_up_1", gp.tileSize, gp.tileSize * 2);
-            attackUp2 = setup("/player/boy_attack_up_2", gp.tileSize, gp.tileSize * 2);
-            attackDown1 = setup("/player/boy_attack_down_1", gp.tileSize, gp.tileSize * 2);
-            attackDown2 = setup("/player/boy_attack_down_2", gp.tileSize, gp.tileSize * 2);
-            attackLeft1 = setup("/player/boy_attack_left_1", gp.tileSize * 2, gp.tileSize);
-            attackLeft2 = setup("/player/boy_attack_left_2", gp.tileSize * 2, gp.tileSize);
-            attackRight1 = setup("/player/boy_attack_right_1", gp.tileSize * 2, gp.tileSize);
-            attackRight2 = setup("/player/boy_attack_right_2", gp.tileSize * 2, gp.tileSize);
+            if (currentWeapon.name.equals(SwordBlueObject.objectName)) {
+                attackUp1 = setup("/player/boy_blueattack_up_1", gp.tileSize, gp.tileSize * 2);
+                attackUp2 = setup("/player/boy_blueattack_up_2", gp.tileSize, gp.tileSize * 2);
+                attackDown1 = setup("/player/boy_blueattack_down_1", gp.tileSize, gp.tileSize * 2);
+                attackDown2 = setup("/player/boy_blueattack_down_2", gp.tileSize, gp.tileSize * 2);
+                attackLeft1 = setup("/player/boy_blueattack_left_1", gp.tileSize * 2, gp.tileSize);
+                attackLeft2 = setup("/player/boy_blueattack_left_2", gp.tileSize * 2, gp.tileSize);
+                attackRight1 = setup("/player/boy_blueattack_right_1", gp.tileSize * 2, gp.tileSize);
+                attackRight2 = setup("/player/boy_blueattack_right_2", gp.tileSize * 2, gp.tileSize);
+            } else {
+                attackUp1 = setup("/player/boy_attack_up_1", gp.tileSize, gp.tileSize * 2);
+                attackUp2 = setup("/player/boy_attack_up_2", gp.tileSize, gp.tileSize * 2);
+                attackDown1 = setup("/player/boy_attack_down_1", gp.tileSize, gp.tileSize * 2);
+                attackDown2 = setup("/player/boy_attack_down_2", gp.tileSize, gp.tileSize * 2);
+                attackLeft1 = setup("/player/boy_attack_left_1", gp.tileSize * 2, gp.tileSize);
+                attackLeft2 = setup("/player/boy_attack_left_2", gp.tileSize * 2, gp.tileSize);
+                attackRight1 = setup("/player/boy_attack_right_1", gp.tileSize * 2, gp.tileSize);
+                attackRight2 = setup("/player/boy_attack_right_2", gp.tileSize * 2, gp.tileSize);
+            }
         }
         if (currentWeapon.type == typeAxe) {
             attackUp1 = setup("/player/boy_axe_up_1", gp.tileSize, gp.tileSize * 2);
@@ -183,10 +216,18 @@ public class Player extends Entity{
     }
 
     public void setGuardImage() {
-        guardUp = setup("/player/boy_guard_up", gp.tileSize, gp.tileSize);
-        guardDown = setup("/player/boy_guard_down", gp.tileSize, gp.tileSize);
-        guardLeft = setup("/player/boy_guard_left", gp.tileSize, gp.tileSize);
-        guardRight = setup("/player/boy_guard_right", gp.tileSize, gp.tileSize);
+        if (currentShield.name.equals(ShieldWoodObject.objectName)) {
+            guardUp = setup("/player/boy_guard_up", gp.tileSize, gp.tileSize);
+            guardDown = setup("/player/boy_guard_down", gp.tileSize, gp.tileSize);
+            guardLeft = setup("/player/boy_guard_left", gp.tileSize, gp.tileSize);
+            guardRight = setup("/player/boy_guard_right", gp.tileSize, gp.tileSize);
+        }
+        if (currentShield.name.equals(ShieldBlueObject.objectName)) {
+            guardUp = setup("/player/boy_blueguard_up", gp.tileSize, gp.tileSize);
+            guardDown = setup("/player/boy_blueguard_down", gp.tileSize, gp.tileSize);
+            guardLeft = setup("/player/boy_blueguard_left", gp.tileSize, gp.tileSize);
+            guardRight = setup("/player/boy_blueguard_right", gp.tileSize, gp.tileSize);
+        }
     }
 
     public int getCurrentWeaponSlot() {
@@ -455,7 +496,7 @@ public class Player extends Entity{
                     attack *= 5;
                 }
                 int damage = attack - gp.monsters[gp.currentMap][i].defense;
-                if (damage < 0) {
+                if (damage <= 0) {
                     damage = 0;
                 }
                 gp.monsters[gp.currentMap][i].life -= damage;
@@ -509,11 +550,13 @@ public class Player extends Entity{
         if (exp >= nextLevelExp) {
             levelUp = true;
             level++;
-            nextLevelExp = nextLevelExp * 2;
+            nextLevelExp *=  2;
             maxLife += 2;
             life += 2;
-            maxMagic++;
-            magic++;
+            if (level % 2 == 0) {
+                maxMagic++;
+                magic++;
+            }
             strength++;
             dexterity++;
             setAttack();
@@ -547,6 +590,7 @@ public class Player extends Entity{
             if (selectedItem.type == typeShield) {
                 currentShield = selectedItem;
                 setDefense();
+                setGuardImage();
             }
             if (selectedItem.type == typeLight) {
                 if (currentLight == selectedItem) {

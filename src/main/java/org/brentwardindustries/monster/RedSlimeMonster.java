@@ -3,9 +3,11 @@ package org.brentwardindustries.monster;
 import org.brentwardindustries.entity.Entity;
 import org.brentwardindustries.main.GamePanel;
 import org.brentwardindustries.object.CoinBronzeObject;
+import org.brentwardindustries.object.CoinSilverObject;
 import org.brentwardindustries.object.HeartObject;
-import org.brentwardindustries.object.MagicCrystalObject;
+import org.brentwardindustries.object.PotionRedObject;
 import org.brentwardindustries.object.RockObject;
+import org.brentwardindustries.object.ShieldWoodObject;
 
 import java.util.Random;
 
@@ -22,10 +24,10 @@ public class RedSlimeMonster extends Entity {
         name = monsterName;
         defaultSpeed = 2;
         speed = defaultSpeed;
-        maxLife = 8;
+        maxLife = 12;
         life = maxLife;
         attack = 7;
-        defense = 0;
+        defense = 4;
         exp = 5;
         projectile = new RockObject(gp);
 
@@ -59,13 +61,13 @@ public class RedSlimeMonster extends Entity {
             searchPath(getGoalCol(gp.player), getGoalRow(gp.player));
 
             // Check if it shoots a projectile
-            checkShootProjectile(200, 30);
+            checkShootProjectile(120, 30);
         } else {
             // Check if it starts chasing
             checkStartChasing(gp.player, 5, 100);
 
             // Get a random direction if not on path
-            getRandomDirection(120);
+            getRandomDirection(80);
         }
     }
 
@@ -76,14 +78,20 @@ public class RedSlimeMonster extends Entity {
 
     public void checkDrop() {
         int die = new Random().nextInt(100) + 1;
-        if (die < 50) {
+        if (die < 25) {
             dropItem(new CoinBronzeObject(gp));
         }
-        if (die >= 50 && die < 75) {
+        if (die >= 25 && die < 60) {
+            dropItem(new CoinSilverObject(gp));
+        }
+        if (die >= 60 && die < 80) {
             dropItem(new HeartObject(gp));
         }
-        if (die >= 75 && die < 100) {
-            dropItem(new MagicCrystalObject(gp));
+        if (die >= 80 && die < 95) {
+            dropItem(new PotionRedObject(gp));
+        }
+        if (die >= 95) {
+            dropItem(new ShieldWoodObject(gp));
         }
     }
 }

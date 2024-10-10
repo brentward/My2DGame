@@ -15,7 +15,7 @@ public class KeyObject extends Entity {
         name = objectName;
         down1 = setup("/objects/key", gp.tileSize, gp.tileSize);
         description = "[" + name + "]\nOpens a door.";
-        price = 20;
+        price = 50;
         stackable = true;
         setDialogue();
     }

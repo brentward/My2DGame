@@ -2,9 +2,12 @@ package org.brentwardindustries.monster;
 
 import org.brentwardindustries.entity.Entity;
 import org.brentwardindustries.main.GamePanel;
-import org.brentwardindustries.object.CoinBronzeObject;
+import org.brentwardindustries.object.CoinGoldObject;
+import org.brentwardindustries.object.CoinSilverObject;
 import org.brentwardindustries.object.HeartObject;
-import org.brentwardindustries.object.MagicCrystalObject;
+import org.brentwardindustries.object.PotionBlueObject;
+import org.brentwardindustries.object.PotionRedObject;
+import org.brentwardindustries.object.SwordNormalObject;
 
 import java.util.Random;
 
@@ -21,10 +24,10 @@ public class OrcMonster extends Entity {
         name = monsterName;
         defaultSpeed = 1;
         speed = defaultSpeed;
-        maxLife = 10;
+        maxLife = 20;
         life = maxLife;
-        attack = 8;
-        defense = 2;
+        attack = 12;
+        defense = 5;
         exp = 10;
         knockBackPower = 5;
 
@@ -77,7 +80,7 @@ public class OrcMonster extends Entity {
             checkStartChasing(gp.player, 5, 100);
 
             // Get a random direction if not on path
-            getRandomDirection(120);
+            getRandomDirection(100);
         }
 
         // Check if attacks
@@ -93,14 +96,23 @@ public class OrcMonster extends Entity {
 
     public void checkDrop() {
         int die = new Random().nextInt(100) + 1;
-        if (die < 50) {
-            dropItem(new CoinBronzeObject(gp));
+        if (die < 40) {
+            dropItem(new CoinSilverObject(gp));
+        }
+        if (die >= 40 && die < 50) {
+            dropItem(new CoinGoldObject(gp));
         }
         if (die >= 50 && die < 75) {
             dropItem(new HeartObject(gp));
         }
-        if (die >= 75 && die < 100) {
-            dropItem(new MagicCrystalObject(gp));
+        if (die >= 75 && die < 90) {
+            dropItem(new PotionRedObject(gp));
+        }
+        if (die >= 90 && die < 95) {
+            dropItem(new SwordNormalObject(gp));
+        }
+        if (die >= 95) {
+            dropItem(new PotionBlueObject(gp));
         }
     }
 }

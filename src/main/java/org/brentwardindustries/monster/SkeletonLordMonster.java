@@ -3,10 +3,11 @@ package org.brentwardindustries.monster;
 import org.brentwardindustries.data.Progress;
 import org.brentwardindustries.entity.Entity;
 import org.brentwardindustries.main.GamePanel;
-import org.brentwardindustries.object.CoinBronzeObject;
+import org.brentwardindustries.object.CoinGoldObject;
 import org.brentwardindustries.object.DoorIronObject;
 import org.brentwardindustries.object.HeartObject;
 import org.brentwardindustries.object.MagicCrystalObject;
+import org.brentwardindustries.object.SwordBlueObject;
 
 import java.util.Random;
 
@@ -146,13 +147,16 @@ public class SkeletonLordMonster extends Entity {
 
         int die = new Random().nextInt(100) + 1;
         if (die < 50) {
-            dropItem(new CoinBronzeObject(gp));
+            dropItem(new CoinGoldObject(gp));
         }
         if (die >= 50 && die < 75) {
             dropItem(new HeartObject(gp));
         }
-        if (die >= 75 && die < 100) {
+        if (die >= 75 && die < 90) {
             dropItem(new MagicCrystalObject(gp));
+        }
+        if (die >= 90) {
+            dropItem(new SwordBlueObject(gp));
         }
     }
 }

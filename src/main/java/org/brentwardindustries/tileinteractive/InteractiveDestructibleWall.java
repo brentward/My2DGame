@@ -2,11 +2,9 @@ package org.brentwardindustries.tileinteractive;
 
 import org.brentwardindustries.entity.Entity;
 import org.brentwardindustries.main.GamePanel;
-import org.brentwardindustries.object.CoinBronzeObject;
 import org.brentwardindustries.object.CoinGoldObject;
 import org.brentwardindustries.object.CoinSilverObject;
 import org.brentwardindustries.object.HeartObject;
-import org.brentwardindustries.object.MagicCrystalObject;
 import org.brentwardindustries.object.PotionRedObject;
 
 import java.awt.Color;
@@ -15,6 +13,7 @@ import java.util.Random;
 
 public class InteractiveDestructibleWall extends InteractiveTile{
     GamePanel gp;
+    public static final String interactiveTileName = "Destructible Wall";
 
     public InteractiveDestructibleWall(GamePanel gp, int col, int row) {
         super(gp, col, row);
@@ -23,6 +22,7 @@ public class InteractiveDestructibleWall extends InteractiveTile{
         this.worldX = gp.tileSize * col;
         this.worldY = gp.tileSize * row;
 
+        name = interactiveTileName;
         down1 = setup("/tiles_interactive/destructiblewall", gp.tileSize, gp.tileSize);
         destructible = true;
         life = 3;

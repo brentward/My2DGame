@@ -75,7 +75,15 @@ public class EventHandler {
                 teleport(gp.indoorMap, 12, 12, gp.indoorArea); // to Merchant's house indoors
             } else if (hit(gp.indoorMap, 12, 13, Direction.DOWN )) { // from Merchant's house indoors
                 teleport(gp.worldMap, 10, 39, gp.outsideArea); // to Merchant's house map
+            } else if (hit(gp.indoorMap, 10, 9, Direction.UP)) {
+                speak(gp.npcs[1][0]);
+            } else if (hit(gp.indoorMap, 11, 9, Direction.UP)) {
+                speak(gp.npcs[1][0]);
             } else if (hit(gp.indoorMap, 12, 9, Direction.UP)) {
+                speak(gp.npcs[1][0]);
+            } else if (hit(gp.indoorMap, 13, 9, Direction.UP)) {
+                speak(gp.npcs[1][0]);
+            } else if (hit(gp.indoorMap, 14, 9, Direction.UP)) {
                 speak(gp.npcs[1][0]);
             } else if (hit(gp.worldMap, 12, 9, Direction.ANY)) { // from world map stairs
                 teleport(gp.dungeonB1Map, 9, 41, gp.dungeonArea); // to the dungeon

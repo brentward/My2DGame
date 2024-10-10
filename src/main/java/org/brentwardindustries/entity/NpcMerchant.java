@@ -65,6 +65,26 @@ public class NpcMerchant extends Entity{
         inventory.add(new SwordBlueObject(gp));
     }
 
+    public void setAction() {
+        if (getTileDistance(gp.player) < 6) {
+            moveTowardPlayer(0);
+        } else {
+            direction = Direction.DOWN;
+        }
+    }
+
+    public void moveTowardPlayer(int interval) {
+        actionLockCounter++;
+        if (actionLockCounter >= interval) {
+            if (gp.player.getCenterX() < getCenterX()) {
+                direction = Direction.LEFT;
+            } else {
+                direction = Direction.RIGHT;
+            }
+            actionLockCounter = 0;
+        }
+    }
+
     public void speak() {
         facePlayer();
         gp.gameState = gp.tradeState;

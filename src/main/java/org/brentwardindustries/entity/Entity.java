@@ -479,17 +479,6 @@ public class Entity {
         }
     }
 
-//    public Direction getOppositeDirection(Direction direction) {
-//        Direction oppositeDirection = Direction.ANY;
-//        switch (direction) {
-//            case UP -> oppositeDirection = Direction.DOWN;
-//            case DOWN ->  oppositeDirection = Direction.UP;
-//            case LEFT ->  oppositeDirection = Direction.RIGHT;
-//            case RIGHT -> oppositeDirection = Direction.LEFT;
-//        }
-//        return oppositeDirection;
-//    }
-
     public void attacking() {
         spriteCounter++;
         if (spriteCounter <= attackWindupDuration) {

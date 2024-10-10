@@ -6,10 +6,14 @@ import org.brentwardindustries.main.GamePanel;
 public class InteractiveTile extends Entity {
     GamePanel gp;
     public boolean destructible = false;
+    public static final String interactiveTileName = "Interactive Tile";
+
 
     public InteractiveTile(GamePanel gp, int col, int row) {
         super(gp);
         this.gp = gp;
+
+        name = interactiveTileName;
     }
 
     public boolean isCorrectItem(Entity entity) {

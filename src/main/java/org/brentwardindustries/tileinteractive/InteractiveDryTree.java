@@ -12,6 +12,7 @@ import java.util.Random;
 
 public class InteractiveDryTree extends InteractiveTile{
     GamePanel gp;
+    public static final String interactiveTileName = "Dry Tree";
 
     public InteractiveDryTree(GamePanel gp, int col, int row) {
         super(gp, col, row);
@@ -20,6 +21,7 @@ public class InteractiveDryTree extends InteractiveTile{
         this.worldX = gp.tileSize * col;
         this.worldY = gp.tileSize * row;
 
+        name = interactiveTileName;
         down1 = setup("/tiles_interactive/drytree", gp.tileSize, gp.tileSize);
         destructible = true;
 //        life = 3;

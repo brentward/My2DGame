@@ -25,6 +25,11 @@ import org.brentwardindustries.object.ShieldWoodObject;
 import org.brentwardindustries.object.SwordBlueObject;
 import org.brentwardindustries.object.SwordNormalObject;
 import org.brentwardindustries.object.TentObject;
+import org.brentwardindustries.tileinteractive.InteractiveDestructibleWall;
+import org.brentwardindustries.tileinteractive.InteractiveDryTree;
+import org.brentwardindustries.tileinteractive.InteractiveMetalPlate;
+import org.brentwardindustries.tileinteractive.InteractiveTile;
+import org.brentwardindustries.tileinteractive.InteractiveTrunk;
 
 public class EntityGenerator {
     GamePanel gp;
@@ -64,4 +69,19 @@ public class EntityGenerator {
         }
         return object;
     }
+
+    public InteractiveTile getInteractiveTile(String interactiveTileName, int worldX, int worldY) {
+        InteractiveTile iTile = null;
+        int col = worldX / gp.tileSize;
+        int row = worldY / gp.tileSize;
+
+        switch (interactiveTileName) {
+            case InteractiveDestructibleWall.interactiveTileName -> iTile = new InteractiveDestructibleWall(gp, col, row);
+            case InteractiveDryTree.interactiveTileName -> iTile = new InteractiveDryTree(gp, col, row);
+            case InteractiveMetalPlate.interactiveTileName -> iTile = new InteractiveMetalPlate(gp, col, row);
+            case InteractiveTrunk.interactiveTileName -> iTile = new InteractiveTrunk(gp, col, row);
+        }
+        return iTile;
+    }
+
 }

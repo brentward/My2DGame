@@ -79,7 +79,7 @@ public class Player extends Entity{
 //        gp.currentArea = gp.dungeonArea;
 //        Progress.skeletonLordDefeated = true;
 //
-        cheatStats();
+//        cheatStats();
     }
 
     public void cheatStats() {

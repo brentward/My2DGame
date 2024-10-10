@@ -46,6 +46,9 @@ public class SaveLoad {
             dataStorage.mapObjectWorldY = new int[gp.maxMap][gp.objects[0].length];
             dataStorage.mapObjectLootNames = new String[gp.maxMap][gp.objects[0].length];
             dataStorage.mapObjectOpened = new boolean[gp.maxMap][gp.objects[0].length];
+            dataStorage.interactiveTileNames = new String[gp.maxMap][gp.interactiveTiles[0].length];
+            dataStorage.interactiveTileWorldX = new int[gp.maxMap][gp.interactiveTiles[0].length];
+            dataStorage.interactiveTileWorldY = new int[gp.maxMap][gp.interactiveTiles[0].length];
             dataStorage.interactiveTileLife = new int[gp.maxMap][gp.interactiveTiles[0].length];
 
             for (int mapIndex = 0; mapIndex < gp.maxMap; mapIndex++) {
@@ -64,8 +67,11 @@ public class SaveLoad {
                 }
                 for (int interactiveTileIndex = 0; interactiveTileIndex < gp.interactiveTiles[mapIndex].length; interactiveTileIndex++) {
                     if (gp.interactiveTiles[mapIndex][interactiveTileIndex] == null) {
-                        dataStorage.interactiveTileLife[mapIndex][interactiveTileIndex] = -1;
+                        dataStorage.interactiveTileNames[mapIndex][interactiveTileIndex] = "None";
                     } else {
+                        dataStorage.interactiveTileNames[mapIndex][interactiveTileIndex] = gp.interactiveTiles[mapIndex][interactiveTileIndex].name;
+                        dataStorage.interactiveTileWorldX[mapIndex][interactiveTileIndex] = gp.interactiveTiles[mapIndex][interactiveTileIndex].worldX;
+                        dataStorage.interactiveTileWorldY[mapIndex][interactiveTileIndex] = gp.interactiveTiles[mapIndex][interactiveTileIndex].worldY;
                         dataStorage.interactiveTileLife[mapIndex][interactiveTileIndex] = gp.interactiveTiles[mapIndex][interactiveTileIndex].life;
                     }
                 }
@@ -132,14 +138,17 @@ public class SaveLoad {
                     }
                 }
                 for (int interactiveTileIndex = 0; interactiveTileIndex < gp.interactiveTiles[mapIndex].length; interactiveTileIndex++) {
-                    if (dataStorage.interactiveTileLife[mapIndex][interactiveTileIndex] != -1) {
+                    String name = dataStorage.interactiveTileNames[mapIndex][interactiveTileIndex];
+                    if (name.equals("None")) {
+                        gp.interactiveTiles[mapIndex][interactiveTileIndex] = null;
+                    } else {
+                        int worldX = dataStorage.interactiveTileWorldX[mapIndex][interactiveTileIndex];
+                        int worldY = dataStorage.interactiveTileWorldY[mapIndex][interactiveTileIndex];
+
+                        gp.interactiveTiles[mapIndex][interactiveTileIndex] = gp.entityGenerator.getInteractiveTile(name, worldX, worldY);
                         gp.interactiveTiles[mapIndex][interactiveTileIndex].life = dataStorage.interactiveTileLife[mapIndex][interactiveTileIndex];
-                        if (gp.interactiveTiles[mapIndex][interactiveTileIndex].life == 0) {
-                            gp.interactiveTiles[mapIndex][interactiveTileIndex] = gp.interactiveTiles[mapIndex][interactiveTileIndex].getDestroyedForm();
-                        }
                     }
                 }
-
             }
             loaded = true;
 

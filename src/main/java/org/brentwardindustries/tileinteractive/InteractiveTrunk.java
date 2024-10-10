@@ -4,6 +4,7 @@ import org.brentwardindustries.main.GamePanel;
 
 public class InteractiveTrunk extends InteractiveTile{
     GamePanel gp;
+    public static final String interactiveTileName = "Trunk";
 
     public InteractiveTrunk(GamePanel gp, int col, int row) {
         super(gp, col, row);
@@ -12,6 +13,7 @@ public class InteractiveTrunk extends InteractiveTile{
         this.worldX = gp.tileSize * col;
         this.worldY = gp.tileSize * row;
 
+        name = interactiveTileName;
         down1 = setup("/tiles_interactive/trunk", gp.tileSize, gp.tileSize);
 
         solidArea.x = 0;

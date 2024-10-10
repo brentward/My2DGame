@@ -1,6 +1,5 @@
 package org.brentwardindustries.entity;
 
-import org.brentwardindustries.data.Progress;
 import org.brentwardindustries.main.GamePanel;
 import org.brentwardindustries.main.KeyHandler;
 import org.brentwardindustries.object.*;
@@ -80,7 +79,7 @@ public class Player extends Entity{
 //        gp.currentArea = gp.dungeonArea;
 //        Progress.skeletonLordDefeated = true;
 //
-//        cheatStats();
+        cheatStats();
     }
 
     public void cheatStats() {

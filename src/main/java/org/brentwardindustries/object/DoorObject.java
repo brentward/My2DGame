@@ -35,7 +35,7 @@ public class DoorObject extends Entity {
         if (collision) {
             boolean hasKey = false;
             for (int i = 0; i < gp.player.inventory.size(); i++) {
-                if (gp.player.inventory.get(i) != null && gp.player.inventory.get(i).name == KeyObject.objectName) {
+                if (gp.player.inventory.get(i) != null && gp.player.inventory.get(i).name.equals(KeyObject.objectName)) {
                     if (gp.player.inventory.get(i).amount > 1) {
                         gp.player.inventory.get(i).amount--;
                     } else {
@@ -45,7 +45,7 @@ public class DoorObject extends Entity {
                     break;
                 }
             }
-            if (hasKey) {
+            if (hasKey || gp.keyHandler.godModeOn) {
                 gp.playSE(3);
                 stillExists = false;
             } else {

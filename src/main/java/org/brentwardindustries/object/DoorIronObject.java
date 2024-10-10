@@ -33,29 +33,11 @@ public class DoorIronObject extends Entity {
     public boolean interact() {
         boolean stillExists = true;
 
-        if (gp.keyHandler.godModeOn) {
-            if (collision) {
-                boolean hasKey = false;
-                for (int i = 0; i < gp.player.inventory.size(); i++) {
-                    if (gp.player.inventory.get(i) != null && gp.player.inventory.get(i).name.equals(KeyObject.objectName)) {
-                        if (gp.player.inventory.get(i).amount > 1) {
-                            gp.player.inventory.get(i).amount--;
-                        } else {
-                            gp.player.inventory.remove(i);
-                        }
-                        hasKey = true;
-                        break;
-                    }
-                }
-                if (hasKey) {
-                    gp.playSE(3);
-                    stillExists = false;
-                } else {
-                    startDialogue(this, 0);
-                }
-            }
-        } else {
-            if (collision) {
+        if (collision) {
+            if (gp.keyHandler.godModeOn) {
+                gp.playSE(3);
+                stillExists = false;
+            } else {
                 startDialogue(this, 0);
             }
         }

@@ -113,6 +113,7 @@ public class SaveLoad {
             gp.player.setDefense();
             gp.player.setAttackImage();
             gp.player.setGuardImage();
+            gp.player.lightUpdated = true;
             for (int mapIndex = 0; mapIndex < dataStorage.mapObjectNames.length; mapIndex++) {
                 for (int objectIndex = 0; objectIndex < dataStorage.mapObjectNames[mapIndex].length; objectIndex++) {
                     if (dataStorage.mapObjectNames[mapIndex][objectIndex].equals("None")) {

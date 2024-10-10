@@ -65,11 +65,14 @@ public class EventHandler {
         if (canTouchEvent) {
             if (hit(gp.worldMap, 27, 16, Direction.RIGHT)) {
                 damagePit(gp.dialogState);
-            }
-            if (hit(gp.worldMap, 23, 12, Direction.UP)) {
+            } else if (hit(gp.worldMap, 22, 12, Direction.UP)) {
+                healingPool(gp.dialogState);
+            } else if (hit(gp.worldMap, 23, 12, Direction.UP)) {
+                healingPool(gp.dialogState);
+            } else if (hit(gp.worldMap, 24, 12, Direction.UP)) {
                 healingPool(gp.dialogState);
             } else if (hit(gp.worldMap, 10, 39, Direction.UP)) { // from Merchant's house world map
-                teleport(gp.indoorMap, 12, 13, gp.indoorArea); // to Merchant's house indoors
+                teleport(gp.indoorMap, 12, 12, gp.indoorArea); // to Merchant's house indoors
             } else if (hit(gp.indoorMap, 12, 13, Direction.DOWN )) { // from Merchant's house indoors
                 teleport(gp.worldMap, 10, 39, gp.outsideArea); // to Merchant's house map
             } else if (hit(gp.indoorMap, 12, 9, Direction.UP)) {

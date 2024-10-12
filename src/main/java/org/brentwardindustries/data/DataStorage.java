@@ -24,6 +24,11 @@ public class DataStorage implements Serializable {
     int currentShieldSlot;
     int currentLightSlot;
 
+    // Game Progress
+    boolean guardOrcDefeated;
+
+    // Map State
+
     String[][] mapObjectNames;
     int[][] mapObjectWorldX;
     int[][] mapObjectWorldY;

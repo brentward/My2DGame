@@ -25,6 +25,7 @@ public class BlueHeartObject extends Entity {
     public boolean use(Entity entity) {
         gp.gameState = gp.cutsceneState;
         gp.cutsceneManager.sceneNum = gp.cutsceneManager.endingScene;
+        gp.saveLoad.save();
         return true;
     }
 }

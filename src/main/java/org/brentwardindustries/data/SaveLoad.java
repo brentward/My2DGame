@@ -12,12 +12,15 @@ import java.io.ObjectOutputStream;
 public class SaveLoad {
     GamePanel gp;
 
+    public int saveCounter = 0;
+
     public SaveLoad(GamePanel gp) {
         this.gp = gp;
     }
 
     public void save() {
         try {
+            saveCounter = 180;
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(new FileOutputStream("save.dat"));
             DataStorage dataStorage = new DataStorage();
 
@@ -40,6 +43,8 @@ public class SaveLoad {
             dataStorage.currentWeaponSlot = gp.player.getCurrentWeaponSlot();
             dataStorage.currentShieldSlot = gp.player.getCurrentShieldSlot();
             dataStorage.currentLightSlot = gp.player.getCurrentLightSlot();
+
+            dataStorage.guardOrcDefeated = Progress.guardOrcDefeated;
 
             dataStorage.mapObjectNames = new String[gp.maxMap][gp.objects[0].length];
             dataStorage.mapObjectWorldX = new int[gp.maxMap][gp.objects[0].length];
@@ -120,6 +125,9 @@ public class SaveLoad {
             gp.player.setAttackImage();
             gp.player.setGuardImage();
             gp.player.lightUpdated = true;
+
+            Progress.guardOrcDefeated = dataStorage.guardOrcDefeated;
+
             for (int mapIndex = 0; mapIndex < dataStorage.mapObjectNames.length; mapIndex++) {
                 for (int objectIndex = 0; objectIndex < dataStorage.mapObjectNames[mapIndex].length; objectIndex++) {
                     if (dataStorage.mapObjectNames[mapIndex][objectIndex].equals("None")) {

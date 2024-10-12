@@ -63,6 +63,16 @@ public class UI {
         messageCounter.add(0);
     }
 
+    public void resetUI() {
+        messages.clear();
+        messageCounter.clear();
+        currentDialogue = "";
+        counter = 0;
+        npc = null;
+        charIndex = 0;
+        combinedText = "";
+    }
+
     public void draw(Graphics2D g2D) {
         this.g2D = g2D;
 
@@ -103,6 +113,10 @@ public class UI {
         }
         if (gp.gameState == gp.sleepState) {
             drawSleepScreen();
+        }
+        if (gp.saveLoad.saveCounter > 0) {
+            drawSaving();
+            gp.saveLoad.saveCounter--;
         }
     }
 
@@ -274,7 +288,7 @@ public class UI {
 
         text = "LOAD GAME";
         x = getXForCenteredText(text);
-        y += gp.tileSize * 1;
+        y += gp.tileSize;
         g2D.drawString(text, x, y);
         if (commandNum == 1) {
             g2D.drawString(">", x - gp.tileSize, y);
@@ -541,6 +555,17 @@ public class UI {
                 }
             }
         }
+    }
+
+    public void drawSaving() {
+        g2D.setFont(g2D.getFont().deriveFont(Font.PLAIN, 32f));
+        String text = "Saving...";
+        int x = gp.tileSize;
+        int y = gp.screenHeight - gp.tileSize;
+        g2D.setColor(Color.BLACK);
+        g2D.drawString(text, x, y);
+        g2D.setColor(Color.WHITE);
+        g2D.drawString(text, x - 2, y - 2);
     }
 
     public void drawGameOverScreen() {

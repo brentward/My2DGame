@@ -7,6 +7,7 @@ import org.brentwardindustries.entity.NpcMerchant;
 import org.brentwardindustries.entity.NpcOldMan;
 import org.brentwardindustries.monster.BatMonster;
 import org.brentwardindustries.monster.GreenSlimeMonster;
+import org.brentwardindustries.monster.GuardOrcMonster;
 import org.brentwardindustries.monster.OrcMonster;
 import org.brentwardindustries.monster.RedOrcMonster;
 import org.brentwardindustries.monster.RedSlimeMonster;
@@ -43,14 +44,6 @@ public class AssetSetter {
         gp.objects[mapNum][i].worldX = gp.tileSize * 33;
         gp.objects[mapNum][i].worldY = gp.tileSize * 7;
         i++;
-//        gp.objects[mapNum][i] = new LanternObject(gp);
-//        gp.objects[mapNum][i].worldX = gp.tileSize * 18;
-//        gp.objects[mapNum][i].worldY = gp.tileSize * 20;
-//        i++;
-//        gp.objects[mapNum][i] = new TentObject(gp);
-//        gp.objects[mapNum][i].worldX = gp.tileSize * 19;
-//        gp.objects[mapNum][i].worldY = gp.tileSize * 20;
-//        i++;
         gp.objects[mapNum][i] = new DoorObject(gp);
         gp.objects[mapNum][i].worldX = gp.tileSize * 14;
         gp.objects[mapNum][i].worldY = gp.tileSize * 28;
@@ -115,9 +108,11 @@ public class AssetSetter {
         gp.objects[mapNum][i].worldX = gp.tileSize * 25;
         gp.objects[mapNum][i].worldY = gp.tileSize  * 15;
         i++;
-        gp.objects[mapNum][i] = new BlueHeartObject(gp);
-        gp.objects[mapNum][i].worldX = gp.tileSize * 25;
-        gp.objects[mapNum][i].worldY = gp.tileSize  * 8;
+        if (!Progress.skeletonLordDefeated) {
+            gp.objects[mapNum][i] = new BlueHeartObject(gp);
+            gp.objects[mapNum][i].worldX = gp.tileSize * 25;
+            gp.objects[mapNum][i].worldY = gp.tileSize * 8;
+        }
     }
 
     public void setNpcs() {
@@ -171,7 +166,7 @@ public class AssetSetter {
         gp.monsters[mapNum][i].worldX = gp.tileSize * 38;
         gp.monsters[mapNum][i].worldY = gp.tileSize * 42;
         i++;
-        gp.monsters[mapNum][i] = new OrcMonster(gp);
+        gp.monsters[mapNum][i] = new GuardOrcMonster(gp);
         gp.monsters[mapNum][i].worldX = gp.tileSize * 12;
         gp.monsters[mapNum][i].worldY = gp.tileSize * 33;
         i++;

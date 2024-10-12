@@ -22,9 +22,7 @@ import java.awt.image.BufferedImage;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
-import java.util.Iterator;
 
 public class GamePanel extends JPanel implements Runnable {
     // SCREEN SETTINGS
@@ -74,7 +72,7 @@ public class GamePanel extends JPanel implements Runnable {
     public PathFinder pathFinder = new PathFinder(this);
     EnvironmentManager environmentManager = new EnvironmentManager(this);
     Map map = new Map(this);
-    SaveLoad saveLoad = new SaveLoad(this);
+    public SaveLoad saveLoad = new SaveLoad(this);
     public EntityGenerator entityGenerator = new EntityGenerator(this);
     public CutsceneManager cutsceneManager = new CutsceneManager(this);
     Thread gameThread;
@@ -155,6 +153,7 @@ public class GamePanel extends JPanel implements Runnable {
         player.setDefaultPositions();
         player.resetStatus();
         player.resetCounters();
+        ui.resetUI();
 
         if (restart) {
             player.setDefaultValues();
